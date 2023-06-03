@@ -1,0 +1,42 @@
+:host{
+    align-self: center;
+    margin-block: 2rem;
+    /* clamp width on ultrawide monitors */
+	width: min(50%, 40rem);
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+}
+
+.login-form-warning{
+    color: hsl(var(--clr-accent));
+}
+
+.form-control{
+    margin-block: 0.5rem;
+}
+
+.form-input{
+    background: none;
+    border: none;
+    color: hsl(var(--clr-white));
+    border-bottom: 2px solid hsl(var(--clr-white));
+    font-size: var(--fs-500);
+    height: 2rem;
+}
+
+.register-link,
+.register-link:visited{
+    color: hsl(var(--clr-accent));
+}
+
+@media (max-width: 45em) {
+    :host{
+        width: 100%;
+        padding: 0 1rem;
+    }
+}

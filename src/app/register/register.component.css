@@ -1,0 +1,77 @@
+:host {
+  align-self: center;
+  margin-block: 2rem;
+  /* clamp width on ultrawide monitors */
+  width: min(50%, 40rem);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: 1rem;
+  margin-block-end: 5rem;
+}
+
+.form-control {
+  margin-block: 0.5rem;
+}
+
+.form-input {
+  background: none;
+  border: none;
+  color: hsl(var(--clr-white));
+  border-bottom: 2px solid hsl(var(--clr-white));
+  font-size: var(--fs-500);
+  height: 1.7rem;
+  width: 100%;
+
+  margin-bottom: 1.2rem;
+}
+
+.form-input-container{
+    position: relative;
+}
+
+.form-input-err{
+    border-color: hsl(var(--clr-accent));
+}
+
+.form-input-err-msg{
+    color: hsl(var(--clr-accent));
+    font-size: var(--fs-200);
+    position: absolute;
+    bottom: 0;
+}
+
+.form-textarea{
+    background: none;
+    border: 2px solid hsl(var(--clr-white));
+    color: hsl(var(--clr-white));
+    font-size: var(--fs-400);
+    resize: none;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-button-group{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.radio-button-container{
+    display: flex;
+    align-items: end;
+}
+
+@media (max-width: 45em) {
+  :host {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

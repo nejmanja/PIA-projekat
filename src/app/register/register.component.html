@@ -1,0 +1,196 @@
+<h1>Registracija</h1>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <label for="username">Korisničko ime: </label>
+  <div class="form-input-container">
+    <input
+      type="text"
+      id="username"
+      formControlName="username"
+      class="form-input form-control"
+      [ngClass]="{ 'form-input-err': usernameErr }"
+    />
+    <p *ngIf="usernameErr" class="form-input-err-msg">
+      Morate uneti korisničko ime!
+    </p>
+  </div>
+  <div class="form-input-container">
+    <label for="password">Lozinka: </label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="form-input form-control"
+      [ngClass]="{ 'form-input-err': passwordErr }"
+    />
+    <p *ngIf="passwordErr" class="form-input-err-msg">
+      Ispravna lozinka ima 7-12 karaktera, bar 1 veliko slovo, cifru, spec.
+      karakter, počinje slovom!
+    </p>
+  </div>
+  <div class="form-input-container">
+    <label for="passwordRepeat">Ponovite lozinku: </label>
+    <input
+      type="password"
+      id="passwordRepeat"
+      formControlName="passwordRepeat"
+      class="form-input form-control"
+      [ngClass]="{ 'form-input-err': passwordRepeatErr }"
+    />
+    <p *ngIf="passwordRepeatErr" class="form-input-err-msg">
+      Lozinke se ne poklapaju!
+    </p>
+  </div>
+  <div class="form-input-container">
+    <label for="phone">Broj telefona (oblik 06xxxxxxxx): </label>
+    <input
+      type="tel"
+      id="phone"
+      formControlName="phone"
+      class="form-input form-control"
+      [ngClass]="{ 'form-input-err': phoneErr }"
+    />
+    <p *ngIf="phoneErr" class="form-input-err-msg">
+      Uneti validan broj telefona!
+    </p>
+  </div>
+  <div class="form-input-container">
+    <label for="email">Email: </label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      class="form-input form-control"
+      [ngClass]="{ 'form-input-err': emailErr }"
+    />
+    <p *ngIf="emailErr" class="form-input-err-msg">Uneti validan email!</p>
+  </div>
+  <div class="form-input-container">
+    <label for="type">Vrsta korisnika: </label>
+    <div id="type" class="radio-button-group form-control">
+      <label class="radio-button-container">
+        <input
+          type="radio"
+          value="klijent"
+          formControlName="type"
+          class="radio-button"
+        />
+        <span>Klijent</span>
+      </label>
+      <label class="radio-button-container">
+        <input
+          type="radio"
+          value="agencija"
+          formControlName="type"
+          class="radio-button"
+        />
+        <span>Agencija</span>
+      </label>
+    </div>
+  </div>
+  <div
+    *ngIf="type.value === 'klijent'"
+    formGroupName="client"
+    class="form-group"
+  >
+    <div class="form-input-container">
+      <label for="name">Ime: </label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': nameErr }"
+      />
+      <p *ngIf="nameErr" class="form-input-err-msg">Uneti ime!</p>
+    </div>
+    <div class="form-input-container">
+      <label for="surname">Prezime: </label>
+      <input
+        type="text"
+        id="surname"
+        formControlName="surname"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': surnameErr }"
+      />
+      <p *ngIf="surnameErr" class="form-input-err-msg">Uneti prezime!</p>
+    </div>
+  </div>
+  <div
+    *ngIf="type.value === 'agencija'"
+    formGroupName="agency"
+    class="form-group"
+  >
+    <div class="form-input-container">
+      <label for="agencyName">Ime agencije: </label>
+      <input
+        type="text"
+        id="agencyName"
+        formControlName="name"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': agencyNameErr }"
+      />
+      <p *ngIf="agencyNameErr" class="form-input-err-msg">
+        Uneti ime agencije!
+      </p>
+    </div>
+    <div class="form-input-container">
+      <label for="country">Država: </label>
+      <input
+        type="text"
+        id="country"
+        formControlName="country"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': countryErr }"
+      />
+      <p *ngIf="countryErr" class="form-input-err-msg">Uneti državu!</p>
+    </div>
+    <div class="form-input-container">
+      <label for="city">Grad: </label>
+      <input
+        type="text"
+        id="city"
+        formControlName="city"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': cityErr }"
+      />
+      <p *ngIf="cityErr" class="form-input-err-msg">Uneti grad!</p>
+    </div>
+    <div class="form-input-container">
+      <label for="street">Ulica i broj: </label>
+      <input
+        type="text"
+        id="street"
+        formControlName="street"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': streetErr }"
+      />
+      <p *ngIf="streetErr" class="form-input-err-msg">Uneti ulicu i broj!</p>
+    </div>
+    <div class="form-input-container">
+      <label for="agencyNum">Maticni broj: </label>
+      <input
+        type="number"
+        id="agencyNum"
+        formControlName="agencyNum"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': agencyNumErr }"
+      />
+      <p *ngIf="agencyNumErr" class="form-input-err-msg">Uneti matični broj!</p>
+    </div>
+    <div class="form-input-container">
+      <label for="desc">Kratak opis firme: </label>
+      <textarea
+        id="desc"
+        rows="7"
+        formControlName="desc"
+        class="form-control form-textarea"
+        [ngClass]="{ 'form-input-err': descErr }"
+      ></textarea>
+      <p *ngIf="descErr" class="form-input-err-msg">Uneti opis!</p>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!formValid()" class="text-button">
+    Registruj se!
+  </button>
+</form>
