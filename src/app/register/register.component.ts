@@ -17,8 +17,6 @@ export class RegisterComponent implements OnInit {
     return (group: AbstractControl):  ValidationErrors | null => { 
         let pass = group?.get('password')?.value;
         let confirmPass = group.get('passwordRepeat')?.value;
-        console.warn(group);
-        console.warn(confirmPass);
         return pass !== confirmPass ? {notSame: true} : null
       }
   }
@@ -48,7 +46,7 @@ export class RegisterComponent implements OnInit {
   get password() {return this.registerForm.get('password'); }
   get passwordRepeat() {return this.registerForm.get('passwordRepeat'); }
   get phone() {return this.registerForm.get('phone'); }
-  get email() {return this.registerForm.get('phone'); }
+  get email() {return this.registerForm.get('email'); }
   get type() {return this.registerForm.get('type'); }
 
   get clientName() {return this.registerForm.get('client').get('name')}
@@ -74,7 +72,7 @@ export class RegisterComponent implements OnInit {
   get agencyNameErr() {return (this.agencyName.dirty || this.agencyName.touched) && this.agencyName.errors}
   get countryErr() {return (this.country.dirty || this.country.touched) && this.country.errors}
   get cityErr() {return (this.city.dirty || this.city.touched) && this.city.errors}
-  get streetErr() {return (this.street.dirty || this.street.touched) && this.surname.errors}
+  get streetErr() {return (this.street.dirty || this.street.touched) && this.street.errors}
   get agencyNumErr() {return (this.agencyNum.dirty || this.agencyNum.touched) && this.agencyNum.errors}
   get descErr() {return (this.desc.dirty || this.desc.touched) && this.desc.errors}
 
