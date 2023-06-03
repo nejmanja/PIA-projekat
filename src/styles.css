@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+/* -------------------------------- */
+/* Reset                            */
+/* -------------------------------- */
+:root {
+	/* Main colors */
+	--clr-dark: 218 13% 10%;
+    --clr-white: 0 0% 100%;
+    --clr-accent: 338 79% 48%;
+
+	/* Font sizes */
+	--fs-900: clamp(5rem, 7vw + 1rem, 9.375rem);
+	--fs-800: 3rem;
+	--fs-700: 2rem;
+	--fs-600: 1.75rem;
+	--fs-500: 1.25rem;
+	--fs-400: 1rem;
+	--fs-300: 1rem;
+	--fs-200: 0.875rem;
+}
+/* Box sizing */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+	margin: 0;
+}
+
+/* Un-bold the headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+	font-weight: 400;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: var(--fs-400);
+
+    background-color: hsl(var(--clr-dark));
+    color: hsl(var(--clr-white));
+}
+
+.page-container{
+    position: relative;
+    min-height: 100vh;
+}
