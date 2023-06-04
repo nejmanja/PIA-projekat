@@ -3,11 +3,11 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  ValidatorFn,
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { LoginSignupService } from '../login-signup.service';
+import { LoginSignupService } from 'src/app/services/login-signup.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,10 @@ import { LoginSignupService } from '../login-signup.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private loginSignupSvc: LoginSignupService) {}
+  constructor(
+    private loginSignupSvc: LoginSignupService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -34,7 +37,7 @@ export class RegisterComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.pattern(
-          /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z]{1}[a-zA-Z0-9!@#$%^&*]{7,12}$/
+          /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z]{1}[a-zA-Z0-9!@#$%^&*]{6,11}$/
         ),
       ]),
       passwordRepeat: new FormControl('', [Validators.required]),
@@ -44,6 +47,7 @@ export class RegisterComponent implements OnInit {
       ]),
       email: new FormControl('', [Validators.email, Validators.required]),
       type: new FormControl('', Validators.required),
+      pfp: new FormControl(''),
       client: new FormGroup({
         name: new FormControl('', Validators.required),
         surname: new FormControl('', Validators.required),
@@ -177,32 +181,86 @@ export class RegisterComponent implements OnInit {
       mainFormValid = true;
 
     if (this.type.value == 'klijent') {
-      return mainFormValid && this.registerForm.get('client').valid;
+      return (
+        !this.pfpErr && mainFormValid && this.registerForm.get('client').valid
+      );
     } else {
-      return mainFormValid && this.registerForm.get('agency').valid;
+      return (
+        !this.pfpErr && mainFormValid && this.registerForm.get('agency').valid
+      );
     }
   }
 
+  backendErr: string = '';
   onSubmit() {
+    let user;
     if (this.type.value == 'klijent') {
-      let user = {
+      user = {
         username: this.username.value,
         password: this.password.value,
         phoneNum: this.phone.value,
         email: this.email.value,
+        profilePic: this.registerForm.get('client').get('pfp').value ?? '',
+        type: 0,
         name: this.clientName.value,
         surname: this.surname.value,
-        profilePic: '',
       };
-      this.loginSignupSvc.register(user).subscribe((resp) => {
-        if (resp['msg'] === 'OK') {
-          console.log('Success!');
-        } else {
-          console.log(resp);
-        }
-      });
     } else {
-      
+      user = {
+        username: this.username.value,
+        password: this.password.value,
+        phoneNum: this.phone.value,
+        email: this.email.value,
+        profilePic: this.registerForm.get('client').get('pfp').value ?? '',
+        type: 1,
+        agencyName: this.agencyName.value,
+        country: this.country.value,
+        city: this.city.value,
+        street: this.street.value,
+        agencyNum: this.agencyNum.value,
+        desc: this.desc.value,
+      };
+    }
+    
+    this.loginSignupSvc.register(user).subscribe({
+        next: (resp) => {
+          if (resp.status === 200) {
+            console.log('Success!');
+            this.router.navigate(['/registerSuccess']);
+          }
+        },
+        error: (err) => {
+          // separate error handler :o
+          this.backendErr = err.error['msg'];
+        },
+      });
+  }
+
+  pfpErr: boolean = false;
+
+  onChange(event: any) {
+    const reader = new FileReader();
+    if (event.target.files?.length > 0) {
+      const file = event.target.files[0];
+
+      // read what was uploaded
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // create image
+        var img = new Image();
+        img.src = reader.result as string;
+        img.onload = () => {
+          // if dimensions are incorrect, log error
+          this.pfpErr =
+            img.width > 300 ||
+            img.width < 100 ||
+            img.height > 300 ||
+            img.height < 100;
+          console.log(img.width, img.height);
+          if (this.pfpErr)
+            this.registerForm.get('pfp').patchValue('');
+        };
+      };
     }
   }
 }

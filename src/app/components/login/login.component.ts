@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     route.data.subscribe(data => {
         this.isAdmin = data['admin'];
         this.title = this.isAdmin ? "Admin Login" : "Login";
+        if(data['fromReg'] != undefined) this.title = "Registracija uspešna! Login"; 
     })
   }
 

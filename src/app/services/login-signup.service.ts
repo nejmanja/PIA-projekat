@@ -20,6 +20,6 @@ export class LoginSignupService {
   }
 
   register(formData){
-    return this.http.post(`${this.uri}/users/register`, {...formData});
+    return this.http.post(`${this.uri}/users/register`, {...formData}, {observe: 'response'});
   }
 }

@@ -1,0 +1,27 @@
+:host{
+	width: min(95%, 90rem);
+    align-self: center;
+}
+
+.title{
+    margin-block: 1rem 0.5rem;
+}
+
+.content-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 10rem;
+    gap: 1rem;
+}
+
+@media (max-width: 70em) {
+    .content-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 45em) {
+    .content-grid{
+        grid-template-columns: 1fr;
+    }
+}

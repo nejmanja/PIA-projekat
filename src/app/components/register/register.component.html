@@ -87,6 +87,20 @@
       </label>
     </div>
   </div>
+  <div class="form-input-container">
+    <label for="pfp">(Opciono) Priložiti profilnu fotografiju: </label>
+    <input
+      id="pfp"
+      type="file"
+      (change)="onChange($event)"
+      formControlName="pfp"
+      accept="image/png, image/jpeg"
+      class="form-control form-file-input"
+    />
+    <p *ngIf="pfpErr" class="form-input-err-msg">
+      Dimenzije slike moraju biti između 100x100 i 300x300!
+    </p>
+  </div>
   <div
     *ngIf="type.value === 'klijent'"
     formGroupName="client"
@@ -193,4 +207,5 @@
   <button type="submit" [disabled]="!formValid()" class="text-button">
     Registruj se!
   </button>
+  <p class="backend-err-msg">{{backendErr}}</p>
 </form>
