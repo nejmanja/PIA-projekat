@@ -12,4 +12,8 @@ export class AgencyService {
   getAll(){
     return this.http.get<AgencyOverview[]>(`${this.uri}/agencies`);
   }
+
+  getMany(query){
+    return this.http.get<AgencyOverview[]>(`${this.uri}/agencies/search?param=${query}`,);
+  }
 }

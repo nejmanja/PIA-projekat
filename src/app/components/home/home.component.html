@@ -1,6 +1,25 @@
 <main>
-    <h1 class="title">Pregled agencija:</h1>
-    <div class="content-grid">
-    <app-agency-card *ngFor="let agencyOverview of agencies" [agency]="agencyOverview"></app-agency-card>
-</div>
+  <h1 class="title">Pregled agencija:</h1>
+  <span>Pretraga:</span>
+  <input type="text" (keydown)="keyboardSearch($event, query.value, searchCriteria.value)" #query />
+  <button (click)="search(query.value, searchCriteria.value)">Pretraga</button>
+  <span>Kriterijumi:</span>
+  <select #searchCriteria>
+    <option value="name">Ime firme</option>
+    <option value="adr">Adresa</option>
+    <option value="both">Ime firme i adresa</option>
+  </select>
+  <span>Poredak:</span>
+  <select #sortCriteria (change)="sort(sortCriteria.value)">
+    <option value="imeAsc">Ime firme - rastuće</option>
+    <option value="imeDesc">Ime firme - opadajuće</option>
+    <option value="adrAsc">Adresa - rastuće</option>
+    <option value="adrDesc">Adresa - opadajuće</option>
+  </select>
+  <div class="content-grid">
+    <app-agency-card
+      *ngFor="let agencyOverview of filteredAgencies"
+      [agency]="agencyOverview"
+    ></app-agency-card>
+  </div>
 </main>
