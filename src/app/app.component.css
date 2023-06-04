@@ -22,3 +22,17 @@
     padding: 1.5rem;
     text-align: center;
 }
+
+.page-container{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    /* bottom margin to compensate for footer */
+    margin-bottom: 5rem;
+}

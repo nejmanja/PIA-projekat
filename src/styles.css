@@ -57,13 +57,6 @@ body {
     color: hsl(var(--clr-white));
 }
 
-.page-container{
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 /* site-wide designs, buttons etc */
 .radio-button{
     /* Add if not using autoprefixer */

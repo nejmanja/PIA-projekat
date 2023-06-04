@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: column;
   margin-block-start: 1rem;
-  margin-block-end: 5rem;
 }
 
 .form-control {
