@@ -13,7 +13,7 @@ class UserController {
             user_1.default.findOne({ username: username, password: password }, (err, user) => {
                 if (err) {
                     console.log(err);
-                    res.status(404).json({ 'msg': "Korisnik ne postoji!" });
+                    res.status(404).json({ msg: "Korisnik ne postoji!" });
                 }
                 else
                     res.status(200).json(user);
@@ -31,7 +31,7 @@ class UserController {
                     type: usrType,
                     name: req.body.name,
                     surname: req.body.surname,
-                    profilePic: req.body.profilePic
+                    profilePic: req.body.profilePic,
                 });
             }
             else {
@@ -52,15 +52,39 @@ class UserController {
             user.save((err, dbres) => {
                 if (err) {
                     console.log(err);
-                    if (err.code && err.code == 11000) { // duplicate key err
-                        res.status(400).json({ 'msg': "Već postoji korisnik sa datim kor. imenom/mejlom!" });
+                    if (err.code && err.code == 11000) {
+                        // duplicate key err
+                        res
+                            .status(400)
+                            .json({ msg: "Već postoji korisnik sa datim kor. imenom/mejlom!" });
                     }
-                    else { // unknown err
-                        res.status(500).json({ 'msg': "Došlo je do greske, pokušajte ponovo!" });
+                    else {
+                        // unknown err
+                        res
+                            .status(500)
+                            .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
                     }
                 }
                 else {
-                    res.status(200).json({ 'msg': "OK" });
+                    res.status(200).json({ msg: "OK" });
+                }
+            });
+        };
+        this.changePassword = (req, res) => {
+            const username = req.body.username;
+            user_1.default.findOneAndUpdate({ username: username, password: req.body.oldPassword }, { password: req.body.newPassword }, (err, docs) => {
+                if (docs == null) {
+                    res.status(400).json({ msg: "Neispravna stara lozinka!" });
+                }
+                else if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    console.log(docs);
+                    res.status(200).json(docs);
                 }
             });
         };

@@ -12,5 +12,8 @@ userRouter
 userRouter
     .route("/register")
     .post((req, res) => new user_controller_1.UserController().register(req, res));
+userRouter
+    .route("/changePassword")
+    .put((req, res) => new user_controller_1.UserController().changePassword(req, res));
 exports.default = userRouter;
 //# sourceMappingURL=user.router.js.map

@@ -11,4 +11,7 @@ userRouter
 	.route("/register")
 	.post((req, res) => new UserController().register(req, res));
 
+userRouter
+    .route("/changePassword")
+    .put((req, res) => new UserController().changePassword(req, res));
 export default userRouter;

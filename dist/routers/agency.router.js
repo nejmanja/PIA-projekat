@@ -8,6 +8,6 @@ const agency_controller_1 = require("../controllers/agency.controller");
 const agencyRouter = express_1.default.Router();
 agencyRouter
     .route("/")
-    .get((req, res) => new agency_controller_1.AgencyController().getAll(req, res));
+    .get((req, res) => req.query.username ? new agency_controller_1.AgencyController().getOne(req, res) : new agency_controller_1.AgencyController().getAll(req, res));
 exports.default = agencyRouter;
 //# sourceMappingURL=agency.router.js.map

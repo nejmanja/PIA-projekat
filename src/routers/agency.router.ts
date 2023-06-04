@@ -5,6 +5,6 @@ const agencyRouter = express.Router();
 
 agencyRouter
 	.route("/")
-	.get((req, res) => new AgencyController().getAll(req, res));
+	.get((req, res) => req.query.username ? new AgencyController().getOne(req, res) : new AgencyController().getAll(req, res));
 
 export default agencyRouter;
