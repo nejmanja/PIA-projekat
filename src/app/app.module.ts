@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AgencyCardComponent } from './components/agency-card/agency-card.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AgencyCardComponent } from './components/agency-card/agency-card.compon
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AgencyCardComponent
+    AgencyCardComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

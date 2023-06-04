@@ -13,6 +13,9 @@
         <div *ngIf="(password.dirty || password.touched) && password.errors?.['required']">
             Morate uneti lozinku!
         </div>
+        <div *ngIf="msg!=null">
+            {{msg}}
+        </div>
     </div>
 </form>
 <p *ngIf="!isAdmin">Nemate nalog? <a routerLink="/register" class="register-link">Registrujte se</a> ovde!</p>
