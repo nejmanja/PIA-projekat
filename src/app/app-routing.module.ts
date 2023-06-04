@@ -11,6 +11,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AgencyComponent } from './components/agency/agency.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const alreadyLoggedIn = (next, state) => {
   const router = inject(Router);
@@ -40,6 +42,14 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'agency/:username',
+    component: AgencyComponent
+  },
+  {
+    path: 'changePassword',
+    component: ChangePasswordComponent
   }
 ];
 

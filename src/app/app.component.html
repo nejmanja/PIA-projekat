@@ -8,7 +8,11 @@
     </div>
     <div class="navbar-right">
         <a *ngIf="!userExists" routerLink="/login" class="navbar-link"> Login </a>
-        <a *ngIf="userExists" routerLink="/logout" class="navbar-link"> Logout </a>
+        <div *ngIf="userExists">     
+            <a routerLink="/changePassword" class="navbar-link">Promena lozinke</a>
+            |
+            <a routerLink="/logout" class="navbar-link">Logout</a>
+        </div>
     </div>
   </nav>
 

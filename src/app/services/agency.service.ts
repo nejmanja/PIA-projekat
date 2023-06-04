@@ -13,7 +13,8 @@ export class AgencyService {
     return this.http.get<AgencyOverview[]>(`${this.uri}/agencies`);
   }
 
-  getMany(query){
-    return this.http.get<AgencyOverview[]>(`${this.uri}/agencies/search?param=${query}`,);
+
+  getOne(username: string){
+    return this.http.get<AgencyOverview>(`${this.uri}/agencies?username=${username}`)
   }
 }

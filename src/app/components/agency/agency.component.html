@@ -1,0 +1,6 @@
+<h1 class="card-title">Agencija {{ agency?.agencyName }}</h1>
+<img
+    [src]="agency?.profilePic != '' ? agency?.profilePic : 'assets/agency-default.jpg'"
+    class="card-img"
+  />
+  <p class="card-desc">{{ agency?.desc }}</p>

@@ -22,4 +22,8 @@ export class LoginSignupService {
   register(formData){
     return this.http.post(`${this.uri}/users/register`, {...formData}, {observe: 'response'});
   }
+
+  changePassword(username: string, oldPassword: string, newPassword: string){
+    return this.http.put(`${this.uri}/users/changePassword`, {username, oldPassword, newPassword}, {observe: 'response'});
+  }
 }
