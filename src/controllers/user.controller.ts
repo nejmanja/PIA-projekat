@@ -44,6 +44,7 @@ export class UserController {
 				street: req.body.street,
 				agencyNum: req.body.agencyNum,
 				desc: req.body.desc,
+				profilePic: req.body.profilePic,
 			});
 		}
 
@@ -88,4 +89,47 @@ export class UserController {
 			}
 		);
 	};
+
+    getOne = (req: express.Request, res: express.Response) => {
+        UserModel.findOne({username: req.query.username, type: 0}, {password: 0}, (err, doc) => {
+            if(err){
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+            }
+            else{
+                res.status(200).json(doc);
+            }
+        })
+    }
+
+    updateOne = (req: express.Request, res: express.Response) => {
+        let updateBlock = {};
+        if(req.body.name != null)
+            updateBlock['name'] = req.body.name;
+        if(req.body.surname != null)
+            updateBlock['surname'] = req.body.surname;
+        if(req.body.email != null)
+            updateBlock['email'] = req.body.email;
+        if(req.body.phoneNum != null)
+            updateBlock['phoneNum'] = req.body.phoneNum;
+        if(req.body.profilePic != null)
+            updateBlock['profilePic'] = req.body.profilePic;
+
+
+        UserModel.findOneAndUpdate(
+			{ username: req.query.username },
+			{ "$set": updateBlock },
+			(err: MongoError, docs) => {
+                if(docs == null || err) {
+					console.log(err);
+					res
+						.status(500)
+						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+				} else {
+                    console.log(docs);
+					res.status(200).json(docs);
+				}
+			}
+		);
+    }
 }

@@ -47,6 +47,7 @@ class UserController {
                     street: req.body.street,
                     agencyNum: req.body.agencyNum,
                     desc: req.body.desc,
+                    profilePic: req.body.profilePic,
                 });
             }
             user.save((err, dbres) => {
@@ -77,6 +78,42 @@ class UserController {
                     res.status(400).json({ msg: "Neispravna stara lozinka!" });
                 }
                 else if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    console.log(docs);
+                    res.status(200).json(docs);
+                }
+            });
+        };
+        this.getOne = (req, res) => {
+            user_1.default.findOne({ username: req.query.username, type: 0 }, { password: 0 }, (err, doc) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(doc);
+                }
+            });
+        };
+        this.updateOne = (req, res) => {
+            let updateBlock = {};
+            if (req.body.name != null)
+                updateBlock['name'] = req.body.name;
+            if (req.body.surname != null)
+                updateBlock['surname'] = req.body.surname;
+            if (req.body.email != null)
+                updateBlock['email'] = req.body.email;
+            if (req.body.phoneNum != null)
+                updateBlock['phoneNum'] = req.body.phoneNum;
+            if (req.body.profilePic != null)
+                updateBlock['profilePic'] = req.body.profilePic;
+            user_1.default.findOneAndUpdate({ username: req.query.username }, { "$set": updateBlock }, (err, docs) => {
+                if (docs == null || err) {
                     console.log(err);
                     res
                         .status(500)
