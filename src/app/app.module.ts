@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faEdit, faHouseUser } from '@fortawesome/free-solid-svg-icons';
+import { faDoorClosed, faEdit, faHouseUser, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -15,6 +15,9 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AgencyComponent } from './components/agency/agency.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { HousingListComponent } from './components/housing-list/housing-list.component';
+import { HousingCardComponent } from './components/housing-card/housing-card.component';
+import { HousingComponent } from './components/housing/housing.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     LogoutComponent,
     AgencyComponent,
     ChangePasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HousingListComponent,
+    HousingCardComponent,
+    HousingComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +46,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed);
     }
 }

@@ -1,0 +1,7 @@
+<h1>Pregled objekata</h1>
+<div class="content-grid content-grid--small">
+  <app-housing-card
+    *ngFor="let housing of allHousing"
+    [housing]="housing"
+  ></app-housing-card>
+</div>
