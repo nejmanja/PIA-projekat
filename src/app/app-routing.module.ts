@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AgencyComponent } from './components/agency/agency.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const alreadyLoggedIn = (next, state) => {
   const router = inject(Router);
@@ -22,6 +23,15 @@ const alreadyLoggedIn = (next, state) => {
     return false;
   }
 };
+const notLoggedIn = (next, state) => {
+    const router = inject(Router);
+    if (sessionStorage.getItem('user') != null) return true;
+    else {
+      router.navigateByUrl('');
+      return false;
+    }
+
+}
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,15 +51,22 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
+    canActivate: [notLoggedIn]
+  },
+  {
+    path: 'changePassword',
+    component: ChangePasswordComponent,
+    canActivate: [notLoggedIn]
   },
   {
     path: 'agency/:username',
     component: AgencyComponent
   },
   {
-    path: 'changePassword',
-    component: ChangePasswordComponent
+    path: 'userProfile',
+    component: UserProfileComponent,
+    canActivate: [notLoggedIn]
   }
 ];
 

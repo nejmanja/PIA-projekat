@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginSignupService } from 'src/app/services/login-signup.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { LoginSignupService } from 'src/app/services/login-signup.service';
   styleUrls: ['./change-password.component.css'],
 })
 export class ChangePasswordComponent implements OnInit {
-  constructor(private loginSignupSvc: LoginSignupService) {}
+  constructor(private loginSignupSvc: LoginSignupService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -76,6 +77,7 @@ export class ChangePasswordComponent implements OnInit {
           if (resp.status === 200) {
             this.backendMsg = 'Uspešna promena lozinke!';
             this.backendErr = '';
+            this.router.navigate(['/logout']);
           }
         },
         error: (err) => {

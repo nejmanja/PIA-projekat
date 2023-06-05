@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faHouseUser } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -14,6 +14,7 @@ import { AgencyCardComponent } from './components/agency-card/agency-card.compon
 import { LogoutComponent } from './components/logout/logout.component';
 import { AgencyComponent } from './components/agency/agency.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     AgencyCardComponent,
     LogoutComponent,
     AgencyComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,6 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser);
+        library.addIcons(faHouseUser, faEdit);
     }
 }

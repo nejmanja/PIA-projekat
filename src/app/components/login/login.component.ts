@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         if (data != null) {
           sessionStorage.setItem(
             'user',
-            JSON.stringify({ username: us, password: pw })
+            JSON.stringify({ username: us, password: pw, type: data['type'] })
           );
           this.router.navigate(['']);
         }

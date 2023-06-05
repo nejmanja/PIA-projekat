@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
       ]),
       passwordRepeat: new FormControl('', [Validators.required]),
       phone: new FormControl('06', [
-        Validators.pattern(/^06[0-9]{7,8}/),
+        Validators.pattern(/^06[0-9]{7,8}$/),
         Validators.required,
       ]),
       email: new FormControl('', [Validators.email, Validators.required]),
@@ -200,7 +200,7 @@ export class RegisterComponent implements OnInit {
         password: this.password.value,
         phoneNum: this.phone.value,
         email: this.email.value,
-        profilePic: this.registerForm.get('client').get('pfp').value ?? '',
+        profilePic: this.imgData,
         type: 0,
         name: this.clientName.value,
         surname: this.surname.value,
@@ -211,7 +211,7 @@ export class RegisterComponent implements OnInit {
         password: this.password.value,
         phoneNum: this.phone.value,
         email: this.email.value,
-        profilePic: this.registerForm.get('client').get('pfp').value ?? '',
+        profilePic: this.imgData,
         type: 1,
         agencyName: this.agencyName.value,
         country: this.country.value,
@@ -221,22 +221,25 @@ export class RegisterComponent implements OnInit {
         desc: this.desc.value,
       };
     }
-    
+
+    console.log(this.imgData);
+
     this.loginSignupSvc.register(user).subscribe({
-        next: (resp) => {
-          if (resp.status === 200) {
-            console.log('Success!');
-            this.router.navigate(['/registerSuccess']);
-          }
-        },
-        error: (err) => {
-          // separate error handler :o
-          this.backendErr = err.error['msg'];
-        },
-      });
+      next: (resp) => {
+        if (resp.status === 200) {
+          console.log('Success!');
+          this.router.navigate(['/registerSuccess']);
+        }
+      },
+      error: (err) => {
+        // separate error handler :o
+        this.backendErr = err.error['msg'];
+      },
+    });
   }
 
   pfpErr: boolean = false;
+  imgData: string = '';
 
   onChange(event: any) {
     const reader = new FileReader();
@@ -257,8 +260,8 @@ export class RegisterComponent implements OnInit {
             img.height > 300 ||
             img.height < 100;
           console.log(img.width, img.height);
-          if (this.pfpErr)
-            this.registerForm.get('pfp').patchValue('');
+          if (this.pfpErr) this.registerForm.get('pfp').patchValue('');
+          else this.imgData = img.src;
         };
       };
     }

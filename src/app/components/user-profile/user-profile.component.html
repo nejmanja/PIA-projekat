@@ -1,0 +1,36 @@
+<h1>Profil korisnika <em>{{user?.username}}</em></h1>
+<form [formGroup]='form' (ngSubmit)="onSubmit()">
+    <div class="data-grid">
+        <p>Ime:</p>
+        <span *ngIf="!editing.name">{{user?.name}}</span> 
+        <input *ngIf="editing.name" type="text" id="name" formControlName="name" class="edit-input"> 
+        <button type='button' (click)="toggleEditable('name')" class="edit-button" [ngClass]="{'edit-button--active': editing.name}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Prezime:</p>
+        <span *ngIf="!editing.surname">{{user?.surname}}</span>
+        <input *ngIf="editing.surname" type="text" id="surname" formControlName="surname"> 
+        <button type='button' (click)="toggleEditable('surname')" class="edit-button" [ngClass]="{'edit-button--active': editing.surname}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Email:</p>
+        <span *ngIf="!editing.email">{{user?.email}}</span>
+        <input *ngIf="editing.email" type="text" id="email" formControlName="email"> 
+        <button type='button' (click)="toggleEditable('email')" class="edit-button" [ngClass]="{'edit-button--active': editing.email}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Telefon:</p>
+        <span *ngIf="!editing.phone">{{user?.phoneNum}}</span>
+        <input *ngIf="editing.phone" type="text" id="phone" formControlName="phone"> 
+        <button type='button' (click)="toggleEditable('phone')" class="edit-button" [ngClass]="{'edit-button--active': editing.phone}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Profilna fotografija:</p>
+        <img [src]="imgData != '' ? imgData : 'assets/user-default.jpg'"/>
+        <div>
+            <label for="pfp" class="edit-button"><fa-icon icon="edit"></fa-icon></label>
+            <input type="file" id="pfp" accept="image/png, image/jpeg" formControlName="profilePic" (change)="onChange($event)" style="display: none;"/>
+        </div>
+    </div> 
+    <button [disabled]="!isModified() || !form.valid || pfpErr" type="submit" class="text-button form-submit">Sačuvaj izmene</button>
+    <p *ngIf="!form.valid" class="backend-err-msg">Molimo unesite ispravne podatke!</p>
+    <p *ngIf="pfpErr" class="backend-err-msg">Fotografija mora biti dimenzija između 100x100 i 300x300!</p>
+    <p *ngIf="backendErr != ''" class="backend-err-msg">backendErr</p>
+    
+</form>

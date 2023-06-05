@@ -20,6 +20,7 @@ export class LoginSignupService {
   }
 
   register(formData){
+    console.log(formData.profilePic);
     return this.http.post(`${this.uri}/users/register`, {...formData}, {observe: 'response'});
   }
 
