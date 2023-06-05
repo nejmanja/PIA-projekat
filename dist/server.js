@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_router_1 = __importDefault(require("./routers/user.router"));
 const agency_router_1 = __importDefault(require("./routers/agency.router"));
+const housing_router_1 = __importDefault(require("./routers/housing.router"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -21,6 +22,7 @@ connection.once("open", () => {
 const router = express_1.default.Router();
 router.use("/users", user_router_1.default);
 router.use("/agencies", agency_router_1.default);
+router.use("/housing", housing_router_1.default);
 app.use('/', router);
 // app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(4000, () => console.log(`Express server running on port 4000`));
