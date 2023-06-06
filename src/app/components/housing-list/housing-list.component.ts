@@ -23,6 +23,11 @@ export class HousingListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  refresh(event){
+    // no need to fetch from DB again teehee
+    this.allHousing = this.allHousing.filter(housing => housing._id != event);
+  }
+
   // all properties owned by logged-in user
   allHousing!: HousingOverview[];
 }

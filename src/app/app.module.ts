@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faDoorClosed, faEdit, faHouseUser, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -18,6 +18,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { HousingListComponent } from './components/housing-list/housing-list.component';
 import { HousingCardComponent } from './components/housing-card/housing-card.component';
 import { HousingComponent } from './components/housing/housing.component';
+import { NewHousingComponent } from './components/new-housing/new-housing.component';
+import { HouseDrawingComponent } from './components/house-drawing/house-drawing.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { HousingComponent } from './components/housing/housing.component';
     HousingListComponent,
     HousingCardComponent,
     HousingComponent,
+    NewHousingComponent,
+    HouseDrawingComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,6 @@ import { HousingComponent } from './components/housing/housing.component';
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload);
     }
 }

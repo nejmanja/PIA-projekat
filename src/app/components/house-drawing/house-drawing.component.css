@@ -1,0 +1,19 @@
+
+.edit-button{
+    background-color: hsl(var(--clr-accent) / 0.5);
+    margin-inline: 0.25rem;
+    transition: background-color 200ms, border-radius 200ms;
+}
+
+.edit-button:disabled{
+    background-color: hsl(var(--clr-white) / 0.5);
+}
+
+.edit-button--active{
+    background-color: hsl(var(--clr-accent));
+}
+
+canvas {
+    background-color: black;
+    width: 100%;
+}

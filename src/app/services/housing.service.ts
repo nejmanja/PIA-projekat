@@ -17,4 +17,12 @@ export class HousingService {
   getOne(_id: string){
     return this.http.get<Housing>(`${this.uri}housing/id?id=${_id}`);
   }
+
+  removeOne(_id: string){
+    return this.http.delete(`${this.uri}housing/id?id=${_id}`);
+  }
+  
+  addOne(housing: Housing){
+    return this.http.put(`${this.uri}housing`, housing);
+  }
 }

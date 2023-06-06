@@ -7,19 +7,5 @@
     <p>Broj prostorija: {{ housing?.numRooms }}</p>
     <p>Kvadratura: {{ housing?.area }} m&#178;</p>
   </div>
-  <div>
-    <canvas
-      #drawing
-      width="800"
-      height="600"
-      (click)="canvasClicked($event)"
-      (mousemove)="canvasHovered($event)"
-    >
-      Waiting for db data...
-    </canvas>
-    <button class="text-button edit-button" [ngClass]="{ 'edit-button--active': canvasState === 'addRoom' }" [disabled]="housing?.numRooms >= 3" (click)="setCanvasState('addRoom')"><fa-icon icon="plus"></fa-icon></button>
-    <button class="text-button edit-button" [ngClass]="{ 'edit-button--active': canvasState === 'removeRoom' }" [disabled]="housing?.numRooms <= 0" (click)="setCanvasState('removeRoom')"><fa-icon icon="minus"></fa-icon></button>
-    <button class="text-button edit-button" [ngClass]="{ 'edit-button--active': canvasState === 'addDoor' }" (click)="setCanvasState('addDoor')"><fa-icon icon="door-closed"></fa-icon><fa-icon icon="plus"></fa-icon></button>
-    <button class="text-button edit-button" [ngClass]="{ 'edit-button--active': canvasState === 'removeDoor' }" [disabled]="housing?.doors.length <= 0" (click)="setCanvasState('removeDoor')"><fa-icon icon="door-closed"></fa-icon><fa-icon icon="minus"></fa-icon></button>
-  </div>
+  <app-house-drawing [housing]="housing"></app-house-drawing>
 </div>

@@ -2,3 +2,19 @@
 	width: min(95%, 90rem);
     align-self: center;
 }
+
+.add-card{
+    color: inherit;
+    text-decoration: none;
+    background-color: hsl(var(--clr-panel));
+    border-radius: 10px;
+    transition: border-radius 200ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--fs-800);
+}
+
+.add-card:hover, .add-card:focus, .add-card:active{
+    border-radius: 15px;
+}

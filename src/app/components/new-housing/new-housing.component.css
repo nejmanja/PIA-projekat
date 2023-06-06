@@ -1,0 +1,42 @@
+:host{
+    align-self: center;
+    width: min(90%, 90rem);
+}
+
+form{
+    margin-block-start: 2rem;
+    margin-inline: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+}
+
+.housing-data{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+button[type='submit']{
+    margin-block-start: 2rem;
+}
+
+.upload-button{
+    font-size: var(--fs-400);
+    padding: 0.5rem;
+    margin-block-start: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 70em) {
+    .housing-data{
+        grid-template-columns: 1fr;
+    }
+    form{
+        margin-inline: 0;
+    }
+}
+
+@media (max-width: 45em) {
+}

@@ -1,0 +1,56 @@
+<h1>Dodavanje novog objekta:</h1>
+<div class="housing-data">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-input-container">
+      <label for="type">Vrsta objekta: </label>
+      <div id="type" class="radio-button-group form-control">
+        <label class="radio-button-container">
+          <input
+            type="radio"
+            [value]="0"
+            formControlName="type"
+            class="radio-button"
+          />
+          <span>Kuća</span>
+        </label>
+        <label class="radio-button-container">
+          <input
+            type="radio"
+            [value]="1"
+            formControlName="type"
+            class="radio-button"
+          />
+          <span>Stan</span>
+        </label>
+      </div>
+    </div>
+    <label for="address">Adresa: </label>
+    <div class="form-input-container">
+      <input
+        type="text"
+        id="address"
+        formControlName="address"
+        class="form-input form-control"
+        [ngClass]="{ 'form-input-err': addressErr }"
+      />
+      <p *ngIf="addressErr" class="form-input-err-msg">Uneti adresu!</p>
+    </div>
+    <div class="radio-button-group form-control">
+      <div class="form-input-container">
+        <p>Broj prostorija:</p>
+        <h2>{{ housing.numRooms }}</h2>
+      </div>
+      <div class="form-input-container">
+        <p>Kvadratura:</p>
+        <h2>{{ housing.area }}</h2>
+      </div>
+    </div>
+    <button type="submit" class="text-button" [disabled]="!form.valid || housing.numRooms == 0">
+      Dodaj objekat!
+    </button>
+    <label for="fileUpload" class="text-button upload-button"><fa-icon icon="file-upload"></fa-icon> Učitaj iz fajla</label>
+    <input type="file" id="fileUpload" accept=".json" (change)="onUpload($event)" style="display: none;"/>
+    <p class="backend-err-msg">{{ backendErr }}</p>
+  </form>
+  <app-house-drawing [housing]="housing"></app-house-drawing>
+</div>

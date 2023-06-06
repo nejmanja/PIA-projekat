@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { HousingListComponent } from './components/housing-list/housing-list.component';
 import { HousingComponent } from './components/housing/housing.component';
+import { NewHousingComponent } from './components/new-housing/new-housing.component';
 
 const alreadyLoggedIn = (next, state) => {
   const router = inject(Router);
@@ -81,10 +82,15 @@ const routes: Routes = [
     canActivate: [notLoggedIn],
   },
   {
+    path: 'housing/addHousing',
+    component: NewHousingComponent,
+    canActivate: [notLoggedIn],
+  },
+  {
     path: 'housing/:id',
     component: HousingComponent,
     canActivate: [notLoggedIn],
-  }
+  },
 ];
 
 @NgModule({
