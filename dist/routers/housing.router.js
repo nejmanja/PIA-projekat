@@ -10,7 +10,13 @@ housingRouter
     .route("/")
     .get((req, res) => new housing_controller_1.HousingController().getForUser(req, res));
 housingRouter
+    .route("/")
+    .put((req, res) => new housing_controller_1.HousingController().addOne(req, res));
+housingRouter
     .route("/id")
     .get((req, res) => new housing_controller_1.HousingController().getOne(req, res));
+housingRouter
+    .route("/id")
+    .delete((req, res) => new housing_controller_1.HousingController().removeOne(req, res));
 exports.default = housingRouter;
 //# sourceMappingURL=housing.router.js.map
