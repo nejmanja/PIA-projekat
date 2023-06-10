@@ -1,0 +1,4 @@
+<a routerLink="jobs/{{job._id}}" class="card-container" [ngClass]="{'card-container--red': job.status == 'denied', 'card-container--green': job.status == 'pending'}">
+    <h2>{{job.housingData.address}}</h2>
+    <h3>Izvršilac - {{job.agencyData.agencyName}}</h3>
+</a>

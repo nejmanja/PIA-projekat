@@ -22,6 +22,7 @@ import { NewHousingComponent } from './components/new-housing/new-housing.compon
 import { HouseDrawingComponent } from './components/house-drawing/house-drawing.component';
 import { WorkProposalComponent } from './components/work-proposal/work-proposal.component';
 import { JobsComponent } from './components/jobs/jobs.component';
+import { JobCardComponent } from './components/job-card/job-card.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { JobsComponent } from './components/jobs/jobs.component';
     HouseDrawingComponent,
     WorkProposalComponent,
     JobsComponent,
+    JobCardComponent,
   ],
   imports: [
     BrowserModule,
