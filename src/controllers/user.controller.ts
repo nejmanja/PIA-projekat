@@ -112,6 +112,8 @@ export class UserController {
             updateBlock['email'] = req.body.email;
         if(req.body.phoneNum != null)
             updateBlock['phoneNum'] = req.body.phoneNum;
+        if(req.body.email != null)
+            updateBlock['email'] = req.body.email;
         if(req.body.profilePic != null)
             updateBlock['profilePic'] = req.body.profilePic;
 

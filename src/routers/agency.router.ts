@@ -5,6 +5,16 @@ const agencyRouter = express.Router();
 
 agencyRouter
 	.route("/")
-	.get((req, res) => req.query.username ? new AgencyController().getOne(req, res) : new AgencyController().getAll(req, res));
+	.get((req, res) =>
+		req.query.username
+			? new AgencyController().getOne(req, res)
+			: new AgencyController().getAll(req, res)
+	);
+agencyRouter
+	.route("/full")
+	.get((req, res) => new AgencyController().getOneFull(req, res));
+agencyRouter
+	.route("/")
+	.patch((req, res) => new AgencyController().updateOne(req, res));
 
 export default agencyRouter;
