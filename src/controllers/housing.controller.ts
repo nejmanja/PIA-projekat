@@ -40,7 +40,7 @@ export class HousingController {
 		});
 		newHousing.save((err: MongoError, dbres) => {
 			if (err) {
-                console.log(err);
+				console.log(err);
 				res.status(500).json({ msg: "Došlo je do greske, pokušajte ponovo!" });
 			} else {
 				res.status(200).json({ msg: "OK" });
@@ -57,5 +57,30 @@ export class HousingController {
 				res.status(200).json(doc);
 			}
 		});
+	};
+
+	updateOne = (req: express.Request, res: express.Response) => {
+		let updateBlock = {};
+		if (req.body.type != null) updateBlock["type"] = req.body.type;
+		if (req.body.address != null) updateBlock["address"] = req.body.address;
+		if (req.body.numRooms != null) updateBlock["numRooms"] = req.body.numRooms;
+		if (req.body.rooms != null) updateBlock["rooms"] = req.body.rooms;
+		if (req.body.doors != null) updateBlock["doors"] = req.body.doors;
+		if (req.body.area != null) updateBlock["area"] = req.body.area;
+		HousingModel.findByIdAndUpdate(
+			req.query.id,
+			{ $set: updateBlock },
+			(err: MongoError, docs) => {
+				if (docs == null || err) {
+					console.log(err);
+					res
+						.status(500)
+						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+				} else {
+					console.log(docs);
+					res.status(200).json(docs);
+				}
+			}
+		);
 	};
 }

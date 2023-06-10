@@ -61,6 +61,33 @@ class HousingController {
                 }
             });
         };
+        this.updateOne = (req, res) => {
+            let updateBlock = {};
+            if (req.body.type != null)
+                updateBlock["type"] = req.body.type;
+            if (req.body.address != null)
+                updateBlock["address"] = req.body.address;
+            if (req.body.numRooms != null)
+                updateBlock["numRooms"] = req.body.numRooms;
+            if (req.body.rooms != null)
+                updateBlock["rooms"] = req.body.rooms;
+            if (req.body.doors != null)
+                updateBlock["doors"] = req.body.doors;
+            if (req.body.area != null)
+                updateBlock["area"] = req.body.area;
+            housing_1.default.findByIdAndUpdate(req.query.id, { $set: updateBlock }, (err, docs) => {
+                if (docs == null || err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    console.log(docs);
+                    res.status(200).json(docs);
+                }
+            });
+        };
     }
 }
 exports.HousingController = HousingController;

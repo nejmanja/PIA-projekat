@@ -18,5 +18,8 @@ housingRouter
 housingRouter
     .route("/id")
     .delete((req, res) => new housing_controller_1.HousingController().removeOne(req, res));
+housingRouter
+    .route("/id")
+    .patch((req, res) => new housing_controller_1.HousingController().updateOne(req, res));
 exports.default = housingRouter;
 //# sourceMappingURL=housing.router.js.map
