@@ -179,7 +179,6 @@ body {
     color: hsl(var(--clr-accent));
     margin-top: 0.5rem;
 }
-
 .content-grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);

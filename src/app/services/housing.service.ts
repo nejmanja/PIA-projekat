@@ -25,4 +25,8 @@ export class HousingService {
   addOne(housing: Housing){
     return this.http.put(`${this.uri}housing`, housing);
   }
+
+  updateOne(housing: Housing){
+    return this.http.patch(`${this.uri}housing/id?id=${housing._id}`, housing);
+  }
 }

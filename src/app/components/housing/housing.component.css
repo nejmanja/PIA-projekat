@@ -8,6 +8,50 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.text-input{
+    background: none;
+    color: inherit;
+    border: none;
+    border-bottom: 2px solid hsl(var(--clr-white));
+    font-size: 1em;
+}
+
+.select-input{
+    background: none;
+    color: inherit;
+    border: none;
+    border-bottom: 2px solid hsl(var(--clr-white));
+    font-size: 1em;
+}
+
+.select-input > option {
+    color: black;
+}
+
+.edit-button{
+    background: none;
+    border: none;
+    font-size: var(--fs-500);
+    color: hsl(var(--clr-white));
+    min-width: 2rem;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-button--active{
+    color: hsl(var(--clr-accent) / 0.75);
+}
+
+.edit-button--inline{
+    display: inline;
+}
+
+.submit-button{
+    margin-block: 1rem;
+}
+
 @media (max-width: 70em) {
     .housing-data{
         grid-template-columns: 1fr;

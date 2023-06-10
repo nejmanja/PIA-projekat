@@ -1,11 +1,21 @@
 <h1>Pregled objekta:</h1>
 <div class="housing-data">
-  <div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <h2>
-      {{ housing?.type === 0 ? "Kuća" : "Stan" }} - {{ housing?.address }}
+      <span *ngIf="!editing.type">{{ form.get('type').value == 0 ? "Kuća" : "Stan" }}</span>
+      <select *ngIf="editing.type" id="type" formControlName="type" class="select-input">
+        <option [value]="0">Kuća</option>
+        <option [value]="1">Stan</option>
+      </select>
+      <button type='button' (click)="toggleEditable('type')" class="edit-button edit-button--inline" [ngClass]="{'edit-button--active': editing.type}"><fa-icon icon="edit"></fa-icon></button>
+       - <span *ngIf="!editing.address">{{ form.get('address').value }}</span>
+      <input *ngIf="editing.address" type="text" id="address" formControlName="address" class="text-input"> 
+      <button type='button' (click)="toggleEditable('address')" class="edit-button edit-button--inline" [ngClass]="{'edit-button--active': editing.address}"><fa-icon icon="edit"></fa-icon></button>
     </h2>
     <p>Broj prostorija: {{ housing?.numRooms }}</p>
     <p>Kvadratura: {{ housing?.area }} m&#178;</p>
-  </div>
+    <button type="submit" class="text-button submit-button" [disabled]="!different() || !form.valid || housing.numRooms == 0">Sačuvaj izmene</button>
+    <p class="backend-err-msg">{{backendErr}}</p>
+  </form>
   <app-house-drawing [housing]="housing"></app-house-drawing>
 </div>
