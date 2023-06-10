@@ -20,6 +20,8 @@ import { HousingCardComponent } from './components/housing-card/housing-card.com
 import { HousingComponent } from './components/housing/housing.component';
 import { NewHousingComponent } from './components/new-housing/new-housing.component';
 import { HouseDrawingComponent } from './components/house-drawing/house-drawing.component';
+import { WorkProposalComponent } from './components/work-proposal/work-proposal.component';
+import { JobsComponent } from './components/jobs/jobs.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { HouseDrawingComponent } from './components/house-drawing/house-drawing.
     HousingComponent,
     NewHousingComponent,
     HouseDrawingComponent,
+    WorkProposalComponent,
+    JobsComponent,
   ],
   imports: [
     BrowserModule,

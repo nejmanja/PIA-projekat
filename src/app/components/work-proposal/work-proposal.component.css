@@ -1,0 +1,19 @@
+:host {
+  align-self: center;
+  margin-block: 2rem;
+  /* clamp width on ultrawide monitors */
+  width: min(50%, 40rem);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: 1rem;
+}
+input {
+  color-scheme: dark;
+}
+
+.err-msg{
+    color: hsl(var(--clr-accent));
+}

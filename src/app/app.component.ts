@@ -11,9 +11,9 @@ export class AppComponent {
         router.events.subscribe((val) => {
             // on every route change, update whether the user is logged in
             if(val instanceof NavigationEnd){
-                this.userExists = sessionStorage.getItem('user') != null;
+                this.userType = JSON.parse(sessionStorage.getItem('user'))?.type;
             }
         });
     }
-    userExists: boolean;
+    userType: number;
 }

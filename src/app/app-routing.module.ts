@@ -14,6 +14,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { HousingListComponent } from './components/housing-list/housing-list.component';
 import { HousingComponent } from './components/housing/housing.component';
 import { NewHousingComponent } from './components/new-housing/new-housing.component';
+import { WorkProposalComponent } from './components/work-proposal/work-proposal.component';
+import { JobsComponent } from './components/jobs/jobs.component';
 
 const alreadyLoggedIn = (next, state) => {
   const router = inject(Router);
@@ -27,7 +29,7 @@ const notLoggedIn = (next, state) => {
   const router = inject(Router);
   if (sessionStorage.getItem('user') != null) return true;
   else {
-    router.navigateByUrl('');
+    router.navigateByUrl('/login');
     return false;
   }
 };
@@ -70,6 +72,16 @@ const routes: Routes = [
   {
     path: 'agency/:username',
     component: AgencyComponent,
+  },
+  {
+    path: 'proposal/:agencyUsername',
+    component: WorkProposalComponent,
+    canActivate: [notLoggedIn]
+  },
+  {
+    path: 'userJobs',
+    component: JobsComponent,
+    canActivate: [notLoggedIn]
   },
   {
     path: 'userProfile',

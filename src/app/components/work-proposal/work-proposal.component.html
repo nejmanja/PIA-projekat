@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+    <label for="housing" class="form-control">Objekat:</label>
+    <select id="housing" formControlName="housing" class="form-control form-input select-input">
+        <option *ngFor="let item of housing" [value]="item._id">{{item.address}}</option>
+    </select>
+    <label for="start-date" class="form-control">Datum početka radova</label>
+    <input type="date" id="start-date" formControlName="startDate" class="form-control form-input">
+    <label for="end-date" class="form-control">Datum kraja radova</label>
+    <input type="date" id="end-date" formControlName="endDate" class="form-control form-input">
+    
+    <button type="submit" [disabled]="!form.valid" class="text-button">Pošalji zahtev!</button>
+    <p *ngIf="form.get('startDate').dirty && form.get('endDate').dirty && form.errors?.['invalidRange']" class="err-msg">
+        Opseg datuma nije validan!</p>
+</form>

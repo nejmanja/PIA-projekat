@@ -16,18 +16,6 @@
     font-size: 1em;
 }
 
-.select-input{
-    background: none;
-    color: inherit;
-    border: none;
-    border-bottom: 2px solid hsl(var(--clr-white));
-    font-size: 1em;
-}
-
-.select-input > option {
-    color: black;
-}
-
 .edit-button{
     background: none;
     border: none;

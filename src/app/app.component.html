@@ -7,11 +7,19 @@
       </a>
     </div>
     <div class="navbar-right">
-        <a *ngIf="!userExists" routerLink="/login" class="navbar-link"> Login </a>
-        <div *ngIf="userExists" class="navbar-menu">
+        <a *ngIf="userType == null || userType == undefined" routerLink="/login" class="navbar-link"> Login </a>
+        <div *ngIf="userType == 0" class="navbar-menu">
             <a routerLink="/userProfile" class="navbar-link">Profil</a>
             <a routerLink="/housing" class="navbar-link">Objekti</a>
-            <a routerLink="/userAgencies" class="navbar-link">Agencije</a>
+            <a routerLink="/" class="navbar-link">Agencije</a>
+            <a routerLink="/userJobs" class="navbar-link">Poslovi</a>
+            <a routerLink="/changePassword" class="navbar-link">Promena lozinke</a>
+            <a routerLink="/logout" class="navbar-link">Logout</a>
+        </div>
+        <div *ngIf="userType == 1" class="navbar-menu">
+            <a routerLink="/agencyProfile" class="navbar-link">Profil</a>
+            <a routerLink="/workers" class="navbar-link">Radnici</a>
+            <a routerLink="/agencyJobs" class="navbar-link">Poslovi</a>
             <a routerLink="/changePassword" class="navbar-link">Promena lozinke</a>
             <a routerLink="/logout" class="navbar-link">Logout</a>
         </div>
