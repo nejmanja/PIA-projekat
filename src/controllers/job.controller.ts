@@ -21,4 +21,51 @@ export class JobController {
 			}
 		});
 	};
+
+	getAllForUser = async (req: express.Request, res: express.Response) => {
+		// and that, kids, is how you do a SQL join in mongodb 💀
+		let docs = await JobModel.aggregate([
+			{
+				$match: { owner: { $eq: req.query.username } },
+			},
+			{
+				$lookup: {
+					from: "users",
+					localField: "agency",
+					foreignField: "username",
+					as: "agencyData",
+				},
+			},
+            {
+                $unwind: '$agencyData'
+            },
+			{
+				$lookup: {
+					from: "housing",
+					localField: "housingId",
+					foreignField: "_id",
+					as: "housingData",
+				},
+			},
+            {
+                $unwind: '$housingData'
+            },
+			{
+				$project: {
+					owner: 1,
+					agency: 1,
+                    status: 1,
+					housingId: 1,
+					"agencyData.agencyName": 1,
+					"housingData.address": 1,
+				},
+			},
+		]);
+
+		if (docs.length > 0) {
+			res.status(200).json(docs);
+		} else {
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
+	};
 }

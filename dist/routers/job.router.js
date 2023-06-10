@@ -9,5 +9,8 @@ const jobRouter = express_1.default.Router();
 jobRouter
     .route("/")
     .post((req, res) => new job_controller_1.JobController().addOne(req, res));
+jobRouter
+    .route("/")
+    .get((req, res) => new job_controller_1.JobController().getAllForUser(req, res));
 exports.default = jobRouter;
 //# sourceMappingURL=job.router.js.map
