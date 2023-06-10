@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import userRouter from "./routers/user.router";
 import agencyRouter from "./routers/agency.router";
 import housingRouter from "./routers/housing.router";
+import jobRouter from "./routers/job.router";
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ const router = express.Router();
 router.use("/users", userRouter);
 router.use("/agencies", agencyRouter);
 router.use("/housing", housingRouter);
+router.use("/jobs", jobRouter);
 
 app.use('/', router);
 // app.get("/", (req, res) => res.send("Hello World!"));
