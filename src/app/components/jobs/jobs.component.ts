@@ -9,6 +9,14 @@ import { JobsService } from 'src/app/services/jobs.service';
 })
 export class JobsComponent implements OnInit {
   jobs!: JobOverview[];
+  filteredJobs!: JobOverview[];
+
+  filters = {
+    finished: false,
+    active: false,
+    requested: false,
+  };
+
   constructor(private jobsSvc: JobsService) {}
 
   ngOnInit(): void {
@@ -16,10 +24,27 @@ export class JobsComponent implements OnInit {
     this.jobsSvc.getAllForUser(username).subscribe({
       next: (data) => {
         this.jobs = data;
+        this.filteredJobs = data;
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+
+  filtersChanged() {
+    if (!this.filters.finished && !this.filters.active && !this.filters.requested) {
+      this.filteredJobs = this.jobs;
+      return;
+    }
+    let final: JobOverview[] = [];
+    if (this.filters.finished)
+      final = final.concat(this.jobs.filter((job) => job.status == 'finished' || job.status == 'denied'));
+    if (this.filters.active)
+      final = final.concat(this.jobs.filter((job) => job.status == 'active'));
+    if (this.filters.requested)
+      final = final.concat(this.jobs.filter((job) => job.status == 'requested' || job.status == 'pending'));
+
+      this.filteredJobs = final;
   }
 }

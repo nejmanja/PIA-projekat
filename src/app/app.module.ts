@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { HouseDrawingComponent } from './components/house-drawing/house-drawing.
 import { WorkProposalComponent } from './components/work-proposal/work-proposal.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobCardComponent } from './components/job-card/job-card.component';
+import { AgencyProfileComponent } from './components/agency-profile/agency-profile.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +44,14 @@ import { JobCardComponent } from './components/job-card/job-card.component';
     WorkProposalComponent,
     JobsComponent,
     JobCardComponent,
+    AgencyProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     FontAwesomeModule
   ],
   providers: [],

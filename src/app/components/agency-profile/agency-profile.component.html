@@ -1,0 +1,51 @@
+<h1>Profil agencije <em>{{agency?.username}}</em></h1>
+<form [formGroup]='form' (ngSubmit)="onSubmit()">
+    <div class="data-grid">
+        <p>Ime agencije:</p>
+        <span *ngIf="!editing.agencyName">{{agency?.agencyName}}</span> 
+        <input *ngIf="editing.agencyName" type="text" id="agencyName" formControlName="agencyName" class="edit-input"> 
+        <button type='button' (click)="toggleEditable('agencyName')" class="edit-button" [ngClass]="{'edit-button--active': editing.agencyName}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Država:</p>
+        <span *ngIf="!editing.country">{{agency?.country}}</span>
+        <input *ngIf="editing.country" type="text" id="country" formControlName="country"> 
+        <button type='button' (click)="toggleEditable('country')" class="edit-button" [ngClass]="{'edit-button--active': editing.country}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Grad:</p>
+        <span *ngIf="!editing.city">{{agency?.city}}</span>
+        <input *ngIf="editing.city" type="text" id="city" formControlName="city"> 
+        <button type='button' (click)="toggleEditable('city')" class="edit-button" [ngClass]="{'edit-button--active': editing.city}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Ulica:</p>
+        <span *ngIf="!editing.street">{{agency?.street}}</span>
+        <input *ngIf="editing.street" type="text" id="street" formControlName="street"> 
+        <button type='button' (click)="toggleEditable('street')" class="edit-button" [ngClass]="{'edit-button--active': editing.street}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Opis:</p>
+        <span *ngIf="!editing.desc">{{agency?.desc}}</span>
+        <textarea *ngIf="editing.desc" type="text" id="desc" formControlName="desc"></textarea> 
+        <button type='button' (click)="toggleEditable('desc')" class="edit-button" [ngClass]="{'edit-button--active': editing.desc}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Email:</p>
+        <span *ngIf="!editing.email">{{agency?.email}}</span>
+        <input *ngIf="editing.email" type="text" id="email" formControlName="email">
+        <button type='button' (click)="toggleEditable('email')" class="edit-button" [ngClass]="{'edit-button--active': editing.email}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Broj telefona:</p>
+        <span *ngIf="!editing.phone">{{agency?.phoneNum}}</span>
+        <input *ngIf="editing.phone" type="text" id="phone" formControlName="phone">
+        <button type='button' (click)="toggleEditable('phone')" class="edit-button" [ngClass]="{'edit-button--active': editing.phone}"><fa-icon icon="edit"></fa-icon></button>
+        
+        <p>Profilna fotografija:</p>
+        <img [src]="imgData != '' ? imgData : 'assets/agency-default.jpg'"/>
+        <div>
+            <label for="pfp" class="edit-button"><fa-icon icon="edit"></fa-icon></label>
+            <input type="file" id="pfp" accept="image/png, image/jpeg" formControlName="profilePic" (change)="onChange($event)" style="display: none;"/>
+        </div>
+    </div> 
+    <button [disabled]="!isModified() || !form.valid || pfpErr" type="submit" class="text-button form-submit">Sačuvaj izmene</button>
+    <p *ngIf="!form.valid" class="backend-err-msg">Molimo unesite ispravne podatke!</p>
+    <p *ngIf="pfpErr" class="backend-err-msg">Fotografija mora biti dimenzija između 100x100 i 300x300!</p>
+    <p *ngIf="backendErr != ''" class="backend-err-msg">backendErr</p>
+    
+</form>

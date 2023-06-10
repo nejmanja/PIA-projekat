@@ -1,3 +1,12 @@
+<h1>Pregled poslova</h1>
+<p>Filtri:</p>
+<label for="finished">Završeni</label>
+<input type="checkbox" id="finished" [(ngModel)]="filters.finished" (change)="filtersChanged()">
+<label for="active">Aktivni</label>
+<input type="checkbox" id="active" [(ngModel)]="filters.active" (change)="filtersChanged()">
+<label for="requested">Zahtevi</label>
+<input type="checkbox" id="requested" [(ngModel)]="filters.requested" (change)="filtersChanged()">
+
 <div class="content-grid content-grid--small">
-  <app-job-card *ngFor="let job of jobs" [job]="job"></app-job-card>
+  <app-job-card *ngFor="let job of filteredJobs" [job]="job"></app-job-card>
 </div>
