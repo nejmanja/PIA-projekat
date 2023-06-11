@@ -5,6 +5,8 @@ import userRouter from "./routers/user.router";
 import agencyRouter from "./routers/agency.router";
 import housingRouter from "./routers/housing.router";
 import jobRouter from "./routers/job.router";
+import requestRouter from "./routers/request.router";
+import workerRouter from "./routers/worker.router";
 
 const app = express();
 app.use(cors());
@@ -23,6 +25,8 @@ router.use("/users", userRouter);
 router.use("/agencies", agencyRouter);
 router.use("/housing", housingRouter);
 router.use("/jobs", jobRouter);
+router.use("/requests", requestRouter);
+router.use("/workers", workerRouter);
 
 app.use('/', router);
 // app.get("/", (req, res) => res.send("Hello World!"));

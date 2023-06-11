@@ -58,6 +58,9 @@ let User = new Schema({
     desc: {
         type: String
     },
+    workplaces: {
+        type: Number
+    },
 });
 exports.default = mongoose_1.default.model('UserModel', User, 'users');
 //# sourceMappingURL=user.js.map

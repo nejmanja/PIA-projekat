@@ -55,6 +55,9 @@ let User = new Schema({
     desc: {
         type: String
     },
+    workplaces: {
+        type: Number
+    },
 });
 
 export default mongoose.model('UserModel', User, 'users');
