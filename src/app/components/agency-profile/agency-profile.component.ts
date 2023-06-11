@@ -43,7 +43,6 @@ export class AgencyProfileComponent implements OnInit {
     const username = JSON.parse(sessionStorage.getItem('user')).username;
     agencySvc.getOneFull(username).subscribe({
       next: (usr) => {
-        console.log(usr);
         this.agency = usr;
         // set default form values upon fetching from DB
         this.form.patchValue({
@@ -127,6 +126,7 @@ export class AgencyProfileComponent implements OnInit {
       email: newEmail != this.agency.email ? newEmail : null,
       phoneNum: newPhone != this.agency.phoneNum ? newPhone : null,
       profilePic: this.imgData != this.agency.profilePic ? this.imgData : null,
+      workplaces: null
     };
     console.log('Submitted!');
     this.agencySvc

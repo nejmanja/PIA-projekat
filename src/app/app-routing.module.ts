@@ -17,6 +17,7 @@ import { NewHousingComponent } from './components/new-housing/new-housing.compon
 import { WorkProposalComponent } from './components/work-proposal/work-proposal.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { AgencyProfileComponent } from './components/agency-profile/agency-profile.component';
+import { WorkersComponent } from './components/workers/workers.component';
 
 const alreadyLoggedIn = (next, state) => {
   const router = inject(Router);
@@ -107,6 +108,11 @@ const routes: Routes = [
   {
     path: 'agencyProfile',
     component: AgencyProfileComponent,
+    canActivate: [notLoggedIn],
+  },
+  {
+    path: 'workers',
+    component: WorkersComponent,
     canActivate: [notLoggedIn],
   },
 ];

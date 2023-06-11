@@ -1,0 +1,38 @@
+<h1>Pregled osoblja:</h1>
+<div>
+  <h2>Dostupno radnih mesta: {{ agency?.workplaces }}</h2>
+  <form *ngIf="agency.workplaces == 0" [formGroup]="form" (ngSubmit)="onSubmit()">
+    Dodaj još
+    <input
+      type="number"
+      formControlName="numWorkers"
+      class="form-control form-input form-input--inline"
+      min="0"
+    />
+    radnih mesta
+    <button
+      type="submit"
+      [disabled]="!form.valid || backendMsg != ''"
+      class="text-button"
+    >
+      Pošalji zahtev
+    </button>
+    <p>{{ backendMsg }}</p>
+  </form>
+</div>
+
+<div class="workers">
+  <app-worker-details
+    *ngFor="let worker of workers"
+    [worker]="worker"
+    (removed)="removedOne($event)"
+  ></app-worker-details>
+  <button
+    *ngIf="!adding && agency.workplaces > 0"
+    class="text-button text-button--wide"
+    (click)="changeState('add')"
+  >
+    <fa-icon icon="plus"></fa-icon>
+  </button>
+  <app-new-worker *ngIf="adding" (done)="doneAdding()"></app-new-worker>
+</div>

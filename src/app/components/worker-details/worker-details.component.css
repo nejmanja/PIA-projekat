@@ -1,0 +1,25 @@
+:host {
+  width: 100%;
+  background-color: hsl(var(--clr-panel));
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.form-input--inline {
+  display: inline;
+  font-size: var(--fs-400);
+  margin: 0;
+}
+
+.edit-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr 1fr 2rem 2rem;
+  gap: 1rem;
+  align-items: center;
+  justify-items: start;
+}
+
+.edit-button {
+  font-size: var(--fs-400);
+  width: 100%;
+}

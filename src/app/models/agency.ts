@@ -15,4 +15,5 @@ export class Agency{
     profilePic: string;
     email: string;
     phoneNum: string;
+    workplaces: number;
 };

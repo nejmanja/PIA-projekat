@@ -1,0 +1,41 @@
+<div *ngIf="!editing" class="edit-container">
+  <span>{{ worker.name }}</span>
+  <span>{{ worker.surname }}</span>
+  <span>{{ worker.speciality }}</span> <span>{{ worker.email }}</span>
+  <span>{{ worker.phoneNum }}</span>
+  <button (click)="editClicked()" class="text-button edit-button"><fa-icon icon="edit"></fa-icon></button>
+  <button (click)="deleteClicked()" class="text-button edit-button"><fa-icon icon="trash"></fa-icon></button>
+</div>
+<div *ngIf="editing" class="edit-container">
+  <input
+    type="text"
+    id="name"
+    [(ngModel)]="modifiedWorker.name"
+    class="form-control form-input form-input--inline"
+  />
+  <input
+    type="text"
+    id="surname"
+    [(ngModel)]="modifiedWorker.surname"
+    class="form-control form-input form-input--inline"
+  />
+  <input
+    type="text"
+    id="speciality"
+    [(ngModel)]="modifiedWorker.speciality"
+    class="form-control form-input form-input--inline"
+  />
+  <input
+    type="text"
+    id="email"
+    [(ngModel)]="modifiedWorker.email"
+    class="form-control form-input form-input--inline"
+  />
+  <input
+    type="text"
+    id="phoneNum"
+    [(ngModel)]="modifiedWorker.phoneNum"
+    class="form-control form-input form-input--inline"
+  />
+  <button (click)="saveClicked()" class="text-button edit-button"><fa-icon icon="save"></fa-icon></button>
+</div>

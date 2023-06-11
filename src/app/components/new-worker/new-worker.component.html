@@ -1,0 +1,55 @@
+<form class="edit-container" [formGroup]="form">
+  <input
+    type="text"
+    id="name"
+    class="form-control form-input form-input--inline"
+    placeholder="Ime"
+    formControlName="name"
+    [ngClass]="{'bad-input': nameErr}"
+  />
+  <input
+    type="text"
+    id="surname"
+    class="form-control form-input form-input--inline"
+    placeholder="Prezime"
+    formControlName="surname"
+    [ngClass]="{'bad-input': surnameErr}"
+  />
+  <input
+    type="text"
+    id="speciality"
+    class="form-control form-input form-input--inline"
+    placeholder="Specijalnost"
+    formControlName="speciality"
+    [ngClass]="{'bad-input': specialityErr}"
+  />
+  <input
+    type="text"
+    id="email"
+    class="form-control form-input form-input--inline"
+    placeholder="Email"
+    formControlName="email"
+    [ngClass]="{'bad-input': emailErr}"
+  />
+  <input
+    type="text"
+    id="phoneNum"
+    class="form-control form-input form-input--inline"
+    placeholder="Broj telefona"
+    formControlName="phoneNum"
+    [ngClass]="{'bad-input': phoneNumErr}"
+  />
+  <button
+    [disabled]="!form.valid"
+    (click)="saveClicked()"
+    class="text-button edit-button"
+  >
+    <fa-icon icon="save"></fa-icon>
+  </button>
+  <button
+    (click)="cancelClicked()"
+    class="text-button edit-button"
+  >
+    <fa-icon icon="ban"></fa-icon>
+  </button>
+</form>

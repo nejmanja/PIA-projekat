@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,6 +24,9 @@ import { WorkProposalComponent } from './components/work-proposal/work-proposal.
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobCardComponent } from './components/job-card/job-card.component';
 import { AgencyProfileComponent } from './components/agency-profile/agency-profile.component';
+import { WorkersComponent } from './components/workers/workers.component';
+import { WorkerDetailsComponent } from './components/worker-details/worker-details.component';
+import { NewWorkerComponent } from './components/new-worker/new-worker.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { AgencyProfileComponent } from './components/agency-profile/agency-profi
     JobsComponent,
     JobCardComponent,
     AgencyProfileComponent,
+    WorkersComponent,
+    WorkerDetailsComponent,
+    NewWorkerComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +65,6 @@ import { AgencyProfileComponent } from './components/agency-profile/agency-profi
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan);
     }
 }
