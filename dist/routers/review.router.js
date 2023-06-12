@@ -18,5 +18,8 @@ reviewRouter
 reviewRouter
     .route("/")
     .delete((req, res) => new review_controller_1.ReviewController().deleteOne(req, res));
+reviewRouter
+    .route("/agency")
+    .get((req, res) => new review_controller_1.ReviewController().getAllForAgency(req, res));
 exports.default = reviewRouter;
 //# sourceMappingURL=review.router.js.map

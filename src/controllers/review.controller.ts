@@ -57,4 +57,14 @@ export class ReviewController {
 			}
 		});
 	};
+	getAllForAgency = (req: express.Request, res: express.Response) => {
+		ReviewModel.find({ agency: req.query.agency }, (err, docs) => {
+			if (err) {
+				console.log(err);
+				res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+			} else {
+				res.status(200).json(docs);
+			}
+		});
+	};
 }

@@ -15,5 +15,8 @@ reviewRouter
 reviewRouter
 	.route("/")
 	.delete((req, res) => new ReviewController().deleteOne(req, res));
+reviewRouter
+	.route("/agency")
+	.get((req, res) => new ReviewController().getAllForAgency(req, res));
 
 export default reviewRouter;

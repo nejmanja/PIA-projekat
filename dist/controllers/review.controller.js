@@ -60,6 +60,17 @@ class ReviewController {
                 }
             });
         };
+        this.getAllForAgency = (req, res) => {
+            review_1.default.find({ agency: req.query.agency }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(docs);
+                }
+            });
+        };
     }
 }
 exports.ReviewController = ReviewController;
