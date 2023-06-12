@@ -20,6 +20,9 @@ let Job = new Schema({
         type: String,
         required: true
     },
+    compensation: {
+        type: Number
+    },
     roomStatus:{
         type: [{
             status: String

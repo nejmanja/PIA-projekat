@@ -37,50 +37,141 @@ class JobController {
         };
         this.getAllForUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             // and that, kids, is how you do a SQL join in mongodb 💀
-            let docs = yield job_1.default.aggregate([
-                {
-                    $match: { owner: { $eq: req.query.username } },
-                },
-                {
-                    $lookup: {
-                        from: "users",
-                        localField: "agency",
-                        foreignField: "username",
-                        as: "agencyData",
+            try {
+                let docs = yield job_1.default.aggregate([
+                    {
+                        $match: { owner: { $eq: req.query.username } },
                     },
-                },
-                {
-                    $unwind: '$agencyData'
-                },
-                {
-                    $lookup: {
-                        from: "housing",
-                        localField: "housingId",
-                        foreignField: "_id",
-                        as: "housingData",
+                    {
+                        $lookup: {
+                            from: "users",
+                            localField: "agency",
+                            foreignField: "username",
+                            as: "agencyData",
+                        },
                     },
-                },
-                {
-                    $unwind: '$housingData'
-                },
-                {
-                    $project: {
-                        owner: 1,
-                        agency: 1,
-                        status: 1,
-                        housingId: 1,
-                        "agencyData.agencyName": 1,
-                        "housingData.address": 1,
+                    {
+                        $unwind: "$agencyData",
                     },
-                },
-            ]);
-            if (docs.length > 0) {
+                    {
+                        $lookup: {
+                            from: "housing",
+                            localField: "housingId",
+                            foreignField: "_id",
+                            as: "housingData",
+                        },
+                    },
+                    {
+                        $unwind: "$housingData",
+                    },
+                    {
+                        $project: {
+                            owner: 1,
+                            agency: 1,
+                            status: 1,
+                            housingId: 1,
+                            "agencyData.agencyName": 1,
+                            "housingData.address": 1,
+                        },
+                    },
+                ]);
                 res.status(200).json(docs);
             }
-            else {
+            catch (err) {
+                console.log(err);
                 res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
             }
         });
+        this.getAllForAgency = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let docs = yield job_1.default.aggregate([
+                    {
+                        $match: {
+                            agency: { $eq: req.query.username },
+                            $and: [
+                                { status: { $ne: "denied" } },
+                                { status: { $ne: "pending" } },
+                            ], // skip the denied reqs
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            localField: "owner",
+                            foreignField: "username",
+                            as: "userData",
+                        },
+                    },
+                    {
+                        $unwind: "$userData",
+                    },
+                    {
+                        $lookup: {
+                            from: "housing",
+                            localField: "housingId",
+                            foreignField: "_id",
+                            as: "housingData",
+                        },
+                    },
+                    {
+                        $unwind: "$housingData",
+                    },
+                    {
+                        $project: {
+                            owner: 1,
+                            agency: 1,
+                            status: 1,
+                            housingId: 1,
+                            "userData.name": 1,
+                            "userData.surname": 1,
+                            "housingData.address": 1,
+                        },
+                    },
+                ]);
+                res.status(200).json(docs);
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+            }
+        });
+        this.deny = (req, res) => {
+            job_1.default.updateOne({ _id: req.body.id }, { status: "denied" }, (err, doc) => {
+                if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(doc);
+                }
+            });
+        };
+        this.accept = (req, res) => {
+            job_1.default.updateOne({ _id: req.body.id }, { status: "pending", compensation: req.body.compensation }, (err, doc) => {
+                if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(doc);
+                }
+            });
+        };
+        this.getOne = (req, res) => {
+            job_1.default.findById(req.query.id).exec((err, doc) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(doc);
+                }
+            });
+        };
     }
 }
 exports.JobController = JobController;
