@@ -25,4 +25,8 @@ export class ReviewService {
   deleteOne(jobId: string){
     return this.http.delete(`${this.uri}/reviews?jobId=${jobId}`);
   }
+
+  getAllForAgency(agency:string){
+    return this.http.get<Review[]>(`${this.uri}/reviews/agency?agency=${agency}`)
+  }
 }

@@ -48,7 +48,7 @@ export class WorkProposalComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          this.router.navigateByUrl('jobs');
+          this.router.navigateByUrl('userJobs');
         },
         error: (err) => {
           console.log(err);

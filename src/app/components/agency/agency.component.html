@@ -1,9 +1,28 @@
-<h1 class="card-title">Agencija {{ agency?.agencyName }}</h1>
-<img
-  [src]="
-    agency?.profilePic != '' ? agency?.profilePic : 'assets/agency-default.jpg'
-  "
-  class="card-img"
-/>
-<p class="card-desc">{{ agency?.desc }}</p>
-<a routerLink="/proposal/{{agency?.username}}" class="text-button">Zatraži saradnju</a>
+<div class="desc">
+  <h1 class="card-title">Agencija {{ agency?.agencyName }}</h1>
+  <div class="desc-panel">
+    <img
+      [src]="
+        agency?.profilePic != ''
+          ? agency?.profilePic
+          : 'assets/agency-default.jpg'
+      "
+      class="card-img"
+    />
+    <p class="card-desc">{{ agency?.desc }}</p>
+  </div>
+</div>
+<div class="comments">
+  <h1>Ocene i komentari:</h1>
+  <div *ngFor="let review of reviews" [ngClass]="{'review-card': loggedIn, 'review-card-anon': !loggedIn}">
+    <img *ngIf="loggedIn" [src]="reviewers.get(review.user)" alt="" />
+    <h2 *ngIf="loggedIn">{{ review.user }}</h2>
+    <h3><fa-icon *ngFor="let item of generateSeq(review.rating)" icon="star"></fa-icon></h3>
+    <p>{{ review.review }}</p>
+  </div>
+</div>
+<div class="proposal">
+  <a routerLink="/proposal/{{ agency?.username }}" class="text-button"
+    >Zatraži saradnju</a
+  >
+</div>

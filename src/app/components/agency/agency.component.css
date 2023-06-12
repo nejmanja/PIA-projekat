@@ -1,4 +1,91 @@
+:host{
+    width: min(90%, 90rem);
+    align-self: center;
+    display: grid;
+    grid-template-areas: 'desc comments'
+    'proposal comments';
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-block-start: 1rem;
+}
+
+img{
+    border-radius: 10px;
+}
+
+.desc{
+    grid-area: desc;
+}
+
+.desc-panel{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+}
+
+.comments{
+    grid-area: comments;
+}
+.proposal{
+    grid-area: proposal;
+}
+
 a {
     text-decoration: none;
     padding: 0.5rem;
+}
+
+.review-card,
+.review-card-anon{
+    display: grid;
+
+    background-color: hsl(var(--clr-panel));
+    border-radius: 10px;
+
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+.review-card{
+    grid-template-columns: 5rem 3fr;
+    grid-template-areas: 'img username'
+    'img rating'
+    'review review';
+
+}
+.review-card-anon{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    'rating'
+    'review';
+}
+
+.review-card > img {
+    grid-area: img;
+    height: 5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.review-card > h2 {
+    grid-area: username;
+}
+
+.review-card > h3,
+.review-card-anon > h3 {
+    grid-area: rating;
+    color: hsl(var(--clr-accent));
+}
+
+.review-card > p,
+.review-card-anon > p {
+    grid-area: review;
+}
+
+@media (max-width: 70em) {
+    :host{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'desc'
+        'proposal'
+        'comments';
+    }
 }
