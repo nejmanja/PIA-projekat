@@ -13,18 +13,34 @@
 
     text-decoration: none;
     color: hsl(var(--clr-white));
-    transition: transform 200ms ease-in-out;
+    transition: border-radius 200ms ease-in-out;
 }
 
 .card-container:hover,
 .card-container:focus,
 .card-container:active{
-    transform: scale(105%);
+    border-radius: 15px;
 }
 
-.card-container--green{
-    background-color: hsl(var(--clr-green));
+:host{
+    position: relative;
 }
-.card-container--red{
+
+.text-button--red,
+.text-button--green{
+    position: absolute;
+    bottom: 0.5rem;
+    width: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-button--red{
+    right: 0.5rem;
     background-color: hsl(var(--clr-red));
+}
+.text-button--green{
+    right: 3.5rem;
+    background-color: hsl(var(--clr-green));
 }

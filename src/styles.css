@@ -8,6 +8,8 @@
   --clr-panel: 218 13% 20%;
   --clr-white: 0 0% 100%;
   --clr-accent: 338 79% 48%;
+  --clr-red: 0 67% 50%;
+  --clr-green: 152 45% 50%;
 
   /* Font sizes */
   --fs-900: clamp(5rem, 7vw + 1rem, 9.375rem);

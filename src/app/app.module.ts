@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faBan, faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -27,6 +27,9 @@ import { AgencyProfileComponent } from './components/agency-profile/agency-profi
 import { WorkersComponent } from './components/workers/workers.component';
 import { WorkerDetailsComponent } from './components/worker-details/worker-details.component';
 import { NewWorkerComponent } from './components/new-worker/new-worker.component';
+import { AgencyJobsComponent } from './components/agency-jobs/agency-jobs.component';
+import { AgencyJobCardComponent } from './components/agency-job-card/agency-job-card.component';
+import { AcceptJobComponent } from './components/accept-job/accept-job.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { NewWorkerComponent } from './components/new-worker/new-worker.component
     WorkersComponent,
     WorkerDetailsComponent,
     NewWorkerComponent,
+    AgencyJobsComponent,
+    AgencyJobCardComponent,
+    AcceptJobComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +71,6 @@ import { NewWorkerComponent } from './components/new-worker/new-worker.component
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan, faCheck);
     }
 }

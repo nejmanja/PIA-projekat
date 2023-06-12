@@ -6,36 +6,41 @@
   <button (click)="editClicked()" class="text-button edit-button"><fa-icon icon="edit"></fa-icon></button>
   <button (click)="deleteClicked()" class="text-button edit-button"><fa-icon icon="trash"></fa-icon></button>
 </div>
-<div *ngIf="editing" class="edit-container">
+<form *ngIf="editing" [formGroup]="form" class="edit-container">
   <input
     type="text"
     id="name"
-    [(ngModel)]="modifiedWorker.name"
+    formControlName="name"
     class="form-control form-input form-input--inline"
+    [ngClass]="{'bad-input': nameErr}"
   />
   <input
     type="text"
     id="surname"
-    [(ngModel)]="modifiedWorker.surname"
+    formControlName="surname"
     class="form-control form-input form-input--inline"
+    [ngClass]="{'bad-input': surnameErr}"
   />
   <input
     type="text"
     id="speciality"
-    [(ngModel)]="modifiedWorker.speciality"
+    formControlName="speciality"
     class="form-control form-input form-input--inline"
+    [ngClass]="{'bad-input': specialityErr}"
   />
   <input
     type="text"
     id="email"
-    [(ngModel)]="modifiedWorker.email"
+    formControlName="email"
     class="form-control form-input form-input--inline"
+    [ngClass]="{'bad-input': emailErr}"
   />
   <input
     type="text"
     id="phoneNum"
-    [(ngModel)]="modifiedWorker.phoneNum"
+    formControlName="phoneNum"
     class="form-control form-input form-input--inline"
+    [ngClass]="{'bad-input': phoneNumErr}"
   />
-  <button (click)="saveClicked()" class="text-button edit-button"><fa-icon icon="save"></fa-icon></button>
-</div>
+  <button [disabled]="!form.valid" (click)="saveClicked()" class="text-button edit-button"><fa-icon icon="save"></fa-icon></button>
+</form>

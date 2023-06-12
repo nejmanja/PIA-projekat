@@ -1,0 +1,6 @@
+<a routerLink="jobs/{{job._id}}" class="card-container" [ngClass]="{'card-container--red': job.status == 'denied', 'card-container--green': job.status == 'pending'}">
+    <h2>{{job.housingData?.address}}</h2>
+    <h3>Korisnik - {{job.userData?.name}} {{job.userData?.surname}}</h3>
+</a>
+<button class="text-button text-button--green" (click)="accept()"><fa-icon icon="check"></fa-icon></button>
+<button class="text-button text-button--red" (click)="deny()"><fa-icon icon="ban"></fa-icon></button>

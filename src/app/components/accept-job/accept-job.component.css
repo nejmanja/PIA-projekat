@@ -1,0 +1,40 @@
+:host{
+    width: min(90%, 90rem);
+    align-self: center;
+}
+.container{
+    display: grid;
+    grid-template-areas: 
+    'user drawing'
+    'form drawing';
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.user-info{
+    width: 70%;
+
+}
+
+form{
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.housing{
+    grid-area: drawing;
+}
+
+
+@media (max-width: 70em) {
+    .container{
+        grid-template-areas: 
+        "user"
+        "drawing"
+        "form";
+    }
+}

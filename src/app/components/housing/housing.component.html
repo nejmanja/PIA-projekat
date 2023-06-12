@@ -17,5 +17,5 @@
     <button type="submit" class="text-button submit-button" [disabled]="!different() || !form.valid || housing.numRooms == 0">Sačuvaj izmene</button>
     <p class="backend-err-msg">{{backendErr}}</p>
   </form>
-  <app-house-drawing [housing]="housing"></app-house-drawing>
+  <app-house-drawing [housing]="housing" [editable]="true"></app-house-drawing>
 </div>

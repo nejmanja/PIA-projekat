@@ -11,6 +11,7 @@ import { HousingService } from 'src/app/services/housing.service';
 export class HouseDrawingComponent implements OnInit, OnChanges {
     @ViewChild('drawing', { static: true }) canvas!: ElementRef;
     @Input() housing!: Housing;
+    @Input() editable: boolean = false;
     GRID_SIZE: number = 50; // in pixels
     GRID_BEGIN: number = this.GRID_SIZE; // offset the drawing from the edge
     beginRoom: boolean = false;
@@ -37,7 +38,7 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
         this.drawGrid(ctx, WIDTH, HEIGHT, this.GRID_SIZE);
   
         ctx.lineWidth = 2;
-        this.housing.rooms?.forEach((rect) => {
+        this.housing?.rooms.forEach((rect) => {
           ctx.strokeStyle = 'white';
           ctx.strokeRect(
             this.GRID_BEGIN + rect.x * this.GRID_SIZE,
@@ -47,7 +48,7 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
           );
         });
   
-        this.housing.doors?.forEach((door) => {
+        this.housing?.doors.forEach((door) => {
           ctx.strokeRect(
             door.x * this.GRID_SIZE + this.GRID_BEGIN + 10,
             door.y * this.GRID_SIZE + this.GRID_BEGIN - 5,

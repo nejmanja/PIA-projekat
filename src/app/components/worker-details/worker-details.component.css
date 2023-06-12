@@ -23,3 +23,7 @@
   font-size: var(--fs-400);
   width: 100%;
 }
+
+.bad-input{
+    border-color: hsl(var(--clr-accent));
+}

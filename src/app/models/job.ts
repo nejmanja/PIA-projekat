@@ -1,8 +1,8 @@
 export class JobOverview{
     _id: string;
-    username: string;
+    owner: string;
     agency: string;
-    housing: string;
+    housingId: string;
     status: string;
     housingData: {
         address: string;

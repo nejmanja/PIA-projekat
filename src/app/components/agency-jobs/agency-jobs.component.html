@@ -1,0 +1,3 @@
+<div class="content-grid content-grid--small">
+  <app-agency-job-card *ngFor="let job of jobs" [job]="job" (denied)="denied($event)"></app-agency-job-card>
+</div>

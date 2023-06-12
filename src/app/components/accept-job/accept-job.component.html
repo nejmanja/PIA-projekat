@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="user-info">
+    <h1>Informacije o korisniku:</h1>
+    <table>
+      <tr>
+        <td>Ime</td>
+        <td>{{ owner.name }} {{ owner.surname }}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{ owner.email }}</td>
+      </tr>
+      <tr>
+        <td>Broj telefona</td>
+        <td>{{ owner.phoneNum }}</td>
+      </tr>
+    </table>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="sendOffer()">
+    <h1>Ponuda:</h1>
+    <label for="nadoknada" class="form-control">Nadoknada:</label>
+    <input
+      formControlName="amount"
+      type="number"
+      name="nadoknada"
+      id="nadoknada"
+      class="form-control form-input"
+    />
+    <button [disabled]="!form.valid" type="submit" class="text-button">
+      Pošalji ponudu
+    </button>
+  </form>
+  <div class="housing">
+    <h1>Pregled objekta:</h1>
+    <p>{{housing.address}}</p>
+    <app-house-drawing [housing]="housing"></app-house-drawing>
+  </div>
+</div>

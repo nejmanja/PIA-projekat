@@ -8,6 +8,7 @@
   Waiting for db data...
 </canvas>
 <button
+  *ngIf="editable"
   class="text-button edit-button"
   [ngClass]="{ 'edit-button--active': canvasState === 'addRoom' }"
   [disabled]="housing?.numRooms >= 3"
@@ -16,6 +17,7 @@
   <fa-icon icon="plus"></fa-icon>
 </button>
 <button
+  *ngIf="editable"
   class="text-button edit-button"
   [ngClass]="{ 'edit-button--active': canvasState === 'removeRoom' }"
   [disabled]="housing?.numRooms <= 0"
@@ -24,6 +26,7 @@
   <fa-icon icon="minus"></fa-icon>
 </button>
 <button
+  *ngIf="editable"
   class="text-button edit-button"
   [ngClass]="{ 'edit-button--active': canvasState === 'addDoor' }"
   (click)="setCanvasState('addDoor')"
@@ -31,6 +34,7 @@
   <fa-icon icon="door-closed"></fa-icon><fa-icon icon="plus"></fa-icon>
 </button>
 <button
+  *ngIf="editable"
   class="text-button edit-button"
   [ngClass]="{ 'edit-button--active': canvasState === 'removeDoor' }"
   [disabled]="housing?.doors.length <= 0"
