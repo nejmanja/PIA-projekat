@@ -22,7 +22,7 @@ class JobController {
                 agency: req.body.agencyUsername,
                 housingId: req.body.housingId,
                 status: "requested",
-                roomStatus: [],
+                roomStatus: [false, false, false],
             });
             // todo check if someone is already working on this housing
             job.save((err, dbres) => {
@@ -70,6 +70,7 @@ class JobController {
                             agency: 1,
                             status: 1,
                             housingId: 1,
+                            compensation: 1,
                             "agencyData.agencyName": 1,
                             "housingData.address": 1,
                         },
@@ -135,8 +136,8 @@ class JobController {
                 res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
             }
         });
-        this.deny = (req, res) => {
-            job_1.default.updateOne({ _id: req.body.id }, { status: "denied" }, (err, doc) => {
+        this.updateStatus = (req, res) => {
+            job_1.default.updateOne({ _id: req.body.id }, { status: req.body.status }, (err, doc) => {
                 if (err) {
                     console.log(err);
                     res
@@ -163,6 +164,17 @@ class JobController {
         };
         this.getOne = (req, res) => {
             job_1.default.findById(req.query.id).exec((err, doc) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(doc);
+                }
+            });
+        };
+        this.deleteOne = (req, res) => {
+            job_1.default.deleteOne({ _id: req.query.id }, (err, doc) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });

@@ -24,9 +24,7 @@ let Job = new Schema({
         type: Number
     },
     roomStatus:{
-        type: [{
-            status: String
-        }],
+        type: Array,
         required: true
     },
 });

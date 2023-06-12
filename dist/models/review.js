@@ -6,30 +6,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-let Job = new Schema({
-    owner: {
-        type: String,
-        required: true
-    },
+let Review = new Schema({
+    // username of agency for which the review is written
     agency: {
         type: String,
-        required: true
+        required: true,
     },
-    housingId: {
-        type: mongodb_1.ObjectId,
-        required: true
-    },
-    status: {
+    // username of user who left the review
+    user: {
         type: String,
-        required: true
+        required: true,
     },
-    compensation: {
-        type: Number
+    // which job was the review left for
+    jobId: {
+        type: mongodb_1.ObjectId,
+        required: true,
     },
-    roomStatus: {
-        type: Array,
-        required: true
+    rating: {
+        type: Number,
+    },
+    review: {
+        type: String,
     },
 });
-exports.default = mongoose_1.default.model('JobModel', Job, 'jobs');
-//# sourceMappingURL=job.js.map
+exports.default = mongoose_1.default.model("ReviewModel", Review, "reviews");
+//# sourceMappingURL=review.js.map

@@ -9,7 +9,7 @@ export class JobController {
 			agency: req.body.agencyUsername,
 			housingId: req.body.housingId,
 			status: "requested",
-			roomStatus: [],
+			roomStatus: [false, false, false],
 		});
 		// todo check if someone is already working on this housing
 		job.save((err: MongoError, dbres) => {
@@ -57,6 +57,7 @@ export class JobController {
 						agency: 1,
 						status: 1,
 						housingId: 1,
+						compensation: 1,
 						"agencyData.agencyName": 1,
 						"housingData.address": 1,
 					},
@@ -123,10 +124,10 @@ export class JobController {
 		}
 	};
 
-	deny = (req: express.Request, res: express.Response) => {
+	updateStatus = (req: express.Request, res: express.Response) => {
 		JobModel.updateOne(
 			{ _id: req.body.id },
-			{ status: "denied" },
+			{ status: req.body.status },
 			(err, doc) => {
 				if (err) {
 					console.log(err);
@@ -159,6 +160,17 @@ export class JobController {
 
 	getOne = (req: express.Request, res: express.Response) => {
 		JobModel.findById(req.query.id).exec((err, doc) => {
+			if (err) {
+				console.log(err);
+				res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+			} else {
+				res.status(200).json(doc);
+			}
+		});
+	};
+
+	deleteOne = (req: express.Request, res: express.Response) => {
+		JobModel.deleteOne({ _id: req.query.id }, (err, doc) => {
 			if (err) {
 				console.log(err);
 				res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });

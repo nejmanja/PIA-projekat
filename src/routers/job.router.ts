@@ -8,11 +8,14 @@ jobRouter
 	.route("/")
 	.get((req, res) => new JobController().getAllForUser(req, res));
 jobRouter
+	.route("/")
+	.delete((req, res) => new JobController().deleteOne(req, res));
+jobRouter
 	.route("/agency")
 	.get((req, res) => new JobController().getAllForAgency(req, res));
 jobRouter
-	.route("/deny")
-	.patch((req, res) => new JobController().deny(req, res));
+	.route("/status")
+	.patch((req, res) => new JobController().updateStatus(req, res));
 jobRouter
 	.route("/accept")
 	.patch((req, res) => new JobController().accept(req, res));
