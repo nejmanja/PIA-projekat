@@ -1,0 +1,54 @@
+:host{
+    width: min(90%, 90rem);
+    align-self: center;
+}
+
+.container{
+    display: grid;
+    grid-template-areas: 'form housing';
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.form{
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+}
+
+.housing{
+    grid-area: housing;
+}
+
+.star{
+    border: none;
+    background: none;
+    color: hsl(var(--clr-white) / 0.5);
+    font-size: var(--fs-500);
+}
+
+.star-full{
+    color: hsl(var(--clr-accent));
+}
+
+.button-panel{
+    margin-block-start: 1rem;
+    align-self: center;
+}
+
+.text-button--inline{
+    margin-inline: 0.5rem;
+}
+.review{
+    text-indent: 1rem;
+}
+
+@media (max-width: 70em) {
+    .container{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "housing"
+        "form";
+    }
+}

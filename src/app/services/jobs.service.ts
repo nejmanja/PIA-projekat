@@ -36,10 +36,13 @@ export class JobsService {
       `${this.uri}/jobs/agency?username=${username}`
     );
   }
-  deny(id: string) {
-    return this.http.patch(`${this.uri}/jobs/deny`, { id });
+  updateStatus(id: string, status: string) {
+    return this.http.patch(`${this.uri}/jobs/status`, { id, status });
   }
   sendOffer(id: string, compensation: number) {
     return this.http.patch(`${this.uri}/jobs/accept`, { id, compensation });
+  }
+  deleteOne(id: string) {
+    return this.http.delete(`${this.uri}/jobs?id=${id}`);
   }
 }

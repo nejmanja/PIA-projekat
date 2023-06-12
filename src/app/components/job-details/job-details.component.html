@@ -1,0 +1,78 @@
+<div class="container">
+  <div *ngIf="allDone && job?.status != 'finished'" class="form">
+    <h1>Plaćanje - naknada: {{ job?.compensation }} &euro;</h1>
+    <p>(Opciono) Ostavite ocenu i komentar:</p>
+    <div>
+      <button
+        *ngFor="let item of [1, 2, 3, 4, 5]"
+        (click)="starClick(item)"
+        class="star"
+        [ngClass]="{ 'star-full': rating >= item }"
+      >
+        <fa-icon icon="star"></fa-icon>
+      </button>
+    </div>
+    <textarea
+      name="review"
+      id="review"
+      cols="30"
+      rows="10"
+      class="form-control form-textarea"
+      [(ngModel)]="review"
+    ></textarea>
+
+    <button class="text-button" (click)="payClick()">Plati</button>
+  </div>
+
+  <div *ngIf="job?.status == 'finished'" class="form">
+    <h1>Pregled ocene i komentara:</h1>
+    <div>
+      <button
+        *ngFor="let item of [1, 2, 3, 4, 5]"
+        (click)="starClick(item)"
+        class="star"
+        [ngClass]="{ 'star-full': rating >= item }"
+        [disabled]="!editing"
+      >
+        <fa-icon icon="star"></fa-icon>
+      </button>
+    </div>
+    <h3>Komentar:</h3>
+    <p *ngIf="!editing" class="review">{{ review }}</p>
+    <textarea
+      *ngIf="editing"
+      name="review"
+      id="review"
+      cols="30"
+      rows="10"
+      class="form-control form-textarea"
+      [(ngModel)]="review"
+    ></textarea>
+    <div class="button-panel">
+      <button
+        *ngIf="!editing"
+        class="text-button text-button--inline"
+        (click)="toggleEditing()"
+      >
+        {{ !reviewExists ? "Dodaj" : "Izmeni" }} recenziju
+      </button>
+      <button
+        *ngIf="!editing && reviewExists"
+        class="text-button text-button--inline"
+        (click)="removeReview()"
+      >
+        <fa-icon icon="trash"></fa-icon>
+      </button>
+      <button *ngIf="editing" class="text-button" (click)="updateReview()">
+        Sačuvaj izmene
+      </button>
+    </div>
+  </div>
+  <div class="housing">
+    <h1>Pregled radova:</h1>
+    <app-house-drawing
+      [housing]="housing"
+      [progress]="job?.roomStatus"
+    ></app-house-drawing>
+  </div>
+</div>

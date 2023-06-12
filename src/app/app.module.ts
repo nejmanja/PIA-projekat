@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faBan, faCheck, faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faDoorClosed, faEdit, faFileUpload, faHouseUser, faMinus, faPlus, faSave, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -30,6 +30,7 @@ import { NewWorkerComponent } from './components/new-worker/new-worker.component
 import { AgencyJobsComponent } from './components/agency-jobs/agency-jobs.component';
 import { AgencyJobCardComponent } from './components/agency-job-card/agency-job-card.component';
 import { AcceptJobComponent } from './components/accept-job/accept-job.component';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AcceptJobComponent } from './components/accept-job/accept-job.component
     AgencyJobsComponent,
     AgencyJobCardComponent,
     AcceptJobComponent,
+    JobDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,6 @@ import { AcceptJobComponent } from './components/accept-job/accept-job.component
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan, faCheck);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan, faCheck, faStar);
     }
 }

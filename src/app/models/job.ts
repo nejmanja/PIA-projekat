@@ -4,6 +4,8 @@ export class JobOverview{
     agency: string;
     housingId: string;
     status: string;
+    compensation: number;
+    roomStatus: Array<boolean>;
     housingData: {
         address: string;
     }

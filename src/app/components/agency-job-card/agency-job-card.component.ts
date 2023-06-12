@@ -18,7 +18,7 @@ export class AgencyJobCardComponent implements OnInit {
     this.router.navigateByUrl(`/acceptJob/${this.job._id}`);
   }
   deny() {
-    this.jobSvc.deny(this.job._id).subscribe({
+    this.jobSvc.updateStatus(this.job._id, 'denied').subscribe({
       next: (data) => {
         // emit the id of the removed item, the parent will remove from list, without contacting the DB again for no reason
         this.denied.emit(this.job._id);

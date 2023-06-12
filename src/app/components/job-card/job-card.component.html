@@ -1,4 +1,16 @@
-<a routerLink="jobs/{{job._id}}" class="card-container" [ngClass]="{'card-container--red': job.status == 'denied', 'card-container--green': job.status == 'pending'}">
-    <h2>{{job.housingData.address}}</h2>
-    <h3>Izvršilac - {{job.agencyData.agencyName}}</h3>
+<a
+  [routerLink]="job.status == 'active' ? link : null"
+  class="card-container"
+  [ngClass]="{
+    'card-container--red': job.status == 'denied',
+    'card-container--green': job.status == 'pending'
+  }"
+>
+  <h2>{{ job.housingData.address }}</h2>
+  <div>
+    <h3>Izvršilac - {{ job.agencyData.agencyName }}</h3>
+    <p *ngIf="job.status == 'pending'">Nadoknada: {{job.compensation}}</p>
+  </div>
 </a>
+<button *ngIf="job.status == 'pending'" class="text-button text-button--green" (click)="accept()"><fa-icon icon="check"></fa-icon></button>
+<button *ngIf="job.status == 'pending'" class="text-button text-button--red" (click)="deny()"><fa-icon icon="ban"></fa-icon></button>

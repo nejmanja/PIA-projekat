@@ -8,5 +8,5 @@
 <input type="checkbox" id="requested" [(ngModel)]="filters.requested" (change)="filtersChanged()">
 
 <div class="content-grid content-grid--small">
-  <app-job-card *ngFor="let job of filteredJobs" [job]="job"></app-job-card>
+  <app-job-card *ngFor="let job of filteredJobs" [job]="job" (accepted)="accepted($event)" (denied)="denied($event)"></app-job-card>
 </div>
