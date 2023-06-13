@@ -1,3 +1,8 @@
+:host{
+    align-self: center;
+    width: min(90%, 90rem);
+}
+
 input[type='checkbox']{
     margin-inline-end: 1rem;
 }

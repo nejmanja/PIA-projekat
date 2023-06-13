@@ -44,6 +44,7 @@ a {
 
     gap: 0.5rem;
     padding: 0.5rem;
+    margin-block: 0.5rem;
 }
 .review-card{
     grid-template-columns: 5rem 3fr;

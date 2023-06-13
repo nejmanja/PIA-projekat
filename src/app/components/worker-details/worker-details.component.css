@@ -14,9 +14,38 @@
 .edit-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr 1fr 2rem 2rem;
+  grid-template-areas: "name surname speciality email phone btn1 btn2";
   gap: 1rem;
   align-items: center;
   justify-items: start;
+}
+
+.name {
+  grid-area: name;
+}
+.surname {
+  grid-area: surname;
+}
+.speciality {
+  grid-area: speciality;
+}
+.email {
+  grid-area: email;
+}
+.phone {
+  grid-area: phone;
+}
+.btn1 {
+  grid-area: btn1;
+}
+.btn2 {
+  grid-area: btn2;
+}
+
+.edit-container > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .edit-button {
@@ -24,6 +53,15 @@
   width: 100%;
 }
 
-.bad-input{
-    border-color: hsl(var(--clr-accent));
+.bad-input {
+  border-color: hsl(var(--clr-accent));
+}
+
+@media (max-width: 45em) {
+  .edit-container {
+    grid-template-columns: 1fr 1fr 2fr 2rem 2rem;
+    grid-template-areas:
+      "name surname speciality btn1 btn2"
+      "email email phone phone x";
+  }
 }

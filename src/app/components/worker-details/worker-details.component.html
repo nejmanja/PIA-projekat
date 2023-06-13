@@ -1,10 +1,11 @@
 <div *ngIf="!editing" class="edit-container">
-  <span>{{ worker.name }}</span>
-  <span>{{ worker.surname }}</span>
-  <span>{{ worker.speciality }}</span> <span>{{ worker.email }}</span>
-  <span>{{ worker.phoneNum }}</span>
-  <button (click)="editClicked()" class="text-button edit-button"><fa-icon icon="edit"></fa-icon></button>
-  <button (click)="deleteClicked()" class="text-button edit-button"><fa-icon icon="trash"></fa-icon></button>
+  <span class="name">{{ worker.name }}</span>
+  <span class="surname">{{ worker.surname }}</span>
+  <span class="speciality">{{ worker.speciality }}</span> 
+  <span class="email">{{ worker.email }}</span>
+  <span class="phone">{{ worker.phoneNum }}</span>
+  <button (click)="editClicked()" class="text-button edit-button btn1"><fa-icon icon="edit"></fa-icon></button>
+  <button (click)="deleteClicked()" class="text-button edit-button btn2"><fa-icon icon="trash"></fa-icon></button>
 </div>
 <form *ngIf="editing" [formGroup]="form" class="edit-container">
   <input

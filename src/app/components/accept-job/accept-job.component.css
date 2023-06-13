@@ -15,7 +15,6 @@
 
 .user-info{
     width: 70%;
-
 }
 
 form{
@@ -36,5 +35,10 @@ form{
         "user"
         "drawing"
         "form";
+        grid-template-columns: 1fr;
+    }
+
+    .user-info,form{
+        width: 100%;
     }
 }

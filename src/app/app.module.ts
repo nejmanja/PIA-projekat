@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faBan, faCheck, faDoorClosed, faEdit, faFileUpload, faHammer, faHouseUser, faMinus, faPlus, faSave, faStar, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faBars, faCheck, faDoorClosed, faEdit, faFileUpload, faHammer, faHouseUser, faMinus, faPlus, faSave, faStar, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -75,6 +75,6 @@ import { AgencyJobDetailsComponent } from './components/agency-job-details/agenc
 })
 export class AppModule { 
     constructor(library: FaIconLibrary){
-        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan, faCheck, faStar, faUser, faHammer);
+        library.addIcons(faHouseUser, faEdit, faPlus, faMinus, faDoorClosed, faTrash, faFileUpload, faSave, faBan, faCheck, faStar, faUser, faHammer, faBars);
     }
 }

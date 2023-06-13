@@ -17,3 +17,12 @@ input {
 .err-msg{
     color: hsl(var(--clr-accent));
 }
+
+
+@media (max-width: 45em) {
+    :host {
+      width: 100%;
+      padding: 0 1rem;
+    }
+  }
+  

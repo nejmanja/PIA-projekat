@@ -54,7 +54,7 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
   initCanvas() {
     // if workers are passed
     this.notEnoughWorkers =
-      this.started && this.workers && this.housing.numRooms > this.workers.length;
+      !this.started && this.workers && this.housing.numRooms > this.workers.length;
     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
     const ctx = canvas.getContext('2d');
     if (ctx) {

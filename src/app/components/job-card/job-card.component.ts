@@ -19,7 +19,7 @@ link!: string;
   }
 
   accept(){
-    this.jobSvc.updateStatus(this.job._id, 'active').subscribe({
+    this.jobSvc.updateStatus(this.job._id, 'starting').subscribe({
         next: (data) => {
             this.accepted.emit(this.job._id);
         },
