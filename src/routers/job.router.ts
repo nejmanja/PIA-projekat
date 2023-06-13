@@ -20,5 +20,8 @@ jobRouter
 	.route("/accept")
 	.patch((req, res) => new JobController().accept(req, res));
 jobRouter.route("/id").get((req, res) => new JobController().getOne(req, res));
+jobRouter
+	.route("/room")
+	.patch((req, res) => new JobController().finishRoom(req, res));
 
 export default jobRouter;

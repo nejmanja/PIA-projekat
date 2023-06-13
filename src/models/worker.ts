@@ -28,6 +28,12 @@ let Worker = new Schema({
         type: String,
         required: true
     },
+    jobId: {
+        type: String
+    },
+    roomInd: {
+        type: Number
+    }
 
 })
 

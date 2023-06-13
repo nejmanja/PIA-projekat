@@ -14,15 +14,21 @@ export class WorkerController {
 		});
 	};
 	updateOne = (req: express.Request, res: express.Response) => {
+		let updateBlock = {
+			name: req.body.worker.name,
+			surname: req.body.worker.surname,
+			phoneNum: req.body.worker.phoneNum,
+			email: req.body.worker.email,
+			speciality: req.body.worker.speciality,
+		};
+        // fields that aren't required
+		if (req.body.worker.roomInd != undefined)
+			updateBlock["roomInd"] = req.body.worker.roomInd;
+		if (req.body.worker.jobId != undefined)
+			updateBlock["jobId"] = req.body.worker.jobId;
 		WorkerModel.updateOne(
 			{ _id: req.body.worker._id },
-			{
-				name: req.body.worker.name,
-				surname: req.body.worker.surname,
-				phoneNum: req.body.worker.phoneNum,
-				email: req.body.worker.email,
-				speciality: req.body.worker.speciality,
-			},
+			updateBlock,
 			(err, docs) => {
 				if (err) {
 					console.log(err);
@@ -57,9 +63,9 @@ export class WorkerController {
 	};
 	removeOne = async (req: express.Request, res: express.Response) => {
 		try {
-			const result = await WorkerModel.findOneAndDelete({_id: req.query.id});
-            console.log(result);
-            await UserModel.updateOne(
+			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
+			console.log(result);
+			await UserModel.updateOne(
 				{ username: result.agency },
 				{ $inc: { workplaces: 1 } }
 			);

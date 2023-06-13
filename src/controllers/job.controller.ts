@@ -179,4 +179,21 @@ export class JobController {
 			}
 		});
 	};
+
+	finishRoom = async (req: express.Request, res: express.Response) => {
+		try {
+			let roomStatus = await JobModel.findById(req.body.id, { roomStatus: 1 });
+			roomStatus.roomStatus[parseInt(req.body.roomInd)] = true;
+
+			const result = await JobModel.updateOne(
+				{ _id: req.body.id },
+				{ roomStatus: roomStatus.roomStatus }
+			);
+
+			res.status(200).json(result);
+		} catch (err) {
+			console.log(err);
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
+	};
 }

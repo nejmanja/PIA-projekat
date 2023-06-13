@@ -184,6 +184,18 @@ class JobController {
                 }
             });
         };
+        this.finishRoom = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let roomStatus = yield job_1.default.findById(req.body.id, { roomStatus: 1 });
+                roomStatus.roomStatus[parseInt(req.body.roomInd)] = true;
+                const result = yield job_1.default.updateOne({ _id: req.body.id }, { roomStatus: roomStatus.roomStatus });
+                res.status(200).json(result);
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+            }
+        });
     }
 }
 exports.JobController = JobController;

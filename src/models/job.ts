@@ -16,7 +16,7 @@ let Job = new Schema({
         type: ObjectId,
         required: true
     },
-    status: { // requested/pending/denied/active/finished
+    status: { // requested/pending/denied/starting/started/finished
         type: String,
         required: true
     },

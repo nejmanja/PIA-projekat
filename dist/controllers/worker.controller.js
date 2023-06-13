@@ -29,13 +29,19 @@ class WorkerController {
             });
         };
         this.updateOne = (req, res) => {
-            worker_1.default.updateOne({ _id: req.body.worker._id }, {
+            let updateBlock = {
                 name: req.body.worker.name,
                 surname: req.body.worker.surname,
                 phoneNum: req.body.worker.phoneNum,
                 email: req.body.worker.email,
                 speciality: req.body.worker.speciality,
-            }, (err, docs) => {
+            };
+            // fields that aren't required
+            if (req.body.worker.roomInd != undefined)
+                updateBlock["roomInd"] = req.body.worker.roomInd;
+            if (req.body.worker.jobId != undefined)
+                updateBlock["jobId"] = req.body.worker.jobId;
+            worker_1.default.updateOne({ _id: req.body.worker._id }, updateBlock, (err, docs) => {
                 if (err) {
                     console.log(err);
                     res

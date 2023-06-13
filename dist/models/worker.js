@@ -31,6 +31,12 @@ let Worker = new Schema({
         type: String,
         required: true
     },
+    jobId: {
+        type: String
+    },
+    roomInd: {
+        type: Number
+    }
 });
 exports.default = mongoose_1.default.model('WorkerModel', Worker, 'workers');
 //# sourceMappingURL=worker.js.map
