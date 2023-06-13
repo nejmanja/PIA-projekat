@@ -27,9 +27,7 @@ export class JobsService {
     );
   }
   getOne(id: string) {
-    return this.http.get<JobOverview>(
-      `${this.uri}/jobs/id?id=${id}`
-    );
+    return this.http.get<JobOverview>(`${this.uri}/jobs/id?id=${id}`);
   }
   getAllForAgency(username: string) {
     return this.http.get<JobOverview[]>(
@@ -44,5 +42,8 @@ export class JobsService {
   }
   deleteOne(id: string) {
     return this.http.delete(`${this.uri}/jobs?id=${id}`);
+  }
+  finishRoom(id: string, roomInd: number) {
+    return this.http.patch(`${this.uri}/jobs/room`, { id, roomInd });
   }
 }

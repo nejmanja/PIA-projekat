@@ -10,9 +10,12 @@ import { Router } from '@angular/router';
 export class AgencyJobCardComponent implements OnInit {
   @Input() job!: any; // modification of the job class due to the join
   @Output() denied = new EventEmitter<string>();
+  link!: string;
   constructor(private router: Router, private jobSvc: JobsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.link = `/agencyJob/${this.job._id}`;
+  }
 
   accept() {
     this.router.navigateByUrl(`/acceptJob/${this.job._id}`);

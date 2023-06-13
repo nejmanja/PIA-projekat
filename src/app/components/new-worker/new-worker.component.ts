@@ -67,6 +67,8 @@ export class NewWorkerComponent implements OnInit {
         speciality: this.form.get('speciality').value,
         email: this.form.get('email').value,
         phoneNum: this.form.get('phoneNum').value,
+        jobId: '',
+        roomInd: -1
       })
       .subscribe({
         next: (data) => {

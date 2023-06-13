@@ -1,0 +1,22 @@
+:host{
+    width: min(90%, 90rem);
+    align-self: center;
+}
+
+.container{
+    display: grid;
+    grid-template-areas: 'form housing';
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.form{
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+}
+
+.housing{
+    grid-area: housing;
+}

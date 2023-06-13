@@ -1,4 +1,4 @@
-<a routerLink="jobs/{{job._id}}" class="card-container">
+<a [routerLink]="job.status == 'starting' || job.status == 'started' ? link : null" class="card-container">
     <h2>{{job.housingData?.address}}</h2>
     <h3>Korisnik - {{job.userData?.name}} {{job.userData?.surname}}</h3>
 </a>

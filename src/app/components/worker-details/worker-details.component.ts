@@ -68,10 +68,9 @@ export class WorkerDetailsComponent implements OnInit {
     this.editing = true;
   }
   deleteClicked(): void {
-    console.log(this.worker);
     this.workerSvc.removeOne(this.worker._id).subscribe({
       next: (data) => {
-        this.removed.emit();
+        this.removed.emit(true);
       },
       error: (err) => {
         console.log(err);
@@ -95,6 +94,8 @@ export class WorkerDetailsComponent implements OnInit {
         speciality: this.form.get('speciality').value,
         email: this.form.get('email').value,
         phoneNum: this.form.get('phoneNum').value,
+        jobId: this.worker.jobId,
+        roomInd: this.worker.roomInd
       };
       this.workerSvc.updateOne(worker).subscribe({
         next: (data) => {

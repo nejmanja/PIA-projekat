@@ -1,5 +1,5 @@
 <a
-  [routerLink]="job.status == 'active' || job.status == 'finished' ? link : null"
+  [routerLink]="job.status == 'starting' || job.status == 'started' || job.status == 'finished' ? link : null"
   class="card-container"
   [ngClass]="{
     'card-container--red': job.status == 'denied',

@@ -33,14 +33,14 @@ export class JobDetailsComponent implements OnInit {
       next: (data) => {
         this.job = data;
 
-        this.allDone = true;
-        this.job.roomStatus.forEach((status) => {
-          if (status == false) this.allDone = false;
-        });
-
         this.housingSvc.getOne(this.job.housingId).subscribe({
           next: (data) => {
             this.housing = data;
+
+            this.allDone = true;
+            for (let i = 0; i < this.housing.numRooms; i++) {
+              if (this.job.roomStatus[i] == false) this.allDone = false;
+            }
           },
           error: (err) => {
             console.log(err);
@@ -76,6 +76,7 @@ export class JobDetailsComponent implements OnInit {
 
         // let it do its thing asynchronously
         if (this.rating > 0 || this.review != '') {
+          this.reviewExists = true;
           this.reviewSvc
             .addOne({
               agency: this.job.agency,
@@ -133,14 +134,13 @@ export class JobDetailsComponent implements OnInit {
     }
   }
 
-  removeReview(){
+  removeReview() {
     this.reviewSvc.deleteOne(this.job._id).subscribe({
-            next: (data) => {
-                this.reviewExists = false;
-                this.review = '';
-                this.rating = 0;
-            }
-        }
-    )
+      next: (data) => {
+        this.reviewExists = false;
+        this.review = '';
+        this.rating = 0;
+      },
+    });
   }
 }

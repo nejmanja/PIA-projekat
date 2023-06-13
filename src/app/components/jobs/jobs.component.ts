@@ -49,7 +49,7 @@ export class JobsComponent implements OnInit {
         )
       );
     if (this.filters.active)
-      final = final.concat(this.jobs.filter((job) => job.status == 'active'));
+      final = final.concat(this.jobs.filter((job) => job.status == 'starting' || job.status == 'started'));
     if (this.filters.requested)
       final = final.concat(
         this.jobs.filter(
@@ -62,7 +62,7 @@ export class JobsComponent implements OnInit {
 
   accepted(id: string) {
     this.jobs.forEach((job) => {
-      if (job._id == id) job.status = 'active';
+      if (job._id == id) job.status = 'starting';
     });
   }
 

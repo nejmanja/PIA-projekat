@@ -7,6 +7,7 @@
 >
   Waiting for db data...
 </canvas>
+<!-- user-related editing buttons -->
 <button
   *ngIf="editable"
   class="text-button edit-button"
@@ -41,4 +42,41 @@
   (click)="setCanvasState('removeDoor')"
 >
   <fa-icon icon="door-closed"></fa-icon><fa-icon icon="minus"></fa-icon>
+</button>
+<!-- agency-related editing buttons -->
+<select
+  *ngIf="workers && !started"
+  id=""
+  class="select-input"
+  name="selectedWorker"
+  [(ngModel)]="selectedWorkerId"
+>
+  <option *ngFor="let worker of freeWorkers" [value]="worker._id">
+    {{ worker.name }} - {{ worker.speciality }}
+  </option>
+</select>
+<button
+  *ngIf="workers && !started"
+  class="text-button edit-button"
+  [ngClass]="{ 'edit-button--active': canvasState === 'addWorker' }"
+  [disabled]="!selectedWorkerId"
+  (click)="setCanvasState('addWorker')"
+>
+  <fa-icon icon="user"></fa-icon><fa-icon icon="hammer"></fa-icon>
+</button>
+<button
+  *ngIf="workers && !started"
+  class="text-button edit-button"
+  [disabled]="!allWorkersAssigned"
+  (click)="confirmWorkerAssignment()"
+>
+  <fa-icon icon="check"></fa-icon>
+</button>
+<button
+  *ngIf="started"
+  class="text-button edit-button"
+  [ngClass]="{ 'edit-button--active': canvasState === 'finishRoom' }"
+  (click)="setCanvasState('finishRoom')"
+>
+  <fa-icon icon="hammer"></fa-icon><fa-icon icon="check"></fa-icon>
 </button>

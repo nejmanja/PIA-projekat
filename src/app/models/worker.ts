@@ -6,4 +6,7 @@ export class Worker{
     email: string;
     phoneNum: string;
     speciality: string;
+    // where is he working?
+    jobId: string; // which job
+    roomInd: number; // room index
 }

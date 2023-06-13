@@ -1,15 +1,17 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Housing } from 'src/app/models/housing';
-import { HousingService } from 'src/app/services/housing.service';
+import { Worker } from 'src/app/models/worker';
 
 @Component({
   selector: 'app-house-drawing',
@@ -20,24 +22,42 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
   @ViewChild('drawing', { static: true }) canvas!: ElementRef;
   @Input() housing!: Housing;
   @Input() editable: boolean = false;
+  @Input() started: boolean = false;
   @Input() progress: boolean[] = null;
+  @Input() workers: Worker[] = null;
+  freeWorkers!: Worker[];
+  selectedWorkerId: string; // from the UI
+  // tell the parent that workers have been assigned and job can now start
+  @Output() workersAssigned = new EventEmitter<boolean>(); 
+  // tell parent that a room is finished
+  @Output() roomFinished = new EventEmitter<number>();
   GRID_SIZE: number = 50; // in pixels
   GRID_BEGIN: number = this.GRID_SIZE; // offset the drawing from the edge
   beginRoom: boolean = false;
+  notEnoughWorkers: boolean = false;
+  allWorkersAssigned: boolean = false;
   beginX: number = 0;
   beginY: number = 0;
   canvasState: string = '';
-  constructor(private route: ActivatedRoute) {}
 
+  constructor(private route: ActivatedRoute) {}
+  ngOnInit(): void {}
+
+  // detect DB load
   ngOnChanges(changes: SimpleChanges) {
     if (changes['housing']) this.refreshCanvas();
+    if (changes['workers']){
+        this.freeWorkers = this.workers //?.filter(worker => !worker.jobId);
+    }
   }
 
   initCanvas() {
+    // if workers are passed
+    this.notEnoughWorkers =
+      this.started && this.workers && this.housing.numRooms > this.workers.length;
     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      console.log(canvas.width, canvas.height);
       const WIDTH = canvas.width;
       const HEIGHT = canvas.height;
 
@@ -50,10 +70,12 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
         if (this.progress != null) {
           ctx.fillStyle =
             this.progress[ind] == true
-              ? 'rgba(70, 185, 131, 127)'
-              : 'rgba(213, 42, 42, 127)';
+              ? 'rgba(70, 185, 131, 0.5)'
+              : 'rgba(213, 42, 42, 0.5)';
         }
-        if (this.progress != null)
+        if (this.notEnoughWorkers) ctx.fillStyle = 'rgba(252,215,54, 0.5)';
+
+        if (this.progress != null || this.notEnoughWorkers)
           ctx.fillRect(
             this.GRID_BEGIN + rect.x * this.GRID_SIZE,
             this.GRID_BEGIN + rect.y * this.GRID_SIZE,
@@ -76,6 +98,30 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
           45
         );
       });
+
+      if(this.workers){
+        ctx.fillStyle = 'white';
+        const fontSz = 16;
+        ctx.font = `${fontSz}px Arial`;
+
+        // how many worker in every room?
+        let numNames = Array<number>(this.housing?.numRooms);
+        for (let i = 0; i < numNames.length; i++) {
+            numNames[i] = 1;
+        }
+        this.workers.forEach((worker) => {
+            if(worker.roomInd >= 0){
+                const room = this.housing.rooms[worker.roomInd];
+                const x = room.x * this.GRID_SIZE + this.GRID_BEGIN;
+                const y = room.y * this.GRID_SIZE + this.GRID_BEGIN + numNames[worker.roomInd]*(fontSz + 2);
+                numNames[worker.roomInd]++;
+                ctx.fillText(worker.name + ' - ' + worker.speciality,x,y);
+            }
+        })
+
+        // if all rooms have a worker, the agency can mark rooms as finished
+        this.allWorkersAssigned = !numNames.some(num => num == 1);
+      }
     }
   }
 
@@ -132,6 +178,17 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
         1
       ),
       15
+    );
+  }
+
+  private xToMeterFloat(pos) {
+    return (
+      ((800 / this.GRID_SIZE) * pos) / this.canvas.nativeElement.clientWidth
+    );
+  }
+  private yToMeterFloat(pos) {
+    return (
+      ((600 / this.GRID_SIZE) * pos) / this.canvas.nativeElement.clientHeight
     );
   }
 
@@ -200,8 +257,15 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
         this.addRoomHover(event);
         break;
       case 'removeRoom':
+        this.highlightRoom(event);
         break;
       case 'addDoor':
+        break;
+      case 'addWorker':
+        this.highlightRoom(event);
+        break;
+      case 'finishRoom':
+        this.highlightRoom(event);
         break;
     }
   }
@@ -223,6 +287,15 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
       case 'removeDoor':
         this.removeDoorClick(event);
         this.refreshCanvas();
+        break;
+      case 'addWorker':
+        this.addWorkerClick(event);
+        this.refreshCanvas();
+        break;
+      case 'finishRoom':
+        this.finishRoomClick(event);
+        this.refreshCanvas();
+        break;
     }
   }
 
@@ -292,14 +365,8 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
     // nothing to remove
     if (this.housing.numRooms <= 0) return;
     // in "meters", but floating point
-    let posX =
-      ((800 / this.GRID_SIZE) * event.offsetX) /
-        this.canvas.nativeElement.clientWidth -
-      1;
-    let posY =
-      ((600 / this.GRID_SIZE) * event.offsetY) /
-        this.canvas.nativeElement.clientHeight -
-      1;
+    let posX = this.xToMeterFloat(event.offsetX) - 1;
+    let posY = this.yToMeterFloat(event.offsetY) - 1;
 
     this.housing.rooms = this.housing.rooms.filter((room) => {
       if (
@@ -361,7 +428,6 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
       ((600 / this.GRID_SIZE) * event.offsetY) /
         this.canvas.nativeElement.clientHeight -
       1;
-    console.log(x, y);
     const { x: posX, y: posY } = this.posToWall(x, y);
     if (posX < 0) return;
     if (!this.posHasDoor(posX, posY))
@@ -391,6 +457,35 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
       );
   }
 
+  addWorkerClick(event) {
+    let x = this.xToMeterFloat(event.offsetX) - 1;
+    let y = this.yToMeterFloat(event.offsetY) - 1;
+
+    const roomInd = this.housing.rooms.findIndex(
+        (room) =>
+          x < room.x + room.w && x > room.x && y < room.y + room.h && y > room.y
+      );
+    
+    if(roomInd >= 0){
+        let worker = this.workers.find(worker => worker._id == this.selectedWorkerId);
+        worker.roomInd = roomInd; // pass-by-ref, updates the parent well
+    }
+  }
+  finishRoomClick(event){
+    let x = this.xToMeterFloat(event.offsetX) - 1;
+    let y = this.yToMeterFloat(event.offsetY) - 1;
+
+    const roomInd = this.housing.rooms.findIndex(
+        (room) =>
+          x < room.x + room.w && x > room.x && y < room.y + room.h && y > room.y
+      );
+    
+    if(roomInd >= 0){
+        this.progress[roomInd] = true;
+        this.roomFinished.emit(roomInd);
+    }
+  }
+
   addRoomHover(event) {
     if (!this.beginRoom) return;
     // in "meters"
@@ -406,5 +501,32 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {}
+  highlightRoom(event) {
+    let x = this.xToMeterFloat(event.offsetX) - 1;
+    let y = this.yToMeterFloat(event.offsetY) - 1;
+
+    const canvas: HTMLCanvasElement = this.canvas.nativeElement;
+    this.refreshCanvas();
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.fillStyle = 'rgb(255, 255, 255, 0.25)';
+
+      const room = this.housing.rooms.find(
+        (room) =>
+          x < room.x + room.w && x > room.x && y < room.y + room.h && y > room.y
+      );
+      if (room)
+        ctx.fillRect(
+          room.x * this.GRID_SIZE + this.GRID_BEGIN,
+          room.y * this.GRID_SIZE + this.GRID_BEGIN,
+          room.w * this.GRID_SIZE,
+          room.h * this.GRID_SIZE
+        );
+      else this.refreshCanvas();
+    }
+  }
+
+  confirmWorkerAssignment(){
+    this.workersAssigned.emit(true);
+  }
 }
