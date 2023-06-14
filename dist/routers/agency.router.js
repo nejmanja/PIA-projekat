@@ -17,5 +17,8 @@ agencyRouter
 agencyRouter
     .route("/")
     .patch((req, res) => new agency_controller_1.AgencyController().updateOne(req, res));
+agencyRouter
+    .route("/")
+    .delete((req, res) => new agency_controller_1.AgencyController().deleteOne(req, res));
 exports.default = agencyRouter;
 //# sourceMappingURL=agency.router.js.map

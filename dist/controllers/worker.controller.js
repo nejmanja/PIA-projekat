@@ -63,6 +63,24 @@ class WorkerController {
             });
             try {
                 yield worker.save();
+                res.status(200).json({ msg: "OK" });
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+            }
+        });
+        this.addOneWithDecrement = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const worker = new worker_1.default({
+                agency: req.body.worker.agency,
+                name: req.body.worker.name,
+                surname: req.body.worker.surname,
+                speciality: req.body.worker.speciality,
+                email: req.body.worker.email,
+                phoneNum: req.body.worker.phoneNum,
+            });
+            try {
+                yield worker.save();
                 yield user_1.default.updateOne({ username: req.body.worker.agency }, { $inc: { workplaces: -1 } });
                 res.status(200).json({ msg: "OK" });
             }
@@ -72,6 +90,17 @@ class WorkerController {
             }
         });
         this.removeOne = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield worker_1.default.findOneAndDelete({ _id: req.query.id });
+                console.log(result);
+                res.status(200).json({ msg: "OK" });
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+            }
+        });
+        this.removeOneWithIncrement = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield worker_1.default.findOneAndDelete({ _id: req.query.id });
                 console.log(result);

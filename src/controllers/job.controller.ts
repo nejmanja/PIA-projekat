@@ -124,6 +124,38 @@ export class JobController {
 		}
 	};
 
+	getAll = async (req: express.Request, res: express.Response) => {
+		try {
+			let docs = await JobModel.aggregate([
+				{
+					$lookup: {
+						from: "housing",
+						localField: "housingId",
+						foreignField: "_id",
+						as: "housingData",
+					},
+				},
+				{
+					$unwind: "$housingData",
+				},
+				{
+					$project: {
+						owner: 1,
+						agency: 1,
+						status: 1,
+						housingId: 1,
+						compensation: 1,
+						"housingData.address": 1,
+					},
+				},
+			]);
+
+			res.status(200).json(docs);
+		} catch (err) {
+			console.log(err);
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
+	};
 	updateStatus = (req: express.Request, res: express.Response) => {
 		JobModel.updateOne(
 			{ _id: req.body.id },

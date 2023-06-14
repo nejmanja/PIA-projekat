@@ -10,7 +10,19 @@ class UserController {
         this.login = (req, res) => {
             let username = req.body.username;
             let password = req.body.password;
-            user_1.default.findOne({ username: username, password: password }, (err, user) => {
+            user_1.default.findOne({ username: username, password: password, type: { $ne: -1 } }, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    res.status(404).json({ msg: "Korisnik ne postoji!" });
+                }
+                else
+                    res.status(200).json(user);
+            });
+        };
+        this.adminLogin = (req, res) => {
+            let username = req.body.username;
+            let password = req.body.password;
+            user_1.default.findOne({ username: username, password: password, type: -1 }, (err, user) => {
                 if (err) {
                     console.log(err);
                     res.status(404).json({ msg: "Korisnik ne postoji!" });
@@ -48,6 +60,7 @@ class UserController {
                     agencyNum: req.body.agencyNum,
                     desc: req.body.desc,
                     profilePic: req.body.profilePic,
+                    workplaces: 0
                 });
             }
             user.save((err, dbres) => {
@@ -93,7 +106,9 @@ class UserController {
             user_1.default.findOne({ username: req.query.username, type: 0 }, { password: 0 }, (err, doc) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
                 }
                 else {
                     res.status(200).json(doc);
@@ -103,18 +118,18 @@ class UserController {
         this.updateOne = (req, res) => {
             let updateBlock = {};
             if (req.body.name != null)
-                updateBlock['name'] = req.body.name;
+                updateBlock["name"] = req.body.name;
             if (req.body.surname != null)
-                updateBlock['surname'] = req.body.surname;
+                updateBlock["surname"] = req.body.surname;
             if (req.body.email != null)
-                updateBlock['email'] = req.body.email;
+                updateBlock["email"] = req.body.email;
             if (req.body.phoneNum != null)
-                updateBlock['phoneNum'] = req.body.phoneNum;
+                updateBlock["phoneNum"] = req.body.phoneNum;
             if (req.body.email != null)
-                updateBlock['email'] = req.body.email;
+                updateBlock["email"] = req.body.email;
             if (req.body.profilePic != null)
-                updateBlock['profilePic'] = req.body.profilePic;
-            user_1.default.findOneAndUpdate({ username: req.query.username }, { "$set": updateBlock }, (err, docs) => {
+                updateBlock["profilePic"] = req.body.profilePic;
+            user_1.default.findOneAndUpdate({ username: req.query.username }, { $set: updateBlock }, (err, docs) => {
                 if (docs == null || err) {
                     console.log(err);
                     res
@@ -123,6 +138,30 @@ class UserController {
                 }
                 else {
                     console.log(docs);
+                    res.status(200).json(docs);
+                }
+            });
+        };
+        this.getAll = (req, res) => {
+            user_1.default.find({ type: 0 }).exec((err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(docs);
+                }
+            });
+        };
+        this.deleteOne = (req, res) => {
+            user_1.default.deleteOne({ type: 0, username: req.query.username }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
                     res.status(200).json(docs);
                 }
             });

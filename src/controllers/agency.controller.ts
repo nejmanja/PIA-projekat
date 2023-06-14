@@ -77,4 +77,20 @@ export class AgencyController {
 			}
 		);
     }
+
+    deleteOne = (req: express.Request, res: express.Response) => {
+		UserModel.deleteOne(
+			{ type: 1, username: req.query.username },
+			(err, docs) => {
+				if (err) {
+					console.log(err);
+					res
+						.status(500)
+						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+				} else {
+					res.status(200).json(docs);
+				}
+			}
+		);
+	};
 }

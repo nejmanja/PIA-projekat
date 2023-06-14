@@ -26,5 +26,8 @@ jobRouter.route("/id").get((req, res) => new job_controller_1.JobController().ge
 jobRouter
     .route("/room")
     .patch((req, res) => new job_controller_1.JobController().finishRoom(req, res));
+jobRouter
+    .route("/all")
+    .get((req, res) => new job_controller_1.JobController().getAll(req, res));
 exports.default = jobRouter;
 //# sourceMappingURL=job.router.js.map

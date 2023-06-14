@@ -16,5 +16,8 @@ agencyRouter
 agencyRouter
 	.route("/")
 	.patch((req, res) => new AgencyController().updateOne(req, res));
+agencyRouter
+	.route("/")
+	.delete((req, res) => new AgencyController().deleteOne(req, res));
 
 export default agencyRouter;

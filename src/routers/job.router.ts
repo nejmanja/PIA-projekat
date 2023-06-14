@@ -24,4 +24,8 @@ jobRouter
 	.route("/room")
 	.patch((req, res) => new JobController().finishRoom(req, res));
 
+jobRouter
+	.route("/all")
+	.get((req, res) => new JobController().getAll(req, res));
+
 export default jobRouter;

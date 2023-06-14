@@ -68,6 +68,19 @@ class AgencyController {
                 }
             });
         };
+        this.deleteOne = (req, res) => {
+            user_1.default.deleteOne({ type: 1, username: req.query.username }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(docs);
+                }
+            });
+        };
     }
 }
 exports.AgencyController = AgencyController;

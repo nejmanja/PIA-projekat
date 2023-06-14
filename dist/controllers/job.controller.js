@@ -136,6 +136,38 @@ class JobController {
                 res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
             }
         });
+        this.getAll = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let docs = yield job_1.default.aggregate([
+                    {
+                        $lookup: {
+                            from: "housing",
+                            localField: "housingId",
+                            foreignField: "_id",
+                            as: "housingData",
+                        },
+                    },
+                    {
+                        $unwind: "$housingData",
+                    },
+                    {
+                        $project: {
+                            owner: 1,
+                            agency: 1,
+                            status: 1,
+                            housingId: 1,
+                            compensation: 1,
+                            "housingData.address": 1,
+                        },
+                    },
+                ]);
+                res.status(200).json(docs);
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+            }
+        });
         this.updateStatus = (req, res) => {
             job_1.default.updateOne({ _id: req.body.id }, { status: req.body.status }, (err, doc) => {
                 if (err) {

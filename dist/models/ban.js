@@ -5,19 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-let WorkplaceRequest = new Schema({
-    reqType: {
+let Ban = new Schema({
+    username: {
         type: String,
         required: true
     },
-    agency: {
+    email: {
         type: String,
         required: true
     },
-    numWorkplaces: {
-        type: Number,
-        required: true
-    }
 });
-exports.default = mongoose_1.default.model('WorkplaceRequestModel', WorkplaceRequest, 'requests');
-//# sourceMappingURL=workplace-request.js.map
+exports.default = mongoose_1.default.model('BanModel', Ban, 'bans');
+//# sourceMappingURL=ban.js.map

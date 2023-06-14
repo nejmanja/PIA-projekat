@@ -40,7 +40,25 @@ export class WorkerController {
 		);
 	};
 
-	addOne = async (req: express.Request, res: express.Response) => {
+    addOne = async (req: express.Request, res: express.Response) => {
+		const worker = new WorkerModel({
+			agency: req.body.worker.agency,
+			name: req.body.worker.name,
+			surname: req.body.worker.surname,
+			speciality: req.body.worker.speciality,
+			email: req.body.worker.email,
+			phoneNum: req.body.worker.phoneNum,
+		});
+		try {
+			await worker.save();
+			res.status(200).json({ msg: "OK" });
+		} catch (err) {
+			console.log(err);
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
+	};
+
+	addOneWithDecrement = async (req: express.Request, res: express.Response) => {
 		const worker = new WorkerModel({
 			agency: req.body.worker.agency,
 			name: req.body.worker.name,
@@ -62,6 +80,17 @@ export class WorkerController {
 		}
 	};
 	removeOne = async (req: express.Request, res: express.Response) => {
+		try {
+			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
+			console.log(result);
+			res.status(200).json({ msg: "OK" });
+		} catch (err) {
+			console.log(err);
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
+	};
+    
+	removeOneWithIncrement = async (req: express.Request, res: express.Response) => {
 		try {
 			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
 			console.log(result);
