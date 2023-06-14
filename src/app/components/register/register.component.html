@@ -1,4 +1,8 @@
-<h1>Registracija</h1>
+<h1 [ngSwitch]="adminType">
+    <span *ngSwitchCase="null">Registracija</span>
+    <span *ngSwitchCase="'user'">Dodavanje novog korisnika</span>
+    <span *ngSwitchCase="'agency'">Dodavanje nove agencije</span>
+</h1>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label for="username">Korisničko ime: </label>
   <div class="form-input-container">
@@ -64,7 +68,7 @@
     />
     <p *ngIf="emailErr" class="form-input-err-msg">Uneti validan email!</p>
   </div>
-  <div class="form-input-container">
+  <div *ngIf="adminType == null" class="form-input-container">
     <label for="type">Vrsta korisnika: </label>
     <div id="type" class="radio-button-group form-control">
       <label class="radio-button-container">
@@ -102,7 +106,7 @@
     </p>
   </div>
   <div
-    *ngIf="type.value === 'klijent'"
+    *ngIf="type.value === 'klijent' || adminType == 'user'"
     formGroupName="client"
     class="form-group"
   >
@@ -130,7 +134,7 @@
     </div>
   </div>
   <div
-    *ngIf="type.value === 'agencija'"
+    *ngIf="type.value === 'agencija' || adminType == 'agency'"
     formGroupName="agency"
     class="form-group"
   >

@@ -1,0 +1,10 @@
+:host{
+    align-self: center;
+    width: min(50%, 50rem);
+}
+
+@media(max-width: 45em){
+    :host{
+        width: 90%;
+    }   
+}

@@ -6,15 +6,23 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class UserService {
-  uri = 'http://localhost:4000/';
+  uri = 'http://localhost:4000';
 
   constructor(private http: HttpClient) {}
 
   getOne(username: string) {
-    return this.http.get<User>(`${this.uri}users?username=${username}`);
+    return this.http.get<User>(`${this.uri}/users?username=${username}`);
   }
 
   updateOne(username:string, modifiedUser){
-    return this.http.patch(`${this.uri}users?username=${username}`, modifiedUser);
+    return this.http.patch(`${this.uri}/users?username=${username}`, modifiedUser);
+  }
+
+  getAll(){
+    return this.http.get<User[]>(`${this.uri}/users/all`);
+  }
+
+  deleteOne(username:string){
+    return this.http.delete(`${this.uri}/users?username=${username}`);
   }
 }

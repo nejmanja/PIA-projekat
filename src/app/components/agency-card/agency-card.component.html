@@ -1,4 +1,4 @@
-<a routerLink="agency/{{agency.username}}" class="card-container">
+<a [routerLink]="link" class="card-container">
   <img
     [src]="agency.profilePic != '' ? agency.profilePic : 'assets/agency-default.jpg'"
     class="card-img"
@@ -6,3 +6,5 @@
   <h2 class="card-title">{{ agency.agencyName }}</h2>
   <p class="card-desc">{{ agency.desc }}</p>
 </a>
+<button *ngIf="editable" class="text-button text-button--red" (click)="remove()"><fa-icon icon="ban"></fa-icon></button>
+<button *ngIf="editable" [routerLink]="'/editWorkers/' + agency.username" class="text-button text-button--edit"><fa-icon icon="user"></fa-icon><fa-icon icon="hammer"></fa-icon></button>

@@ -9,6 +9,7 @@
     <button *ngIf="userType != null" class="menuButton" (click)="toggleMenu()"><fa-icon icon="bars"></fa-icon></button>
     <div class="navbar-right">
         <a *ngIf="userType == null || userType == undefined" routerLink="/login" class="navbar-link"> Login </a>
+        <!-- user -->
         <div *ngIf="userType == 0" class="navbar-menu" [ngClass]="{'active': menuVisible}">
             <a routerLink="/userProfile" class="navbar-link">Profil</a>
             <a routerLink="/housing" class="navbar-link">Objekti</a>
@@ -17,11 +18,20 @@
             <a routerLink="/changePassword" class="navbar-link">Promena lozinke</a>
             <a routerLink="/logout" class="navbar-link">Logout</a>
         </div>
+        <!-- agency -->
         <div *ngIf="userType == 1" class="navbar-menu" [ngClass]="{'active': menuVisible}">
             <a routerLink="/agencyProfile" class="navbar-link">Profil</a>
             <a routerLink="/workers" class="navbar-link">Radnici</a>
             <a routerLink="/agencyJobs" class="navbar-link">Poslovi</a>
             <a routerLink="/changePassword" class="navbar-link">Promena lozinke</a>
+            <a routerLink="/logout" class="navbar-link">Logout</a>
+        </div>
+        <!-- admin -->
+        <div *ngIf="userType == -1" class="navbar-menu" [ngClass]="{'active': menuVisible}">
+            <a routerLink="/users" class="navbar-link">Korisnici</a>
+            <a routerLink="/registerRequests" class="navbar-link">Zahtevi za registracijom</a>
+            <a routerLink="/workplaceRequests" class="navbar-link">Zahtevi za radnim mestima</a>
+            <a routerLink="/adminJobs" class="navbar-link">Poslovi</a>
             <a routerLink="/logout" class="navbar-link">Logout</a>
         </div>
     </div>

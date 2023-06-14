@@ -23,4 +23,8 @@ export class AgencyService {
   updateOne(username:string, modifiedAgency){
     return this.http.patch(`${this.uri}/agencies?username=${username}`, modifiedAgency);
   }
+
+  deleteOne(username:string){
+    return this.http.delete(`${this.uri}/agencies?username=${username}`);
+  }
 }

@@ -1,0 +1,9 @@
+<a routerLink="/editUser/{{ user.username }}" class="card-container">
+  <img
+    [src]="user.profilePic != '' ? user.profilePic : 'assets/user-default.jpg'"
+    class="card-img"
+  />
+  <h2 class="card-title">{{ user.username }}</h2>
+  <p class="card-desc">{{ user.name }} {{ user.surname }}</p>
+</a>
+<button class="text-button text-button--red" (click)="remove()"><fa-icon icon="ban"></fa-icon></button>

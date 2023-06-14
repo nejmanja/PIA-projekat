@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Agency } from 'src/app/models/agency';
 import { AgencyService } from 'src/app/services/agency.service';
 
@@ -39,9 +39,19 @@ export class AgencyProfileComponent implements OnInit {
     profilePic: new FormControl(''),
   });
 
-  constructor(private agencySvc: AgencyService, private router: Router) {
-    const username = JSON.parse(sessionStorage.getItem('user')).username;
-    agencySvc.getOneFull(username).subscribe({
+  constructor(
+    private agencySvc: AgencyService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    const username =
+      this.route.snapshot.params['username'] != null
+        ? this.route.snapshot.params['username']
+        : JSON.parse(sessionStorage.getItem('user')).username;
+
+    this.agencySvc.getOneFull(username).subscribe({
       next: (usr) => {
         this.agency = usr;
         // set default form values upon fetching from DB
@@ -61,8 +71,6 @@ export class AgencyProfileComponent implements OnInit {
       },
     });
   }
-
-  ngOnInit(): void {}
 
   toggleEditable(prop: string) {
     this.editing[prop] = !this.editing[prop];
@@ -126,12 +134,12 @@ export class AgencyProfileComponent implements OnInit {
       email: newEmail != this.agency.email ? newEmail : null,
       phoneNum: newPhone != this.agency.phoneNum ? newPhone : null,
       profilePic: this.imgData != this.agency.profilePic ? this.imgData : null,
-      workplaces: null
+      workplaces: null,
     };
     console.log('Submitted!');
     this.agencySvc
       .updateOne(
-        JSON.parse(sessionStorage.getItem('user')).username,
+        this.agency.username,
         updatedAgency
       )
       .subscribe({

@@ -1,0 +1,32 @@
+<div *ngFor="let req of requests" class="req-card">
+  <div *ngIf="req.type == 0" class="user-req">
+    <h1>
+      Korisnik <em>{{ req.username }}</em>
+    </h1>
+    <img
+      [src]="req.profilePic != '' ? req.profilePic : 'assets/user-default.jpg'"
+    />
+    <p class="email">{{ req.email }}</p>
+    <p class="phone">{{ req.phoneNum }}</p>
+    <p class="name">{{ req.name }} {{ req.surname }}</p>
+  </div>
+
+  <div *ngIf="req.type == 1" class="agency-req">
+    <h1>
+      Agencija <em>{{ req.username }}</em>
+    </h1>
+    <img
+      [src]="
+        req.profilePic != '' ? req.profilePic : 'assets/agency-default.jpg'
+      "
+    />
+    <p class="email">{{ req.email }}</p>
+    <p class="phone">{{ req.phoneNum }}</p>
+    <p class="name">{{ req.agencyName }}</p>
+    <p class="address">{{ req.country }}, {{ req.city }}, {{ req.street }}</p>
+    <p class="num">{{ req.agencyNum }}</p>
+    <p class="desc">{{ req.desc }}</p>
+  </div>
+  <button (click)="approve(req.username)" class="text-button text-button--green"><fa-icon icon="check"></fa-icon></button>
+  <button (click)="ban(req.username)" class="text-button text-button--red"><fa-icon icon="ban"></fa-icon></button>
+</div>

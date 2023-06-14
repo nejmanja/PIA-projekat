@@ -205,6 +205,22 @@ body {
     grid-auto-rows: 8rem;
 }
 
+
+.add-card{
+    color: inherit;
+    text-decoration: none;
+    background-color: hsl(var(--clr-panel));
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--fs-800);
+}
+
+.add-card:hover, .add-card:focus, .add-card:active{
+    outline: 2px solid hsl(var(--clr-accent));
+}
+
 @media (max-width: 70em) {
     .content-grid, .content-grid--small{
         grid-template-columns: 1fr 1fr;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit {
   user!: User;
-  imgData: string = ''; pfpErr: boolean = false;
+  imgData: string = '';
+  pfpErr: boolean = false;
   backendErr: string = '';
   editing = {
     name: false,
@@ -29,12 +30,21 @@ export class UserProfileComponent implements OnInit {
       Validators.pattern(/^06[0-9]{7,8}$/),
       Validators.required,
     ]),
-    profilePic: new FormControl('')
+    profilePic: new FormControl(''),
   });
 
-  constructor(private userSvc: UserService, private router: Router) {
-    const username = JSON.parse(sessionStorage.getItem('user')).username;
-    userSvc.getOne(username).subscribe({
+  constructor(
+    private userSvc: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    const username =
+      this.route.snapshot.params['username'] != null
+        ? this.route.snapshot.params['username']
+        : JSON.parse(sessionStorage.getItem('user')).username;
+    this.userSvc.getOne(username).subscribe({
       next: (usr) => {
         this.user = usr;
         // set default form values upon fetching from DB
@@ -50,8 +60,6 @@ export class UserProfileComponent implements OnInit {
       },
     });
   }
-
-  ngOnInit(): void {}
 
   toggleEditable(prop: string) {
     this.editing[prop] = !this.editing[prop];
@@ -93,36 +101,47 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit() {
-      const newName = this.form.get('name').value;
-      const newSurname = this.form.get('surname').value;
-      const newEmail = this.form.get('email').value;
-      const newPhone = this.form.get('phone').value;
-      // send only the data that actually changed, especially importnat for pfp
+    const newName = this.form.get('name').value;
+    const newSurname = this.form.get('surname').value;
+    const newEmail = this.form.get('email').value;
+    const newPhone = this.form.get('phone').value;
+    // send only the data that actually changed, especially importnat for pfp
     const updatedUser = {
-        name: newName != this.user.name ? newName : null,
-        surname: newSurname != this.user.surname ? newSurname : null,
-        email: newEmail != this.user.email ? newEmail : null,
-        phone: newPhone != this.user.phoneNum ? newPhone : null,
-        profilePic: this.imgData != this.user.profilePic ? this.imgData : null
-    }
-    console.log("Submitted!");
-    this.userSvc.updateOne(JSON.parse(sessionStorage.getItem('user')).username, updatedUser).subscribe({
+      name: newName != this.user.name ? newName : null,
+      surname: newSurname != this.user.surname ? newSurname : null,
+      email: newEmail != this.user.email ? newEmail : null,
+      phone: newPhone != this.user.phoneNum ? newPhone : null,
+      profilePic: this.imgData != this.user.profilePic ? this.imgData : null,
+    };
+    console.log('Submitted!');
+    this.userSvc
+      .updateOne(
+        this.user.username,
+        updatedUser
+      )
+      .subscribe({
         next: (data) => {
-            // update user data locally too, no need to fetch from db
-            this.user.name = newName;
-            this.user.surname = newSurname;
-            this.user.email = newEmail;
-            this.user.phoneNum = newPhone;
-            this.user.profilePic = this.imgData;
-            this.form.get('name').setValue(this.user.name);
-            this.form.get('surname').setValue(this.user.surname);
-            this.form.get('email').setValue(this.user.email);
-            this.form.get('phone').setValue(this.user.phoneNum);
-            this.editing = {name: false, surname: false, email: false, phone: false, profilePic: false}
+          // update user data locally too, no need to fetch from db
+          this.user.name = newName;
+          this.user.surname = newSurname;
+          this.user.email = newEmail;
+          this.user.phoneNum = newPhone;
+          this.user.profilePic = this.imgData;
+          this.form.get('name').setValue(this.user.name);
+          this.form.get('surname').setValue(this.user.surname);
+          this.form.get('email').setValue(this.user.email);
+          this.form.get('phone').setValue(this.user.phoneNum);
+          this.editing = {
+            name: false,
+            surname: false,
+            email: false,
+            phone: false,
+            profilePic: false,
+          };
         },
         error: (err) => {
-            this.backendErr = err.error['msg'];
-        }
-    })
+          this.backendErr = err.error['msg'];
+        },
+      });
   }
 }

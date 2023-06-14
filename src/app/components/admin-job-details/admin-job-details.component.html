@@ -1,0 +1,7 @@
+<h1>
+  Pregled posla između korisnika <em>{{ job?.owner }}</em> i agencije <em>{{ job?.agency }}</em>
+</h1>
+<app-house-drawing
+  [housing]="housing"
+  [progress]="job?.roomStatus"
+></app-house-drawing>

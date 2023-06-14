@@ -32,7 +32,13 @@ import { AgencyJobCardComponent } from './components/agency-job-card/agency-job-
 import { AcceptJobComponent } from './components/accept-job/accept-job.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { AgencyJobDetailsComponent } from './components/agency-job-details/agency-job-details.component';
-
+import { UsersComponent } from './components/users/users.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
+import { RegistrationRequestsComponent } from './components/registration-requests/registration-requests.component';
+import { WorkplaceRequestsComponent } from './components/workplace-requests/workplace-requests.component';
+import { AdminJobsComponent } from './components/admin-jobs/admin-jobs.component';
+import { AdminJobCardComponent } from './components/admin-job-card/admin-job-card.component';
+import { AdminJobDetailsComponent } from './components/admin-job-details/admin-job-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +67,13 @@ import { AgencyJobDetailsComponent } from './components/agency-job-details/agenc
     AcceptJobComponent,
     JobDetailsComponent,
     AgencyJobDetailsComponent,
+    UsersComponent,
+    UserCardComponent,
+    RegistrationRequestsComponent,
+    WorkplaceRequestsComponent,
+    AdminJobsComponent,
+    AdminJobCardComponent,
+    AdminJobDetailsComponent
   ],
   imports: [
     BrowserModule,

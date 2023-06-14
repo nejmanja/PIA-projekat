@@ -7,7 +7,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { LoginSignupService } from 'src/app/services/login-signup.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,12 +15,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  // if the admin is accessing it, adapt the form
+  adminType: string = null;
+
   constructor(
     private loginSignupSvc: LoginSignupService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.data.subscribe({
+      next: (data) => {
+        if (data['type'] != null) {
+          this.adminType = data['type'] == 0 ? 'user' : 'agency';
+          this.registerForm.patchValue({
+            type: this.adminType == 'user' ? 'klijent' : 'agencija',
+          });
+        }
+      },
+    });
+  }
 
   createPasswordValidator() {
     return (group: AbstractControl): ValidationErrors | null => {
@@ -194,7 +209,7 @@ export class RegisterComponent implements OnInit {
   backendErr: string = '';
   onSubmit() {
     let user;
-    if (this.type.value == 'klijent') {
+    if (this.type.value == 'klijent' || this.adminType == 'user') {
       user = {
         username: this.username.value,
         password: this.password.value,
@@ -221,21 +236,31 @@ export class RegisterComponent implements OnInit {
         desc: this.desc.value,
       };
     }
-
-    console.log(this.imgData);
-
-    this.loginSignupSvc.register(user).subscribe({
-      next: (resp) => {
-        if (resp.status === 200) {
-          console.log('Success!');
-          this.router.navigate(['/registerSuccess']);
-        }
-      },
-      error: (err) => {
-        // separate error handler :o
-        this.backendErr = err.error['msg'];
-      },
-    });
+    if (this.adminType != null)
+      this.loginSignupSvc.addOne(user).subscribe({
+        next: (resp) => {
+          if (resp.status === 200) {
+            console.log('Success!');
+            this.router.navigate(['/users']);
+          }
+        },
+        error: (err) => {
+          // separate error handler :o
+          this.backendErr = err.error['msg'];
+        },
+      });
+    else
+      this.loginSignupSvc.register(user).subscribe({
+        next: (resp) => {
+          if (resp.status === 200) {
+            this.router.navigate(['/registerSuccess']);
+          }
+        },
+        error: (err) => {
+          // separate error handler :o
+          this.backendErr = err.error['msg'];
+        },
+      });
   }
 
   pfpErr: boolean = false;

@@ -1,7 +1,7 @@
 <h1>Pregled osoblja:</h1>
 <div>
   <h2>Dostupno radnih mesta: {{ agency?.workplaces }}</h2>
-  <form *ngIf="agency.workplaces == 0" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form *ngIf="agency.workplaces == 0 && !admin" [formGroup]="form" (ngSubmit)="onSubmit()">
     Dodaj još
     <input
       type="number"
@@ -34,5 +34,5 @@
   >
     <fa-icon icon="plus"></fa-icon>
   </button>
-  <app-new-worker *ngIf="adding" (done)="doneAdding()"></app-new-worker>
+  <app-new-worker [username]="agency?.username" *ngIf="adding" (done)="doneAdding()"></app-new-worker>
 </div>

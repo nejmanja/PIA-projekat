@@ -12,14 +12,13 @@
 
     text-decoration: none;
     color: hsl(var(--clr-white));
-    transition: border-radius 200ms ease-in-out;
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
 }
 
 .housing-card:hover, .housing-card:focus, .housing-card:active{
-    border-radius: 15px;
+    outline: 2px solid hsl(var(--clr-accent));
 }
 
 h2{

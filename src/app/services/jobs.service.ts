@@ -46,4 +46,8 @@ export class JobsService {
   finishRoom(id: string, roomInd: number) {
     return this.http.patch(`${this.uri}/jobs/room`, { id, roomInd });
   }
+
+  getAll() {
+    return this.http.get<JobOverview[]>(`${this.uri}/jobs/all`);
+  }
 }

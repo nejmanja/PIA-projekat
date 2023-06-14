@@ -1,0 +1,24 @@
+<h1>Pregled korisnika:</h1>
+<h2>Klijenti:</h2>
+<div class="content-grid">
+  <app-user-card
+    *ngFor="let user of users"
+    [user]="user"
+    (deleted)="onUserRemove($event)"
+  ></app-user-card>
+  <a routerLink="/addUser" class="add-card">
+    <fa-icon icon="plus"></fa-icon>
+  </a>
+</div>
+<h2>Agencije:</h2>
+<div class="content-grid">
+  <app-agency-card
+    *ngFor="let agency of agencies"
+    [agency]="agency"
+    [editable]="true"
+    (deleted)="onAgencyRemove($event)"
+  ></app-agency-card>
+  <a routerLink="/addAgency" class="add-card">
+    <fa-icon icon="plus"></fa-icon>
+  </a>
+</div>

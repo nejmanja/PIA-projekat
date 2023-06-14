@@ -1,0 +1,22 @@
+<a
+  [routerLink]="
+    job.status == 'starting' ||
+    job.status == 'started' ||
+    job.status == 'finished'
+      ? link
+      : null
+  "
+  class="card-container"
+  [ngClass]="{
+    'card-container--red': job.status == 'denied',
+    'card-container--green': job.status == 'pending'
+  }"
+>
+  <div>
+    <h2>{{ job.owner }} - {{ job.agency }}</h2>
+    <p>{{ status }}</p>
+  </div>
+  <div>
+    <h3>Adresa - {{ job.housingData?.address }}</h3>
+  </div>
+</a>

@@ -2,3 +2,7 @@
 	width: min(95%, 90rem);
     align-self: center;
 }
+
+h2{
+    margin-block-start: 1rem;
+}

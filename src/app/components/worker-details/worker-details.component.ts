@@ -68,14 +68,26 @@ export class WorkerDetailsComponent implements OnInit {
     this.editing = true;
   }
   deleteClicked(): void {
-    this.workerSvc.removeOne(this.worker._id).subscribe({
-      next: (data) => {
-        this.removed.emit(true);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (
+      this.worker.agency != JSON.parse(sessionStorage.getItem('user')).username
+    )
+      this.workerSvc.adminRemoveOne(this.worker._id).subscribe({
+        next: (data) => {
+          this.removed.emit(true);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    else
+      this.workerSvc.removeOne(this.worker._id).subscribe({
+        next: (data) => {
+          this.removed.emit(true);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   saveClicked(): void {
@@ -95,7 +107,7 @@ export class WorkerDetailsComponent implements OnInit {
         email: this.form.get('email').value,
         phoneNum: this.form.get('phoneNum').value,
         jobId: this.worker.jobId,
-        roomInd: this.worker.roomInd
+        roomInd: this.worker.roomInd,
       };
       this.workerSvc.updateOne(worker).subscribe({
         next: (data) => {

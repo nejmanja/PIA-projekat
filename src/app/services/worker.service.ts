@@ -20,7 +20,13 @@ export class WorkerService {
   addOne(worker: Worker) {
     return this.http.post(`${this.uri}/workers`, { worker });
   }
+  adminAddOne(worker: Worker) {
+    return this.http.post(`${this.uri}/workers/adminAdd`, { worker });
+  }
   removeOne(id: String) {
     return this.http.delete(`${this.uri}/workers?id=${id}`);
+  }
+  adminRemoveOne(id: String) {
+    return this.http.delete(`${this.uri}/workers/adminDelete?id=${id}`);
   }
 }

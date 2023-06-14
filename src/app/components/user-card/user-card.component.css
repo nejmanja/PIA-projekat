@@ -1,7 +1,6 @@
 :host{
     position: relative;
 }
-
 .card-container{
     display: grid;
     grid-template-columns: 1fr 10rem;
@@ -20,6 +19,7 @@
 
     text-decoration: none;
     color: hsl(var(--clr-white));
+    transition: outline 0;
 }
 
 .card-container:hover, .card-container:active, .card-container:focus{
@@ -49,8 +49,7 @@
     border-radius: 10px;
 }
 
-.text-button--red,
-.text-button--edit{
+.text-button--red{
     position: absolute;
     bottom: 0.5rem;
     width: 2.2rem;
@@ -59,13 +58,7 @@
     align-items: center;
 }
 
-
 .text-button--red{
     left: 0.5rem;
     background-color: hsl(var(--clr-red));
-}
-
-.text-button--edit{
-    left: 3rem;
-    width: 3.5rem;
 }

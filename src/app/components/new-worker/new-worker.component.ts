@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Worker } from 'src/app/models/worker';
 import { WorkerService } from 'src/app/services/worker.service';
@@ -9,7 +9,8 @@ import { WorkerService } from 'src/app/services/worker.service';
   styleUrls: ['./new-worker.component.css'],
 })
 export class NewWorkerComponent implements OnInit {
-    @Output() done = new EventEmitter<boolean>();
+  @Input() username: string;
+  @Output() done = new EventEmitter<boolean>();
   constructor(private workerSvc: WorkerService) {}
 
   form = new FormGroup({
@@ -58,29 +59,52 @@ export class NewWorkerComponent implements OnInit {
   }
 
   saveClicked() {
-    this.workerSvc
-      .addOne({
-        _id: null,
-        agency: JSON.parse(sessionStorage.getItem('user')).username,
-        name: this.form.get('name').value,
-        surname: this.form.get('surname').value,
-        speciality: this.form.get('speciality').value,
-        email: this.form.get('email').value,
-        phoneNum: this.form.get('phoneNum').value,
-        jobId: '',
-        roomInd: -1
-      })
-      .subscribe({
-        next: (data) => {
-          this.done.emit(true);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    if (this.username == JSON.parse(sessionStorage.getItem('user')).username)
+      this.workerSvc
+        .addOne({
+          _id: null,
+          agency: this.username,
+          name: this.form.get('name').value,
+          surname: this.form.get('surname').value,
+          speciality: this.form.get('speciality').value,
+          email: this.form.get('email').value,
+          phoneNum: this.form.get('phoneNum').value,
+          jobId: '',
+          roomInd: -1,
+        })
+        .subscribe({
+          next: (data) => {
+            this.done.emit(true);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    else
+      this.workerSvc
+        .adminAddOne({
+          _id: null,
+          agency: this.username,
+          name: this.form.get('name').value,
+          surname: this.form.get('surname').value,
+          speciality: this.form.get('speciality').value,
+          email: this.form.get('email').value,
+          phoneNum: this.form.get('phoneNum').value,
+          jobId: '',
+          roomInd: -1,
+        })
+        .subscribe({
+          next: (data) => {
+            console.log('admin added one');
+            this.done.emit(true);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
   }
 
-  cancelClicked(){
+  cancelClicked() {
     this.done.emit(false);
   }
 }

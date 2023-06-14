@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Agency } from 'src/app/models/agency';
 import { Worker } from 'src/app/models/worker';
 import { AgencyService } from 'src/app/services/agency.service';
@@ -16,6 +17,7 @@ export class WorkersComponent implements OnInit {
   workers!: Worker[];
   backendMsg: string = '';
   adding: boolean = false;
+  admin: boolean = false;
 
   form = new FormGroup({
     numWorkers: new FormControl(0, [Validators.min(1), Validators.required]),
@@ -24,30 +26,32 @@ export class WorkersComponent implements OnInit {
   constructor(
     private agencySvc: AgencyService,
     private reqSvc: RequestService,
-    private workerSvc: WorkerService
+    private workerSvc: WorkerService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.agencySvc
-      .getOneFull(JSON.parse(sessionStorage.getItem('user')).username)
-      .subscribe({
-        next: (data) => {
-          this.agency = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    this.workerSvc
-      .getForAgency(JSON.parse(sessionStorage.getItem('user')).username)
-      .subscribe({
-        next: (data) => {
-          this.workers = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    const username =
+      this.route.snapshot.params['username'] != null
+        ? this.route.snapshot.params['username']
+        : JSON.parse(sessionStorage.getItem('user')).username;
+    if (this.route.snapshot.params['username'] != null) this.admin = true;
+    this.agencySvc.getOneFull(username).subscribe({
+      next: (data) => {
+        this.agency = data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+    this.workerSvc.getForAgency(username).subscribe({
+      next: (data) => {
+        this.workers = data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   onSubmit() {
@@ -73,34 +77,30 @@ export class WorkersComponent implements OnInit {
   }
 
   doneAdding() {
-    this.workerSvc
-      .getForAgency(JSON.parse(sessionStorage.getItem('user')).username)
-      .subscribe({
+    this.workerSvc.getForAgency(this.agency.username).subscribe({
+      next: (data) => {
+        this.workers = data;
+        if (!this.admin) this.agency.workplaces -= 1;
+        this.adding = false;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  removedOne(status: boolean) {
+    if (status == true) {
+      this.workerSvc.getForAgency(this.agency.username).subscribe({
         next: (data) => {
           this.workers = data;
-          this.agency.workplaces -= 1;
+          if (!this.admin) this.agency.workplaces += 1;
           this.adding = false;
         },
         error: (err) => {
           console.log(err);
         },
       });
-  }
-
-  removedOne(status: boolean) {
-    if (status == true) {
-      this.workerSvc
-        .getForAgency(JSON.parse(sessionStorage.getItem('user')).username)
-        .subscribe({
-          next: (data) => {
-            this.workers = data;
-            this.agency.workplaces += 1;
-            this.adding = false;
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
     } else {
       this.adding = false;
     }

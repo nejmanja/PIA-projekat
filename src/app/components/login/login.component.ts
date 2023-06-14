@@ -39,22 +39,42 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const us: string = this.username.value;
     const pw: string = this.password.value;
-    this.loginSignupSvc.login(us, pw).subscribe({
-      next: (data) => {
-        if (data != null) {
-          sessionStorage.setItem(
-            'user',
-            JSON.stringify({ username: us, password: pw, type: data['type'] })
-          );
-          this.router.navigate(['']);
-        }
-        else{
-            this.msg = "Pogrešni kredencijali, pokušajte ponovo!";
-        }
-      },
-    error: (err) => {
-        this.msg = "Došlo je do greške, pokušajte ponovo!";
-    }});
+    if (!this.isAdmin) {
+      this.loginSignupSvc.login(us, pw).subscribe({
+        next: (data) => {
+          if (data != null) {
+            sessionStorage.setItem(
+              'user',
+              JSON.stringify({ username: us, password: pw, type: data['type'] })
+            );
+            this.router.navigate(['']);
+          } else {
+            this.msg = 'Pogrešni kredencijali, pokušajte ponovo!';
+          }
+        },
+        error: (err) => {
+          this.msg = 'Došlo je do greške, pokušajte ponovo!';
+        },
+      });
+    }
+    else{
+        this.loginSignupSvc.adminLogin(us, pw).subscribe({
+            next: (data) => {
+                if (data != null) {
+                  sessionStorage.setItem(
+                    'user',
+                    JSON.stringify({ username: us, password: pw, type: data['type'] })
+                  );
+                  this.router.navigate(['']);
+                } else {
+                  this.msg = 'Pogrešni kredencijali, pokušajte ponovo!';
+                }
+              },
+              error: (err) => {
+                this.msg = 'Došlo je do greške, pokušajte ponovo!';
+              },
+        })
+    }
   }
 
   msg: string;

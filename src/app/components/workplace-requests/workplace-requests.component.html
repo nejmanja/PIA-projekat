@@ -1,0 +1,15 @@
+<h1>Pregled zahteva za novim radnim mestima</h1>
+<div class="req-grid">
+  <div *ngFor="let req of requests" class="req-card">
+    <h2>{{ req.agency }} traži još {{ req.numWorkplaces }} radnih mesta.</h2>
+    <button
+      (click)="approve(req._id)"
+      class="text-button text-button--green"
+    >
+      <fa-icon icon="check"></fa-icon>
+    </button>
+    <button (click)="deny(req._id)" class="text-button text-button--red">
+      <fa-icon icon="ban"></fa-icon>
+    </button>
+  </div>
+</div>

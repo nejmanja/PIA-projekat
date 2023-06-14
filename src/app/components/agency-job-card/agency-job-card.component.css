@@ -13,13 +13,12 @@
 
     text-decoration: none;
     color: hsl(var(--clr-white));
-    transition: border-radius 200ms ease-in-out;
 }
 
 .card-container:hover,
 .card-container:focus,
 .card-container:active{
-    border-radius: 15px;
+    outline: 2px solid hsl(var(--clr-accent));
 }
 
 :host{
