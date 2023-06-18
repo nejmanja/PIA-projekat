@@ -29,6 +29,7 @@ export class NewHousingComponent implements OnInit {
       rooms: [],
       owner: JSON.parse(sessionStorage.getItem('user')).username,
       type: 0,
+      numOngoingJobs: 0
     };
   }
 
@@ -86,7 +87,8 @@ export class NewHousingComponent implements OnInit {
             numRooms: res.numRooms,
             area: res.area,
             doors: res.doors,
-            type: res.type
+            type: res.type,
+            numOngoingJobs: 0
         }
         this.housing.rooms = [...res.rooms];
         this.housing.numRooms = res.numRooms;

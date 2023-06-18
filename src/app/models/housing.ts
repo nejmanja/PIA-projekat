@@ -5,6 +5,7 @@ export class HousingOverview{
     address: string;
     numRooms: number;
     area: number;
+    numOngoingJobs: number;
 }
 
 class Room{
@@ -24,6 +25,7 @@ export class Housing{
     type: number;
     address: string;
     numRooms: number;
+    numOngoingJobs: number;
     area: number;
     rooms: Room[];
     doors: Door[];

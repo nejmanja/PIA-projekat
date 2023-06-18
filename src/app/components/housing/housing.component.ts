@@ -79,7 +79,8 @@ export class HousingComponent implements OnInit {
         rooms: this.roomsDifferent() ? this.housing.rooms : null,
         numRooms : this.numRoomsDifferent() ? this.housing.numRooms : null,
         doors: this.doorsDifferent() ? this.housing.doors : null,
-        area: this.housing.area
+        area: this.housing.area,
+        numOngoingJobs: this.housing.numOngoingJobs
     }
 
     this.housingSvc.updateOne(dataToSend).subscribe({

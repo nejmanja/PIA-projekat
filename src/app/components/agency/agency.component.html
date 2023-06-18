@@ -9,15 +9,26 @@
       "
       class="card-img"
     />
-    <p class="card-desc">{{ agency?.desc }}</p>
+    <div class="card-desc">
+      <p class="address">{{agency?.street}}, {{agency?.city}}, {{ agency?.country }}</p>
+      <p>{{ agency?.desc }}</p>
+    </div>
   </div>
 </div>
 <div class="comments">
   <h1>Ocene i komentari:</h1>
-  <div *ngFor="let review of reviews" [ngClass]="{'review-card': loggedIn, 'review-card-anon': !loggedIn}">
+  <div
+    *ngFor="let review of reviews"
+    [ngClass]="{ 'review-card': loggedIn, 'review-card-anon': !loggedIn }"
+  >
     <img *ngIf="loggedIn" [src]="reviewers.get(review.user)" alt="" />
     <h2 *ngIf="loggedIn">{{ review.user }}</h2>
-    <h3><fa-icon *ngFor="let item of generateSeq(review.rating)" icon="star"></fa-icon></h3>
+    <h3>
+      <fa-icon
+        *ngFor="let item of generateSeq(review.rating)"
+        icon="star"
+      ></fa-icon>
+    </h3>
     <p>{{ review.review }}</p>
   </div>
 </div>

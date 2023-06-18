@@ -21,7 +21,8 @@ export class AgencyJobDetailsComponent implements OnInit {
     private jobSvc: JobsService,
     private route: ActivatedRoute,
     private housingSvc: HousingService,
-    private workerSvc: WorkerService
+    private workerSvc: WorkerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +30,9 @@ export class AgencyJobDetailsComponent implements OnInit {
       next: (data) => {
         this.job = data;
 
+        // if it's done, nothing to view, you can only get here by forcing the url
+        if(this.job.status == 'finished')
+            this.router.navigateByUrl('/');
         const agencyUsername = JSON.parse(sessionStorage.getItem('user')).username;
         this.workerSvc.getForAgency(agencyUsername).subscribe({
           next: (data) => {

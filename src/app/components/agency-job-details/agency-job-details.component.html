@@ -1,16 +1,11 @@
 <div class="container">
-  <div class="form">
-    <p *ngFor="let worker of workers">{{ worker.name }}</p>
-  </div>
-  <div class="housing">
-    <h1>Pregled radova:</h1>
-    <app-house-drawing
-      [housing]="housing"
-      [workers]="workers"
-      [progress]="job?.roomStatus"
-      [started]="job?.status == 'started'"
-      (workersAssigned)="jobAssignedToWorkers($event)"
-      (roomFinished)="roomFinished($event)"
-    ></app-house-drawing>
-  </div>
+  <h1>Pregled radova:</h1>
+  <app-house-drawing
+    [housing]="housing"
+    [workers]="workers"
+    [progress]="job?.roomStatus"
+    [started]="job?.status == 'started'"
+    (workersAssigned)="jobAssignedToWorkers($event)"
+    (roomFinished)="roomFinished($event)"
+  ></app-house-drawing>
 </div>

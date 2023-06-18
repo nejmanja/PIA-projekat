@@ -13,6 +13,7 @@ export class HousingListComponent implements OnInit {
     housingSvc.getAllForUser(JSON.parse(sessionStorage.getItem('user')).username).subscribe({
         next: (housing) => {
             this.allHousing = housing;
+            console.log(housing);
         },
         error: (err) => {
             console.log(err);

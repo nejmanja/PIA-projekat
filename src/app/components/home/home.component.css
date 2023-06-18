@@ -6,3 +6,27 @@
 .title{
     margin-block: 1rem 0.5rem;
 }
+
+.search-panel{
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-items: start;
+    align-items: center;
+    gap: 1rem;
+    margin-block-end: 1rem;
+}
+.search-panel > div > *{
+    margin-inline-end: 0.25rem;
+}
+
+.search{
+    display: inline;
+    width: max-content;
+    margin: 0;
+}
+
+@media (max-width: 70em) {
+    .search-panel{
+        grid-template-columns: max-content;
+    }
+}

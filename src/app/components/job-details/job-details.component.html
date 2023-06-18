@@ -1,4 +1,8 @@
 <div class="container">
+  <div *ngIf="!allDone && job?.status != 'finished'">
+    <h1>Tok posla na {{housing?.address}}</h1>
+    <p>Posao nije još završen...</p>
+  </div>
   <div *ngIf="allDone && job?.status != 'finished'" class="form">
     <h1>Plaćanje - naknada: {{ job?.compensation }} &euro;</h1>
     <p>(Opciono) Ostavite ocenu i komentar:</p>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AgencyOverview } from 'src/app/models/agency';
+import { Agency, AgencyOverview } from 'src/app/models/agency';
 import { Review } from 'src/app/models/review';
 import { User } from 'src/app/models/user';
 import { AgencyService } from 'src/app/services/agency.service';
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./agency.component.css'],
 })
 export class AgencyComponent implements OnInit {
-  agency!: AgencyOverview;
+  agency!: Agency;
   reviews!: Review[];
   reviewers = new Map<string, string>();
   loggedIn!: boolean;
@@ -27,9 +27,9 @@ export class AgencyComponent implements OnInit {
   ngOnInit(): void {
     this.loggedIn = sessionStorage.getItem('user') != null;
     const username = String(this.route.snapshot.params['username']);
-    this.agencySvc.getOne(username).subscribe({
+    this.agencySvc.getOneFull(username).subscribe({
       next: (data) => {
-        this.agency = data[0];
+        this.agency = data;
         console.log(data);
       },
       error: (err) => {},

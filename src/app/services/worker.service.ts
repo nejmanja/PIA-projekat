@@ -29,4 +29,7 @@ export class WorkerService {
   adminRemoveOne(id: String) {
     return this.http.delete(`${this.uri}/workers/adminDelete?id=${id}`);
   }
+  jobDone(jobId: string) {
+    return this.http.patch(`${this.uri}/workers/done`, { jobId });
+  }
 }

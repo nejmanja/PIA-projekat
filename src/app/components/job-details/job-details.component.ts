@@ -5,6 +5,7 @@ import { JobOverview } from 'src/app/models/job';
 import { HousingService } from 'src/app/services/housing.service';
 import { JobsService } from 'src/app/services/jobs.service';
 import { ReviewService } from 'src/app/services/review.service';
+import { WorkerService } from 'src/app/services/worker.service';
 
 @Component({
   selector: 'app-job-details',
@@ -25,7 +26,8 @@ export class JobDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private jobSvc: JobsService,
     private housingSvc: HousingService,
-    private reviewSvc: ReviewService
+    private reviewSvc: ReviewService,
+    private workerSvc: WorkerService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class JobDetailsComponent implements OnInit {
             for (let i = 0; i < this.housing.numRooms; i++) {
               if (this.job.roomStatus[i] == false) this.allDone = false;
             }
+            console.log(this.allDone);
           },
           error: (err) => {
             console.log(err);
@@ -70,6 +73,12 @@ export class JobDetailsComponent implements OnInit {
   }
 
   payClick() {
+    this.workerSvc.jobDone(this.job._id).subscribe({
+        error: (err) => {
+            console.log(err);
+        }
+    })
+
     this.jobSvc.updateStatus(this.job._id, 'finished').subscribe({
       next: (data) => {
         this.job.status = 'finished';

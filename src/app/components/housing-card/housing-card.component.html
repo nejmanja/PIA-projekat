@@ -1,4 +1,4 @@
-<button class="text-button remove-button" (click)="removeClicked()"><fa-icon icon="trash"></fa-icon></button>
+<button class="text-button remove-button" [disabled]="housing.numOngoingJobs > 0" (click)="removeClicked()"><fa-icon icon="trash"></fa-icon></button>
 <a routerLink="{{ housing._id }}" class="housing-card">
     <h2>{{ housing.type === 0 ? "Kuća" : "Stan" }}</h2>
     <h3>{{ housing.address }}</h3>
