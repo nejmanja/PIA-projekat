@@ -1,31 +1,43 @@
 import express from "express";
 import HousingModel from "../models/housing";
+import JobModel from "../models/job";
 import { MongoError } from "mongodb";
 
 export class HousingController {
-	getForUser = (req: express.Request, res: express.Response) => {
-		HousingModel.find(
-			{ owner: req.query.username },
-			(err: MongoError, docs) => {
-				if (err) {
-					console.log(err);
-					res
-						.status(500)
-						.json({ msg: "Došlo je do greške, pokušajte ponovo!" });
-				} else res.status(200).json(docs);
-			}
-		);
+	getForUser = async (req: express.Request, res: express.Response) => {
+		try {
+			let docs = await HousingModel.find({ owner: req.query.username });
+            let result = [];
+            for (let i = 0; i < docs.length; i++) {
+                const doc = docs[i];
+                const cnt = await JobModel.countDocuments({
+                    housingId: doc._id,
+                    status: { $ne: "finished" },
+                });
+                result.push({...doc['_doc'], numOngoingJobs: cnt});
+            }
+
+            console.log(result)
+
+            res.status(200).json(result);
+		} catch (err) {
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
 	};
 
-	getOne = (req: express.Request, res: express.Response) => {
-		HousingModel.findById(req.query.id, (err: MongoError, doc) => {
-			if (err) {
-				console.log(err);
-				res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
-			} else {
-				res.status(200).json(doc);
-			}
-		});
+	getOne = async (req: express.Request, res: express.Response) => {
+		try {
+			let doc = await HousingModel.findById(req.query.id);
+			const cnt = await JobModel.countDocuments({
+				housingId: doc._id,
+				status: { $ne: "finished" },
+			});
+
+			doc['_doc']["numOngoingJobs"] = cnt;
+			res.status(200).json(doc);
+		} catch (err) {
+			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+		}
 	};
 
 	addOne = (req: express.Request, res: express.Response) => {
@@ -83,4 +95,6 @@ export class HousingController {
 			}
 		);
 	};
+
+	countOngoingJobs = (req: express.Request, res: express.Response) => {};
 }

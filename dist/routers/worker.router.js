@@ -24,5 +24,8 @@ workerRouter
 workerRouter
     .route("/adminDelete")
     .delete((req, res) => new worker_controller_1.WorkerController().removeOne(req, res));
+workerRouter
+    .route("/done")
+    .patch((req, res) => new worker_controller_1.WorkerController().finishWork(req, res));
 exports.default = workerRouter;
 //# sourceMappingURL=worker.router.js.map

@@ -112,6 +112,19 @@ class WorkerController {
                 res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
             }
         });
+        this.finishWork = (req, res) => {
+            worker_1.default.updateMany({ jobId: req.body.jobId }, { $unset: { jobId: "", roomInd: "" } }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res
+                        .status(500)
+                        .json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+                }
+                else {
+                    res.status(200).json(docs);
+                }
+            });
+        };
     }
 }
 exports.WorkerController = WorkerController;

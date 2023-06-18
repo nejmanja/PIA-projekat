@@ -21,7 +21,7 @@ export class WorkerController {
 			email: req.body.worker.email,
 			speciality: req.body.worker.speciality,
 		};
-        // fields that aren't required
+		// fields that aren't required
 		if (req.body.worker.roomInd != undefined)
 			updateBlock["roomInd"] = req.body.worker.roomInd;
 		if (req.body.worker.jobId != undefined)
@@ -40,7 +40,7 @@ export class WorkerController {
 		);
 	};
 
-    addOne = async (req: express.Request, res: express.Response) => {
+	addOne = async (req: express.Request, res: express.Response) => {
 		const worker = new WorkerModel({
 			agency: req.body.worker.agency,
 			name: req.body.worker.name,
@@ -89,8 +89,11 @@ export class WorkerController {
 			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
 		}
 	};
-    
-	removeOneWithIncrement = async (req: express.Request, res: express.Response) => {
+
+	removeOneWithIncrement = async (
+		req: express.Request,
+		res: express.Response
+	) => {
 		try {
 			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
 			console.log(result);
@@ -103,5 +106,22 @@ export class WorkerController {
 			console.log(err);
 			res.status(500).json({ msg: "Došlo je do greške, pokušajte ponovo!" });
 		}
+	};
+
+	finishWork = (req: express.Request, res: express.Response) => {
+		WorkerModel.updateMany(
+			{ jobId: req.body.jobId },
+			{ $unset: { jobId: "", roomInd: "" } },
+			(err, docs) => {
+				if (err) {
+					console.log(err);
+					res
+						.status(500)
+						.json({ msg: "Došlo je do greške, pokušajte ponovo!" });
+				} else {
+					res.status(200).json(docs);
+				}
+			}
+		);
 	};
 }

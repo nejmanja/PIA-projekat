@@ -22,8 +22,9 @@ workerRouter
 	);
 workerRouter
 	.route("/adminDelete")
-	.delete((req, res) =>
-		new WorkerController().removeOne(req, res)
-	);
+	.delete((req, res) => new WorkerController().removeOne(req, res));
+workerRouter
+	.route("/done")
+	.patch((req, res) => new WorkerController().finishWork(req, res));
 
 export default workerRouter;
