@@ -43,7 +43,6 @@ export class JobDetailsComponent implements OnInit {
             for (let i = 0; i < this.housing.numRooms; i++) {
               if (this.job.roomStatus[i] == false) this.allDone = false;
             }
-            console.log(this.allDone);
           },
           error: (err) => {
             console.log(err);

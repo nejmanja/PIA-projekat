@@ -11,6 +11,10 @@ form {
   margin-block-start: 1rem;
 }
 
+.password-input{
+    margin-block-end: 2.2rem;
+}
+
 @media (max-width: 45em) {
   :host {
     width: 100%;

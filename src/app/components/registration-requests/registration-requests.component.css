@@ -1,82 +1,103 @@
-:host{
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-    width: min(95%, 60rem);
-    align-self: center;
+:host {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  width: min(95%, 60rem);
+  align-self: center;
 }
 
-.req-card{
-    position: relative;
+.req-card {
+  position: relative;
 }
 
 .user-req,
-.agency-req{
-    display: grid;
-    place-items: center;
-    background-color: hsl(var(--clr-panel));
-    border-radius: 10px;
-    padding: 0.5rem;
-    gap: 0.5rem;
+.agency-req {
+  display: grid;
+  place-items: center;
+  background-color: hsl(var(--clr-panel));
+  border-radius: 10px;
+  padding: 0.5rem;
+  gap: 0.5rem;
 }
-.user-req{
-    grid-template-columns: repeat(4, 1fr) 2rem;
-    grid-template-areas: 'title title title img buttons'
-    'email phone name img buttons';
+.user-req {
+  grid-template-columns: repeat(4, 1fr) 2rem;
+  grid-template-areas:
+    "title title title img buttons"
+    "email phone name img buttons";
 }
 
-.agency-req{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr) 2rem;
-    grid-template-areas: 'title title title img buttons'
-    'email phone name img buttons'
-    'address address num img buttons'
-    'desc desc desc desc desc';
+.agency-req {
+  grid-template-columns: repeat(4, 1fr) 2rem;
+  grid-template-areas:
+    "title title title img buttons"
+    "email phone name img buttons"
+    "address address num img buttons"
+    "desc desc desc desc desc";
 }
 
 .user-req > h1,
-.agency-req > h1{
-    grid-area: title;
+.agency-req > h1 {
+  grid-area: title;
 }
 .user-req > img,
-.agency-req > img{
-    grid-area: img;
-    border-radius: 10px;
-    height: 7rem;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+.agency-req > img {
+  grid-area: img;
+  border-radius: 10px;
+  height: 7rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
-.email{
-    grid-area: email;
+.email {
+  grid-area: email;
 }
-.phone{
-    grid-area: phone;
+.phone {
+  grid-area: phone;
 }
-.name{
-    grid-area: name;
+.name {
+  grid-area: name;
 }
-.num{
-    grid-area: num;
+.num {
+  grid-area: num;
 }
-.address{
-    grid-area: address;
+.address {
+  grid-area: address;
 }
-.desc{
-    grid-area: desc;
+.desc {
+  grid-area: desc;
 }
 
 .text-button--green,
-.text-button--red{
-    position: absolute;
-    right: 0.5rem;
-    width: 2.2rem;
+.text-button--red {
+  position: absolute;
+  right: 0.5rem;
+  width: 2.2rem;
 }
 
-.text-button--green{
-    background-color: hsl(var(--clr-green));
-    top: 1rem;
+.text-button--green {
+  background-color: hsl(var(--clr-green));
+  top: 1rem;
 }
-.text-button--red{
-    background-color: hsl(var(--clr-red));
-    top: 4rem;
+.text-button--red {
+  background-color: hsl(var(--clr-red));
+  top: 4rem;
+}
+
+@media (max-width: 70em) {
+  .user-req {
+    grid-template-columns: repeat(3, 1fr) 2rem;
+    grid-template-areas:
+      "title title img buttons"
+      "email email img buttons"
+      "name phone img buttons";
+  }
+  .agency-req {
+    grid-template-columns: repeat(3, 1fr) 2rem;
+    grid-template-areas:
+      "title title img buttons"
+      "email email img buttons"
+      "name phone img buttons"
+      "address address address buttons"
+      "num num num buttons"
+      "desc desc desc desc";
+  }
 }

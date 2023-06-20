@@ -28,7 +28,6 @@ export class LoginSignupService {
   }
 
   register(formData) {
-    console.log(formData.profilePic);
     return this.http.post(
       `${this.uri}/requests/register`,
       { ...formData },
@@ -36,7 +35,6 @@ export class LoginSignupService {
     );
   }
   addOne(formData) {
-    console.log(formData.profilePic);
     return this.http.post(
       `${this.uri}/users/register`,
       { ...formData },

@@ -38,18 +38,19 @@
     <div class="radio-button-group form-control">
       <div class="form-input-container">
         <p>Broj prostorija:</p>
-        <h2>{{ housing.numRooms }}</h2>
+        <h2>{{ housing?.numRooms }}</h2>
       </div>
       <div class="form-input-container">
         <p>Kvadratura:</p>
-        <h2>{{ housing.area }}</h2>
+        <h2>{{ housing?.area }}</h2>
       </div>
     </div>
-    <button type="submit" class="text-button" [disabled]="!form.valid || housing.numRooms == 0">
+    <button type="submit" class="text-button" [disabled]="!form.valid || housing == null || housing?.numRooms == 0">
       Dodaj objekat!
     </button>
     <label for="fileUpload" class="text-button upload-button"><fa-icon icon="file-upload"></fa-icon> Učitaj iz fajla</label>
     <input type="file" id="fileUpload" accept=".json" (change)="onUpload($event)" style="display: none;"/>
+    <p class="backend-err-msg">{{ fileErr }}</p>
     <p class="backend-err-msg">{{ backendErr }}</p>
   </form>
   <app-house-drawing [housing]="housing" [editable]="true"></app-house-drawing>

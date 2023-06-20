@@ -16,7 +16,6 @@ export class AgencyJobsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.jobs = data;
-          console.log(this.jobs);
         },
       });
   }

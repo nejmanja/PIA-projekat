@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private agencySvc: AgencyService) {
     agencySvc.getAll().subscribe((data) => {
-      console.log(data);
       this.allAgencies = data;
       this.filteredAgencies = this.allAgencies;
     });

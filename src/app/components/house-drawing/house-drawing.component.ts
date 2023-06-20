@@ -310,8 +310,6 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
     let posX = this.xToMeter(event.offsetX);
     let posY = this.yToMeter(event.offsetY);
 
-    console.log(posX, posY);
-
     if (!this.beginRoom) {
       let collision: boolean = false;
       // if colliding with any other rooms, deny the new room
@@ -432,8 +430,6 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
     if (posX < 0) return;
     if (!this.posHasDoor(posX, posY))
       this.housing.doors.push({ x: posX, y: posY });
-    console.log(posX, posY);
-    console.log(this.housing.doors);
   }
 
   removeDoorClick(event) {
@@ -449,8 +445,6 @@ export class HouseDrawingComponent implements OnInit, OnChanges {
         this.canvas.nativeElement.clientHeight -
       1;
     const { x: posX, y: posY } = this.posToWall(x, y);
-    console.log(this.housing.doors);
-    console.log(posX, posY);
     if (posX > 0)
       this.housing.doors = this.housing.doors.filter(
         (door) => !(door.x == posX && door.y == posY)

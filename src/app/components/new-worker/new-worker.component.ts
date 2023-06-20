@@ -95,7 +95,6 @@ export class NewWorkerComponent implements OnInit {
         })
         .subscribe({
           next: (data) => {
-            console.log('admin added one');
             this.done.emit(true);
           },
           error: (err) => {

@@ -106,7 +106,6 @@ export class AgencyProfileComponent implements OnInit {
             img.width < 100 ||
             img.height > 300 ||
             img.height < 100;
-          console.log(img.width, img.height);
           if (this.pfpErr) this.imgData = this.agency.profilePic;
           else this.imgData = img.src;
         };
@@ -136,7 +135,6 @@ export class AgencyProfileComponent implements OnInit {
       profilePic: this.imgData != this.agency.profilePic ? this.imgData : null,
       workplaces: null,
     };
-    console.log('Submitted!');
     this.agencySvc
       .updateOne(
         this.agency.username,

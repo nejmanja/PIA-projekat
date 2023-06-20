@@ -26,13 +26,12 @@ export class AcceptJobComponent implements OnInit {
   ) {}
 
   form = new FormGroup({
-    amount: new FormControl(0, Validators.min(1)),
+    amount: new FormControl(0, [Validators.required, Validators.min(1)]),
   });
 
   ngOnInit(): void {
     this.jobSvc.getOne(this.route.snapshot.params['id']).subscribe({
       next: (data) => {
-        console.log(data);
         this.job = data;
         this.housingSvc.getOne(this.job.housingId).subscribe({
           next: (data) => {

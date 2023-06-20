@@ -19,7 +19,7 @@
 }
 
 /* after pseudoelement of all buttons except for the last */
-@media (min-width: 45em) {
+@media (min-width: 55em) {
   .navbar-menu > *:not(:last-child)::after {
     content: "|";
     margin-inline: 0.5rem;
@@ -57,7 +57,7 @@
   margin-top: 4rem;
 }
 
-@media (max-width: 45em) {
+@media (max-width: 55em) {
   .navbar-menu {
     display: flex;
     flex-direction: column;

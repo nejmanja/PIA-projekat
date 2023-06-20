@@ -30,7 +30,6 @@ export class AgencyComponent implements OnInit {
     this.agencySvc.getOneFull(username).subscribe({
       next: (data) => {
         this.agency = data;
-        console.log(data);
       },
       error: (err) => {},
     });

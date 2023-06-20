@@ -92,7 +92,6 @@ export class UserProfileComponent implements OnInit {
             img.width < 100 ||
             img.height > 300 ||
             img.height < 100;
-          console.log(img.width, img.height);
           if (this.pfpErr) this.imgData = this.user.profilePic;
           else this.imgData = img.src;
         };
@@ -113,7 +112,6 @@ export class UserProfileComponent implements OnInit {
       phone: newPhone != this.user.phoneNum ? newPhone : null,
       profilePic: this.imgData != this.user.profilePic ? this.imgData : null,
     };
-    console.log('Submitted!');
     this.userSvc
       .updateOne(
         this.user.username,

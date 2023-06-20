@@ -67,7 +67,6 @@ export class JobsComponent implements OnInit {
   }
 
   denied(id: string) {
-    console.log(id);
     this.jobs = this.jobs.filter((job) => job._id != id);
     this.filteredJobs = this.filteredJobs.filter((job) => job._id != id);
   }

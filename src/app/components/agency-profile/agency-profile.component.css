@@ -43,3 +43,8 @@ img{
 .edit-input{
     width: 100%;
 }
+
+span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

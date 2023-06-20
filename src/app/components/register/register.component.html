@@ -23,7 +23,7 @@
       type="password"
       id="password"
       formControlName="password"
-      class="form-input form-control"
+      class="form-input form-control password-input"
       [ngClass]="{ 'form-input-err': passwordErr }"
     />
     <p *ngIf="passwordErr" class="form-input-err-msg">
@@ -209,7 +209,7 @@
   </div>
 
   <button type="submit" [disabled]="!formValid()" class="text-button">
-    Registruj se!
+    {{adminType != null ? 'Dodaj!' : 'Registruj se!'}}
   </button>
   <p class="backend-err-msg">{{backendErr}}</p>
 </form>

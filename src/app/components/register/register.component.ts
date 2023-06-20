@@ -240,7 +240,6 @@ export class RegisterComponent implements OnInit {
       this.loginSignupSvc.addOne(user).subscribe({
         next: (resp) => {
           if (resp.status === 200) {
-            console.log('Success!');
             this.router.navigate(['/users']);
           }
         },
@@ -284,7 +283,6 @@ export class RegisterComponent implements OnInit {
             img.width < 100 ||
             img.height > 300 ||
             img.height < 100;
-          console.log(img.width, img.height);
           if (this.pfpErr) this.registerForm.get('pfp').patchValue('');
           else this.imgData = img.src;
         };

@@ -81,7 +81,6 @@ export class AgencyJobDetailsComponent implements OnInit {
   }
 
   roomFinished(roomInd: number){
-    console.log(`finished room ${roomInd}`)
     this.jobSvc.finishRoom(this.job._id, roomInd).subscribe({
         error: (err) => {
           console.log(err);
