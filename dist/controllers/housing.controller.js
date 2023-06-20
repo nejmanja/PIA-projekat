@@ -25,11 +25,13 @@ class HousingController {
                     const doc = docs[i];
                     const cnt = yield job_1.default.countDocuments({
                         housingId: doc._id,
-                        status: { $ne: "finished" },
+                        $and: [
+                            { status: { $ne: "denied" } },
+                            { status: { $ne: "finished" } },
+                        ],
                     });
                     result.push(Object.assign(Object.assign({}, doc['_doc']), { numOngoingJobs: cnt }));
                 }
-                console.log(result);
                 res.status(200).json(result);
             }
             catch (err) {
@@ -41,7 +43,10 @@ class HousingController {
                 let doc = yield housing_1.default.findById(req.query.id);
                 const cnt = yield job_1.default.countDocuments({
                     housingId: doc._id,
-                    status: { $ne: "finished" },
+                    $and: [
+                        { status: { $ne: "denied" } },
+                        { status: { $ne: "finished" } },
+                    ],
                 });
                 doc['_doc']["numOngoingJobs"] = cnt;
                 res.status(200).json(doc);
@@ -103,7 +108,6 @@ class HousingController {
                         .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
                 }
                 else {
-                    console.log(docs);
                     res.status(200).json(docs);
                 }
             });

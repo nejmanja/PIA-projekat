@@ -97,7 +97,6 @@ export class UserController {
 						.status(500)
 						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
 				} else {
-					console.log(docs);
 					res.status(200).json(docs);
 				}
 			}
@@ -141,7 +140,6 @@ export class UserController {
 						.status(500)
 						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
 				} else {
-					console.log(docs);
 					res.status(200).json(docs);
 				}
 			}

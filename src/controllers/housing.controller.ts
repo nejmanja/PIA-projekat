@@ -12,12 +12,13 @@ export class HousingController {
                 const doc = docs[i];
                 const cnt = await JobModel.countDocuments({
                     housingId: doc._id,
-                    status: { $ne: "finished" },
+                    $and: [
+                        { status: { $ne: "denied" } },
+                        { status: { $ne: "finished" } },
+                    ],
                 });
                 result.push({...doc['_doc'], numOngoingJobs: cnt});
             }
-
-            console.log(result)
 
             res.status(200).json(result);
 		} catch (err) {
@@ -30,7 +31,10 @@ export class HousingController {
 			let doc = await HousingModel.findById(req.query.id);
 			const cnt = await JobModel.countDocuments({
 				housingId: doc._id,
-				status: { $ne: "finished" },
+                $and: [
+                    { status: { $ne: "denied" } },
+                    { status: { $ne: "finished" } },
+                ],
 			});
 
 			doc['_doc']["numOngoingJobs"] = cnt;
@@ -89,7 +93,6 @@ export class HousingController {
 						.status(500)
 						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
 				} else {
-					console.log(docs);
 					res.status(200).json(docs);
 				}
 			}

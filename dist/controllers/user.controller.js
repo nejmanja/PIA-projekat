@@ -97,7 +97,6 @@ class UserController {
                         .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
                 }
                 else {
-                    console.log(docs);
                     res.status(200).json(docs);
                 }
             });
@@ -137,7 +136,6 @@ class UserController {
                         .json({ msg: "Došlo je do greske, pokušajte ponovo!" });
                 }
                 else {
-                    console.log(docs);
                     res.status(200).json(docs);
                 }
             });

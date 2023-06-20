@@ -82,7 +82,6 @@ export class WorkerController {
 	removeOne = async (req: express.Request, res: express.Response) => {
 		try {
 			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
-			console.log(result);
 			res.status(200).json({ msg: "OK" });
 		} catch (err) {
 			console.log(err);
@@ -96,7 +95,6 @@ export class WorkerController {
 	) => {
 		try {
 			const result = await WorkerModel.findOneAndDelete({ _id: req.query.id });
-			console.log(result);
 			await UserModel.updateOne(
 				{ username: result.agency },
 				{ $inc: { workplaces: 1 } }

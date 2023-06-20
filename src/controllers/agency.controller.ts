@@ -71,7 +71,6 @@ export class AgencyController {
 						.status(500)
 						.json({ msg: "Došlo je do greske, pokušajte ponovo!" });
 				} else {
-                    console.log(docs);
 					res.status(200).json(docs);
 				}
 			}

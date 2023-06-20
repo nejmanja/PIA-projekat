@@ -92,7 +92,6 @@ class WorkerController {
         this.removeOne = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield worker_1.default.findOneAndDelete({ _id: req.query.id });
-                console.log(result);
                 res.status(200).json({ msg: "OK" });
             }
             catch (err) {
@@ -103,7 +102,6 @@ class WorkerController {
         this.removeOneWithIncrement = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield worker_1.default.findOneAndDelete({ _id: req.query.id });
-                console.log(result);
                 yield user_1.default.updateOne({ username: result.agency }, { $inc: { workplaces: 1 } });
                 res.status(200).json({ msg: "OK" });
             }
